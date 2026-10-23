@@ -914,24 +914,49 @@ function aktiviereVollbild() {
 
 <script>
 const mkkSchedule = [
- { id: 1, type: "D", pos: ["H1", "G2", "H2", "G4"] }, { id: 2, type: "D", pos: ["G3", "H3", "G1", "H4"] },
- { id: 3, type: "E", pos: ["H1", "G1", "", ""] }, { id: 4, type: "E", pos: ["G4", "H4", "", ""] },
- { id: 5, type: "E", pos: ["H3", "G3", "", ""] }, { id: 6, type: "E", pos: ["G2", "H2", "", ""] },
- { id: 7, type: "C", pos: ["H4", "G2", "H1", "G3"] }, { id: 8, type: "C", pos: ["G4", "H2", "G2", "H3"] },
- { id: 9, type: "C", pos: ["G1", "H3", "G4", "H4"] }, { id: 10, type: "C", pos: ["H1", "G1", "H2", "G3"] },
- { id: 11, type: "C", pos: ["G4", "H3", "G3", "H2"] }, { id: 12, type: "C", pos: ["H1", "G1", "H4", "G2"] },
- { id: 13, type: "E", pos: ["H2", "G4", "", ""] }, { id: 14, type: "E", pos: ["G2", "H1", "", ""] },
- { id: 15, type: "E", pos: ["H4", "G3", "", ""] }, { id: 16, type: "E", pos: ["G1", "H3", "", ""] },
- { id: 17, type: "D", pos: ["G2", "H4", "G3", "H1"] }, { id: 18, type: "D", pos: ["H2", "G1", "H3", "G4"] },
- { id: 19, type: "E", pos: ["G3", "H1", "", ""] }, { id: 20, type: "E", pos: ["H4", "G2", "", ""] },
- { id: 21, type: "E", pos: ["G4", "H3", "", ""] }, { id: 22, type: "E", pos: ["H2", "G1", "", ""] },
- { id: 23, type: "C", pos: ["G2", "H1", "G4", "H3"] }, { id: 24, type: "C", pos: ["H4", "G3", "H2", "G1"] },
- { id: 25, type: "C", pos: ["G3", "H4", "G4", "H3"] }, { id: 26, type: "C", pos: ["H2", "G4", "H4", "G1"] },
- { id: 27, type: "C", pos: ["G2", "H3", "G1", "H1"] }, { id: 28, type: "C", pos: ["H2", "G3", "H1", "G2"] },
- { id: 29, type: "E", pos: ["G1", "H4", "", ""] }, { id: 30, type: "E", pos: ["H3", "G2", "", ""] },
- { id: 31, type: "E", pos: ["G3", "H2", "", ""] }, { id: 32, type: "E", pos: ["H1", "G4", "", ""] },
- { id: 33, type: "D", pos: ["H4", "G1", "H2", "G2"] }, { id: 34, type: "D", pos: ["G4", "H1", "G3", "H3"] }
+  // 501 open in / Master out Doppel
+  { id: 1, type: "D", pos: ["H1", "G3", "H2", "G4"] },
+  { id: 2, type: "D", pos: ["G1", "H3", "G2", "H4"] },
+  { id: 3, type: "D", pos: ["H2", "G4", "H3", "G1"] },
+  { id: 4, type: "D", pos: ["G2", "H4", "G3", "H1"] },
+
+  // 501 open in / Master out Einzel
+  { id: 5, type: "E", pos: ["H1", "G1", "", ""] },
+  { id: 6, type: "E", pos: ["G2", "H2", "", ""] },
+  { id: 7, type: "E", pos: ["H3", "G3", "", ""] },
+  { id: 8, type: "E", pos: ["G4", "H4", "", ""] },
+  { id: 9, type: "E", pos: ["G2", "H1", "", ""] },
+  { id: 10, type: "E", pos: ["H2", "G3", "", ""] },
+  { id: 11, type: "E", pos: ["H4", "G1", "", ""] },
+  { id: 12, type: "E", pos: ["G4", "H3", "", ""] },
+
+  // Cricket Doppel
+  { id: 13, type: "C", pos: ["H4", "G2", "H1", "G3"] },
+  { id: 14, type: "C", pos: ["G4", "H2", "G2", "H3"] },
+  { id: 15, type: "C", pos: ["H1", "G1", "H2", "G4"] },
+  { id: 16, type: "C", pos: ["G1", "H3", "G3", "H4"] },
+  { id: 17, type: "C", pos: ["H2", "G4", "H3", "G3"] },
+  { id: 18, type: "C", pos: ["G2", "H4", "G1", "H1"] },
+  { id: 19, type: "C", pos: ["H3", "G3", "H4", "G2"] },
+  { id: 20, type: "C", pos: ["G1", "H1", "G4", "H2"] },
+
+  // 501 open in / Master out Einzel
+  { id: 21, type: "E", pos: ["G3", "H1", "", ""] },
+  { id: 22, type: "E", pos: ["H2", "G4", "", ""] },
+  { id: 23, type: "E", pos: ["G1", "H3", "", ""] },
+  { id: 24, type: "E", pos: ["H4", "G2", "", ""] },
+  { id: 25, type: "E", pos: ["H1", "G4", "", ""] },
+  { id: 26, type: "E", pos: ["G1", "H2", "", ""] },
+  { id: 27, type: "E", pos: ["H3", "G2", "", ""] },
+  { id: 28, type: "E", pos: ["G3", "H4", "", ""] },
+
+  // 501 open in / Master out Doppel
+  { id: 29, type: "D", pos: ["H4", "G2", "H1", "G3"] },
+  { id: 30, type: "D", pos: ["G3", "H1", "G4", "H2"] },
+  { id: 31, type: "D", pos: ["H3", "G1", "H4", "G2"] },
+  { id: 32, type: "D", pos: ["G4", "H2", "G1", "H3"] }
 ];
+
 let matchResults = {}; let substitutions = []; let playerScores = {}; let activePopupMatchId = null;
 let isMatchPlayable = false; let importedTeams = {};
 
@@ -1462,7 +1487,7 @@ function removeSubstitution(matchId, outPos) {
  updatePrintSubstitutions(); renderTable(); saveMatchdayToLocalStorage(); openLivePopup(activePopupMatchId); alert("Auswechslung gelöscht!");
 }
 
-function navigatePopupMatch(direction) { const targetId = activePopupMatchId + direction; if(targetId >= 1 && targetId <= 34) { openLivePopup(targetId); } }
+function navigatePopupMatch(direction) { const targetId = activePopupMatchId + direction; if(targetId >= 1 && targetId <= 32) { openLivePopup(targetId); } }
 
 function unlockCurrentMatchForFix() {
  if(matchResults[activePopupMatchId]) {
@@ -1504,7 +1529,7 @@ function registerWinner(ignoredName, checkerPos, side, ignoredAssName = null, as
  renderTable(); 
  saveMatchdayToLocalStorage();
  setTimeout(() => { 
- if(activePopupMatchId < 34) { openLivePopup(activePopupMatchId + 1); } 
+ if(activePopupMatchId < 32) { openLivePopup(activePopupMatchId + 1); } 
  else { alert("Alle 34 Spiele erfasst! Der Spielberichtsbogen ist fertig."); closeLivePopup(); } 
  }, 300);
 }
