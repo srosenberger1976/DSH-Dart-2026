@@ -2,26 +2,23 @@
 <html lang="de">
 <head>
  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
- <link rel="manifest" href="/MKK-2026/manifest.json">
+ <link rel="manifest" href="/DSH-2026/manifest.json">
  <meta name="apple-mobile-web-app-capable" content="yes">
  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
- <meta name="apple-mobile-web-app-title" content="MKK Dart">
+ <meta name="apple-mobile-web-app-title" content="DSH Dart">
  
  <!-- JETZT SIND HIER ECHTE GRAFIKDATEIEN FÜR ANDROID & IPHONE HINTERLEGT -->
  <link rel="apple-touch-icon" href="https://r2.dev">
  <link rel="icon" type="image/png" href="https://r2.dev">
  
  <meta charset="UTF-8">
- <title>American Dart - Liga MKK Live-Bogen</title>
-
-
-
-
-
-
-
-
+ <title>American Dart - Liga DSH Live-Bogen</title>
 <style>
+
+
+
+
+
 /* Styling für das einklappbare Mannschaften-Menü */
 .accordion-menu {
  background: #333;
@@ -494,7 +491,8 @@ function aktiviereVollbild() {
 
 <div class="container">
  <h1 style="text-align: center; color: #ffcc00; margin-top: 0; margin-bottom: 10px; line-height: 1.2; border-bottom: 2px solid #ffcc00; padding-bottom: 10px;">
-   MKK Bullshooter Liga 2026<br>
+ DSH Bullshooter Liga 2026<br>
+
    <span style="font-size: 18px; color: #fff; font-weight: normal; font-style: italic;">Spielberichtsbogen</span> 🎯
  </h1>
 
@@ -751,7 +749,7 @@ function aktiviereVollbild() {
 <div id="print-layout-root">
  <div class="print-page">
 
-  <div class="print-header-title" style="font-family: 'Times New Roman', serif; font-size: 26px; font-style: italic;">American Dart - Liga MKK</div>
+  <div class="print-header-title" style="font-family: 'Times New Roman', serif; font-size: 26px; font-style: italic;">American Dart - Liga DSH</div>
   <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
    <tr>
     <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe A:</b> <span id="lbl_group_A"></span></td>
@@ -913,7 +911,7 @@ function aktiviereVollbild() {
 </div>
 
 <script>
-const mkkSchedule = [
+const dshSchedule = [
   // 501 open in / Master out Doppel
   { id: 1, type: "D", pos: ["H1", "G3", "H2", "G4"] },
   { id: 2, type: "D", pos: ["G1", "H3", "G2", "H4"] },
@@ -980,7 +978,7 @@ function fuehreKombiUpdateAus() {
     kombiBtn.style.opacity = "0.6"; 
   }
 
-  const url = "/MKK-2026/spieler.txt";
+  const url = "/DSH-2026/spieler.txt";
   const spielerTextarea = document.getElementById("txt_import_area");
   if (!spielerTextarea) return;
 
@@ -1054,8 +1052,8 @@ function importTeamsFromTxt() {
     } catch (e) { console.log("Zeile ignoriert:", trimmed); }
   });
   
-  localStorage.setItem("mkk_dart_teams", JSON.stringify(importedTeams));
-  localStorage.setItem("mkk_dart_raw_text", text);
+  localStorage.setItem("dsh_dart_teams", JSON.stringify(importedTeams));
+  localStorage.setItem("dsh_dart_raw_text", text);
   initTeamDropdowns();
 }
 
@@ -1230,7 +1228,7 @@ function renderTable() {
  const tbody = document.getElementById("matchTableBody"); const printBody = document.getElementById("print_table_all");
  if(!tbody || !printBody) return; tbody.innerHTML = ""; printBody.innerHTML = "";
  let runningHome = 0; let runningGuest = 0; let foundNextPlayable = false;
- mkkSchedule.forEach(m => {
+ dshSchedule.forEach(m => {
  const res = matchResults[m.id] || { heim: 0, gast: 0, checkerPos: "", assistantPos: "" };
  const hasBeenPlayed = !!matchResults[m.id];
  if (hasBeenPlayed) { runningHome += res.heim; runningGuest += res.gast; }
@@ -1283,9 +1281,9 @@ function renderTable() {
   document.getElementById("lbl_res_total").innerText = `${runningHome} : ${runningGuest}`; 
  
  // Prüfen, ob alle Spiele des aktuellen Spielplans gespielt wurden
- const gesamtSpieleAnzahl = mkkSchedule.length;
+ const gesamtSpieleAnzahl = dshSchedule.length;
  let gespielteSpieleAnzahl = 0;
- mkkSchedule.forEach(m => {
+ dshSchedule.forEach(m => {
    if (matchResults[m.id]) { gespielteSpieleAnzahl++; }
  });
 
@@ -1295,8 +1293,8 @@ function renderTable() {
  const infoText = document.getElementById("sig_info_text");
 
  // Prüfen, ob die Unterschriften bereits im Browser-Speicher existieren
- const hatUnterschriftH = localStorage.getItem("mkk_sig_data_H") !== null;
- const hatUnterschriftG = localStorage.getItem("mkk_sig_data_G") !== null;
+ const hatUnterschriftH = localStorage.getItem("dsh_sig_data_H") !== null;
+ const hatUnterschriftG = localStorage.getItem("dsh_sig_data_G") !== null;
 
  if (gespielteSpieleAnzahl < gesamtSpieleAnzahl) {
    // FALL 1: Das Spiel läuft noch
@@ -1354,7 +1352,7 @@ function renderTable() {
 
 
 function openLivePopup(matchId) {
- activePopupMatchId = Number(matchId); const m = mkkSchedule.find(x => x.id === activePopupMatchId);
+ activePopupMatchId = Number(matchId); const m = dshSchedule.find(x => x.id === activePopupMatchId);
  if(!m) return;
  let typeLong = m.type;
  if (m.type === "E") typeLong = "501 M/O Einzel"; else if (m.type === "D") typeLong = "501 M/O Doppel"; else if (m.type === "C") typeLong = "Cricket Team";
@@ -1587,9 +1585,9 @@ function syncMetaToLabels() {
 }
 
 function saveMatchdayToLocalStorage() {
- localStorage.setItem("mkk_live_match_results", JSON.stringify(matchResults));
- localStorage.setItem("mkk_live_substitutions", JSON.stringify(substitutions));
- localStorage.setItem("mkk_live_player_scores", JSON.stringify(playerScores));
+ localStorage.setItem("dsh_live_match_results", JSON.stringify(matchResults));
+ localStorage.setItem("dsh_live_substitutions", JSON.stringify(substitutions));
+ localStorage.setItem("dsh_live_player_scores", JSON.stringify(playerScores));
 }
 
 function updatePrintSubstitutions() {
@@ -1607,7 +1605,7 @@ function updatePrintSubstitutions() {
 function resetWholeMatchday() {
  if(confirm("Möchtest du wirklich alle eingetragenen Ergebnisse, Auswechslungen und geladenen Teams löschen, um ein neues Spiel zu starten?")) {
   matchResults = {}; substitutions = []; playerScores = {};
-  localStorage.removeItem("mkk_live_match_results"); localStorage.removeItem("mkk_live_substitutions"); localStorage.removeItem("mkk_live_player_scores"); localStorage.removeItem("mkk_live_dropdown_state");
+  localStorage.removeItem("dsh_live_match_results"); localStorage.removeItem("dsh_live_substitutions"); localStorage.removeItem("dsh_live_player_scores"); localStorage.removeItem("dsh_live_dropdown_state");
   updatePrintSubstitutions();
   document.querySelectorAll("select").forEach(s => { s.value = ""; });
   document.querySelectorAll("input[type='text']").forEach(i => { if(i.id !== "meta_date") { i.value = ""; } });
@@ -1620,7 +1618,7 @@ function resetWholeMatchday() {
 function saveActiveDropdowns() {
  const ids = ["team_home", "team_guest", "captain_home", "captain_guest", "meta_group", "meta_day", "meta_date", "p_H1","p_H2","p_H3","p_H4","p_HE1","p_HE2","p_HE3","p_HE4", "p_G1","p_G2","p_G3","p_G4","p_GE1","p_GE2","p_GE3","p_GE4", "pass_H1","pass_H2","pass_H3","pass_H4","pass_HE1","pass_HE2","pass_HE3","pass_HE4", "pass_G1","pass_G2","pass_G3","pass_G4","pass_GE1","pass_GE2","pass_GE3","pass_GE4"];
  const dropdownState = {}; ids.forEach(id => { const el = document.getElementById(id); if(el) dropdownState[id] = el.value; });
- localStorage.setItem("mkk_live_dropdown_state", JSON.stringify(dropdownState));
+ localStorage.setItem("dsh_live_dropdown_state", JSON.stringify(dropdownState));
 }
 
 function switchTab(tabName) {
@@ -1638,20 +1636,21 @@ function switchTab(tabName) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  if ('serviceWorker' in navigator) {
-   navigator.serviceWorker.register('/MKK-2026/sw.js')
+ if ('serviceWorker' in navigator) {
+   navigator.serviceWorker.register('./sw.js')
+     .then(reg => { console.log('Service Worker registriert!'); reg.update(); })
+     .catch(err => console.error('Service Worker Fehler:', err));
+ }
+ // ... restlicher DOMContentLoaded Code ...
 
-    .then(reg => { console.log('Service Worker registriert!'); reg.update(); })
-    .catch(err => console.error('Service Worker Fehler:', err));
-  }
 
   // Hier wird die Textbox jetzt JEDES MAL korrekt über ihre echte ID geladen!
   const spielerTextarea = document.getElementById("txt_import_area"); 
 
   // 1. ZUERST: Lokales Backup aus dem Browser laden, falls vorhanden
-  const savedTeams = localStorage.getItem("mkk_dart_teams");
+  const savedTeams = localStorage.getItem("dsh_dart_teams");
   if (savedTeams) { importedTeams = JSON.parse(savedTeams); }
-  const savedRawText = localStorage.getItem("mkk_dart_raw_text");
+  const savedRawText = localStorage.getItem("dsh_dart_raw_text");
   if (savedRawText && spielerTextarea) { spielerTextarea.value = savedRawText; }
   initTeamDropdowns();
  aktualisiereKombiButtonText(); // Setzt den Button-Text direkt beim Starten der App richtig
@@ -1666,7 +1665,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // 3. Alte Dropdown-Auswahlen wiederherstellen
-  const savedDropdowns = localStorage.getItem("mkk_live_dropdown_state");
+  const savedDropdowns = localStorage.getItem("dsh_live_dropdown_state");
   if(savedDropdowns) {
     const dropdownState = JSON.parse(savedDropdowns);
     if(dropdownState["team_home"]) { 
@@ -1685,18 +1684,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if(dropdownState["team_guest"]) rebuildPlayerDropdowns('G', false);
   }
 
-  const loadResults = localStorage.getItem("mkk_live_match_results"); 
+  const loadResults = localStorage.getItem("dsh_live_match_results"); 
   if(loadResults) matchResults = JSON.parse(loadResults);
-  const loadSubs = localStorage.getItem("mkk_live_substitutions");
+  const loadSubs = localStorage.getItem("dsh_live_substitutions");
   if(loadSubs) { substitutions = JSON.parse(loadSubs); updatePrintSubstitutions(); }
-  const loadScores = localStorage.getItem("mkk_live_player_scores"); 
+  const loadScores = localStorage.getItem("dsh_live_player_scores"); 
   if(loadScores) playerScores = JSON.parse(loadScores);
 
 
 
  // Gespeicherte Unterschriften wiederherstellen
  ['H', 'G'].forEach(side => {
-   const savedSig = localStorage.getItem("mkk_sig_data_" + side);
+   const savedSig = localStorage.getItem("dsh_sig_data_" + side);
    if(savedSig) {
      const img = document.getElementById("img_print_sig_" + side);
      if(img) { img.src = savedSig; img.style.display = "block"; }
@@ -1832,67 +1831,51 @@ let lastY = 0;
 let autoRelaunchActive = false;
 
 function openSignaturePopup(side) {
-    const btn = document.getElementById("btn_sig_" + side);
-    if (btn && btn.classList.contains("row-disabled")) {
-        alert("Hinweis: Du kannst erst unterschreiben, wenn alle Spiele des Spielplans erfasst wurden!");
-        return;
-    }
-    
-    const overlay = document.getElementById("popup_sig_" + side);
-    
-    // UNSICHTBARER TRICK-DOOPELSTART:
-    // Wenn wir NICHT im Neustart-Prozess sind, erzwingen wir das Auf-Zu-Auf
-    if (!autoRelaunchActive) {
-        autoRelaunchActive = true; // Sperre setzen
-        
-        // 1. Erstes Mal öffnen
-        overlay.style.display = "flex";
-        
-        // 2. Sofort im nächsten Moment wieder schließen
-        requestAnimationFrame(() => {
-            overlay.style.display = "none";
-            
-            // 3. Nach nur 30 Millisekunden das zweite Mal öffnen!
-            setTimeout(() => {
-                openSignaturePopup(side);
-            }, 300); // 300ms gibt dem Handy genug Zeit, das Fenster im Cache zu verankern
-        });
-        return; // Bricht den ersten, blockierten Durchlauf sofort ab
-    }
-    
-    // AB HIER LÄUFT DER ZWEITE START (Jetzt ist das Canvas startklar!)
-    autoRelaunchActive = false; // Status für die nächste Unterschrift zurücksetzen
-    overlay.style.display = "flex";
-    document.body.style.overflow = "hidden";
-    
-    const canvas = document.getElementById("canvas_sig_" + side);
-    sigCanvases[side] = canvas;
-    const ctx = canvas.getContext("2d");
-    sigContexts[side] = ctx;
-    
-    // Sichere Maße direkt aus dem Bildschirm ziehen, damit es beim 2. Mal perfekt passt
-    let exactWidth = canvas.parentElement.clientWidth;
-    let exactHeight = canvas.parentElement.clientHeight;
-    
-    if (!exactWidth || exactWidth <= 0) exactWidth = window.innerWidth - 32;
-    if (!exactHeight || exactHeight <= 0) exactHeight = window.innerHeight - 160;
+ const btn = document.getElementById("btn_sig_" + side);
+ if (btn && btn.classList.contains("row-disabled")) {
+ alert("Hinweis: Du kannst erst unterschreiben, wenn alle Spiele des Spielplans erfasst wurden!");
+ return;
+ }
+ 
+ const overlay = document.getElementById("popup_sig_" + side);
+ 
+ // 1. Schritt: Das Overlay sofort sichtbar machen (display: flex)
+ overlay.style.display = "flex";
+ document.body.style.overflow = "hidden";
 
-    canvas.style.width = exactWidth + "px";
-    canvas.style.height = exactHeight + "px";
-
-    const pixelRatio = 3; 
-    canvas.width = exactWidth * pixelRatio;
-    canvas.height = exactHeight * pixelRatio;
-    
-    ctx.scale(pixelRatio, pixelRatio);
-    
-    ctx.strokeStyle = "#000000";
-    ctx.lineWidth = 3.5; 
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    
-    setupCanvasEvents(side);
+ // 2. Schritt: Den Browser das Layout zeichnen lassen, BEVOR das Canvas initialisiert wird
+ requestAnimationFrame(() => {
+   setTimeout(() => {
+     const canvas = document.getElementById("canvas_sig_" + side);
+     sigCanvases[side] = canvas;
+     const ctx = canvas.getContext("2d");
+     sigContexts[side] = ctx;
+     
+     // Sichere Maße direkt aus dem jetzt sichtbaren Bildschirm-Container ziehen
+     let exactWidth = canvas.parentElement.clientWidth;
+     let exactHeight = canvas.parentElement.clientHeight;
+     
+     if (!exactWidth || exactWidth <= 0) exactWidth = window.innerWidth - 32;
+     if (!exactHeight || exactHeight <= 0) exactHeight = window.innerHeight - 160;
+     
+     canvas.style.width = exactWidth + "px";
+     canvas.style.height = exactHeight + "px";
+     const pixelRatio = 3; 
+     canvas.width = exactWidth * pixelRatio;
+     canvas.height = exactHeight * pixelRatio;
+     
+     ctx.scale(pixelRatio, pixelRatio);
+     
+     ctx.strokeStyle = "#000000";
+     ctx.lineWidth = 3.5; 
+     ctx.lineCap = "round";
+     ctx.lineJoin = "round";
+     
+     setupCanvasEvents(side);
+   }, 50); // Ein minimaler Timeout von 50ms reicht völlig aus, damit das Canvas startklar ist
+ });
 }
+
 
 
 
@@ -1990,7 +1973,7 @@ function clearSignature(side) {
     sigContexts[side].clearRect(0, 0, sigCanvases[side].width, sigCanvases[side].height);
     
     // 2. Gespeicherte Bilddaten aus dem Browser-Gedächtnis löschen
-    localStorage.removeItem("mkk_sig_data_" + side);
+    localStorage.removeItem("dsh_sig_data_" + side);
     
     // 3. Das Vorschaubild im PDF-Drucklayout wieder ausblenden
     const img = document.getElementById("img_print_sig_" + side);
@@ -2016,7 +1999,7 @@ function saveSignature(side) {
     const dataURL = canvas.toDataURL("image/png");
     
     // Im lokalen Speicher des Browsers sichern
-    localStorage.setItem("mkk_sig_data_" + side, dataURL);
+    localStorage.setItem("dsh_sig_data_" + side, dataURL);
     
     // Für die Druck-Vorschau im PDF bereitstellen
     const img = document.getElementById("img_print_sig_" + side);
