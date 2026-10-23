@@ -1,0 +1,427 @@
+Aktualisiert am 22.10.2026 - Update 1
+DC HighFlyer 2,Rosenberger, Stefan,97
+DC HighFlyer 2,Raab, Jens,101
+DC HighFlyer 2,Röder, Andreas,100
+DC HighFlyer 2,Tamas, Christian,103
+DC HighFlyer 2,Naumann, Stefan,104
+DC HighFlyer 2,Rüffer, Dustin,102
+DC HighFlyer 2,Rosenberger, Diana,106
+DC HighFlyer 2,Rosenberger, David,98
+DC HighFlyer 2,Bernhard, Prang,99
+DC HighFlyer 2,Robin, Blos,105
+DC HighFlyer 2,Schüssler, Frank,107
+DC HighFlyer 2,,108
+DC HighFlyer 2,,109
+DC HighFlyer 2,,110
+DC HighFlyer 2,,111
+DC HighFlyer 2,,112
+DC HighFlyer 2,,
+DC HighFlyer 2,,
+DC HighFlyer 2,,
+DC HighFlyer 2,,
+,,
+DC Joschis,Rott, Frank,161
+DC Joschis,Rott, Rainer,162
+DC Joschis,Henkel, Andre,163
+DC Joschis,Gottwald, Stephan,164
+DC Joschis,Gottwald, Louis,165
+DC Joschis,Rott, Tatiana,166
+DC Joschis,v. Münster, Monika,167
+DC Joschis,Dorn, Mischa,168
+DC Joschis,,169
+DC Joschis,,170
+DC Joschis,,171
+DC Joschis,,172
+DC Joschis,,173
+DC Joschis,,174
+DC Joschis,,175
+DC Joschis,,176
+DC Joschis,,
+DC Joschis,,
+DC Joschis,,
+DC Joschis,,
+,,
+DC Wolfsrudel, Adams, Sarah-Lynn,177
+DC Wolfsrudel,Brüning, Magnus,178
+DC Wolfsrudel,Koch, Manuela,179
+DC Wolfsrudel,Koch, Thorsten,180
+DC Wolfsrudel,Dreher, Sabrina,181
+DC Wolfsrudel,Degryse, Kelsey,182
+DC Wolfsrudel,Gröger, Andy,183
+DC Wolfsrudel,Gröger, Steve,184
+DC Wolfsrudel,Zeller, Andre,185
+DC Wolfsrudel,Adams, Michael,186
+DC Wolfsrudel,Bauer, Chantal,187
+DC Wolfsrudel,Daus, Sarah,188
+DC Wolfsrudel,Resch, Manuel,21
+DC Wolfsrudel,,189
+DC Wolfsrudel,,191
+DC Wolfsrudel,,192
+DC Wolfsrudel,,
+DC Wolfsrudel,,
+DC Wolfsrudel,,
+DC Wolfsrudel,,
+,,
+Bad Boyz 9.1,Schönmeier, Armin,1
+Bad Boyz 9.1,Schönmeier, Jan,2
+Bad Boyz 9.1,Konrad, Kevin,3
+Bad Boyz 9.1,Rücker, Philipp,4
+Bad Boyz 9.1,Rücker, Florian,5
+Bad Boyz 9.1,Levien, Adrian,6
+Bad Boyz 9.1,Gleiß, Gerry,7
+Bad Boyz 9.1,Albert, Moritz,8
+Bad Boyz 9.1,,
+Bad Boyz 9.1,,
+Bad Boyz 9.1,,
+Bad Boyz 9.1,,
+Bad Boyz 9.1,,
+Bad Boyz 9.1,,
+Bad Boyz 9.1,,
+Bad Boyz 9.1,,
+Bad Boyz 9.1,,
+Bad Boyz 9.1,,
+Bad Boyz 9.1,,
+Bad Boyz 9.1,,
+,,
+DC Knapp daneben Sterbfritz,Baute, Ulli,193
+DC Knapp daneben Sterbfritz,Storck, Andreas,194
+DC Knapp daneben Sterbfritz,Mock, Andreas,195
+DC Knapp daneben Sterbfritz,Hartmann, Jan,196
+DC Knapp daneben Sterbfritz,Schalk, Martin,197
+DC Knapp daneben Sterbfritz,Baute, Sonja,198
+DC Knapp daneben Sterbfritz,Mogel, Oliver,199
+DC Knapp daneben Sterbfritz,Neuendorf, Sonja,200
+DC Knapp daneben Sterbfritz,Richter, Wolfgang,201
+DC Knapp daneben Sterbfritz,Storck, Lucas,202
+DC Knapp daneben Sterbfritz,Orth, Jens,203
+DC Knapp daneben Sterbfritz,Hensel, Janosch,204
+DC Knapp daneben Sterbfritz,Schalk, Dustin,205
+DC Knapp daneben Sterbfritz,Simon, Michael,206
+DC Knapp daneben Sterbfritz,,207
+DC Knapp daneben Sterbfritz,,208
+DC Knapp daneben Sterbfritz,,
+DC Knapp daneben Sterbfritz,,
+DC Knapp daneben Sterbfritz,,
+DC Knapp daneben Sterbfritz,,
+,,
+Dartschützen Oberzell,Röder, Sebastian,33
+Dartschützen Oberzell,Roeder, Pascal,34
+Dartschützen Oberzell,Lins, Niclas,35
+Dartschützen Oberzell,Lins, Janick,36
+Dartschützen Oberzell,Hölzer, Luca,37
+Dartschützen Oberzell,Ziegler, Andreas,38
+Dartschützen Oberzell,Klabouch, Tobias,39
+Dartschützen Oberzell,Dorn, Julian,40
+Dartschützen Oberzell,Müller, Phillipp,41
+Dartschützen Oberzell,Herzog, Raphael,42
+Dartschützen Oberzell,,43
+Dartschützen Oberzell,,44
+Dartschützen Oberzell,,45
+Dartschützen Oberzell,Fehl, Tim,46
+Dartschützen Oberzell,,47
+Dartschützen Oberzell,,48
+Dartschützen Oberzell,,
+Dartschützen Oberzell,,
+Dartschützen Oberzell,,
+Dartschützen Oberzell,,
+,,
+Special Elite,Härtl, Maximilian,145
+Special Elite,Henkel, Tim,147
+Special Elite,Härtl, Michael,148
+Special Elite,Hellwig, Michael,149
+Special Elite,Henkel, Nico,150
+Special Elite,Keller, Sascha,151
+Special Elite,Riedl, Sascha,152
+Special Elite,Stachniuk, Oliver,153
+Special Elite,Fey, Sebastian,154
+Special Elite,Riedl, Sam-Noah,155
+Special Elite,Frey, Carina,156
+Special Elite,Klebe, Niko,157
+Special Elite,Ploep, Andreas,158
+Special Elite,Meine, Sascha,159
+Special Elite,Schweisser, Fabian,160
+Special Elite,,
+Special Elite,,
+Special Elite,,
+Special Elite,,
+Special Elite,,
+,,
+Schlüchterner Löwen,Eckert, Nico,49
+Schlüchterner Löwen,Hoyer, Jasmin,50
+Schlüchterner Löwen,Freundlieb, Christian,51
+Schlüchterner Löwen,Jung, Sascha,52
+Schlüchterner Löwen,Gold, Robert,53
+Schlüchterner Löwen,Spahn, Markus,54
+Schlüchterner Löwen,Ihlow, Sven,55
+Schlüchterner Löwen,Goldhorn, Mike,56
+Schlüchterner Löwen, Fischer, Alex,57
+Schlüchterner Löwen,Gelleszun, Bob,58
+Schlüchterner Löwen,Kirsch, Kevin,59
+Schlüchterner Löwen,Baier, Andi,60
+Schlüchterner Löwen,Baier, Max,61
+Schlüchterner Löwen,,62
+Schlüchterner Löwen,,63
+Schlüchterner Löwen,,64
+Schlüchterner Löwen,,
+Schlüchterner Löwen,,
+Schlüchterner Löwen,,
+Schlüchterner Löwen,,
+,,
+UpTown 1,Wendler, Dominique,81
+UpTown 1,Ilhan, Erol,82
+UpTown 1,Vock, Jenny,83
+UpTown 1,Schiller, Patrick,84
+UpTown 1,Naake, Sebastian,85
+UpTown 1,Kruczek, Roman,86
+UpTown 1,Böhm, Martin,87
+UpTown 1,Andriola, Nino,88
+UpTown 1,,89
+UpTown 1,,90
+UpTown 1,,91
+UpTown 1,,92
+UpTown 1,,93
+UpTown 1,,94
+UpTown 1,,95
+UpTown 1,,96
+UpTown 1,,
+UpTown 1,,
+UpTown 1,,
+UpTown 1,,
+,,
+Triple Nix,Härtl, Sandy,209
+Triple Nix,Strömer, Lea,210
+Triple Nix,Bauer, Lana,211
+Triple Nix,Bauer, Andrea,212
+Triple Nix,Riedl, Saskia,213
+Triple Nix,Schalk, Bastian,214
+Triple Nix,Schalk, Luca,215
+Triple Nix,Kreis, Ralph,216
+Triple Nix,Konrad, Michael,217
+Triple Nix,Müller, Jörg,218
+Triple Nix,Zelk, Walter,219
+Triple Nix,Zelk, Tobias,220
+Triple Nix,,221
+Triple Nix,Fink, Jonas,222
+Triple Nix,,223
+Triple Nix,,224
+Triple Nix,,
+Triple Nix,,
+Triple Nix,,
+Triple Nix,,
+,,
+Oldschool Legenden,Spindler, Michael,65
+Oldschool Legenden,Dziubek, Peter,70
+Oldschool Legenden,Grüsemann, Peter,71
+Oldschool Legenden,Swoboda, Holger,72
+Oldschool Legenden,Schmück, Andreas,73
+Oldschool Legenden,Rausch, Vladimir,75
+Oldschool Legenden,Spindler, Jerome,77
+Oldschool Legenden,Markgraf, Rene,78
+Oldschool Legenden,Swoboda, Marcel,228
+Oldschool Legenden,Kraft, Carsten,230
+Oldschool Legenden,,66
+Oldschool Legenden,,67
+Oldschool Legenden,,68
+Oldschool Legenden,,69
+Oldschool Legenden,,74
+Oldschool Legenden,,76
+Oldschool Legenden,,
+Oldschool Legenden,,
+Oldschool Legenden,,
+Oldschool Legenden,,
+,,
+Bad Boyz Nine,Schönmeier, Tobias,129
+Bad Boyz Nine,Rücker, Stefan,130
+Bad Boyz Nine,Rücker, Sabine,131
+Bad Boyz Nine,Konrad, Karsten,132
+Bad Boyz Nine,Krämer, Thomas,133
+Bad Boyz Nine,Härtl, Eloy,134
+Bad Boyz Nine,Knoll, Mika,135
+Bad Boyz Nine,Levien, Thomas,136
+Bad Boyz Nine,Lüttich, Alexander,137
+Bad Boyz Nine,,
+Bad Boyz Nine,,
+Bad Boyz Nine,,
+Bad Boyz Nine,,
+Bad Boyz Nine,,
+Bad Boyz Nine,,
+Bad Boyz Nine,,
+Bad Boyz Nine,,
+Bad Boyz Nine,,
+Bad Boyz Nine,,
+Bad Boyz Nine,,
+,,
+,,
+Blue Bay,Appeldorn, Felix,1
+Blue Bay,Kempel, Leon,2
+Blue Bay,Kempf, Leon,3
+Blue Bay,Kempf, Pascal,4
+Blue Bay,Gärtner, Michael,5
+Blue Bay,Laßmann, Robin,6
+Blue Bay,Krieger, Albert,7
+Blue Bay,Gernhöfer, Andreas,8
+Blue Bay,Laßmann, Mona,9
+Blue Bay,Appeldorn, Sven,10
+Blue Bay,Schneider, Niklas Matthias,11
+Blue Bay,Müller, Joshua,12
+,,13
+,,14
+,,15
+,,16
+,,17
+,,18
+,,19
+,,20
+,,
+DC Fraggles,Brach, Marcel,21
+DC Fraggles,Anlitz, Oliver,22
+DC Fraggles,Lampmann, Luca,23
+DC Fraggles,Seipel, Sebastian,24
+DC Fraggles,Kerner, Adrian,25
+DC Fraggles,Tariq, Ahmed,26
+DC Fraggles,Kraft, Carsten,27
+DC Fraggles,Brach, Jasmin,28
+DC Fraggles,Nüchter, Lucas,29
+DC Fraggles,Nswoah, Manuel,30
+DC Fraggles,Swoboda, Marcel,31
+DC Fraggles,Fechter, Markus,32
+DC Fraggles,Stachniuk, Oliver,33
+DC Fraggles,Hesse, Rolf,34
+DC Fraggles,Kadric, Sejfudin,35
+DC Fraggles,Avdiu, Xhevdet,36
+DC Fraggles,Lampmann, Noah,37
+DC Fraggles,Seipel, Steffen,38
+,,39
+,,40
+,,
+,,
+DC High Flyer,Gaul, Jannik,41
+DC High Flyer,Paul, Cedric,42
+DC High Flyer,Paul, Thorsten,43
+DC High Flyer,Rosenberger, David,44
+DC High Flyer,Rosenberger, Stefan,45
+DC High Flyer,Lursch, Frank,46
+DC High Flyer,Bloß, Robin,47
+DC High Flyer,Hönig, Joachim,48
+DC High Flyer,Schüssler, Frank,49
+DC High Flyer,Röder, Andreas,50
+DC High Flyer,Tamas, Christian,51
+DC High Flyer,Rüffer, Dustin,52
+DC High Flyer,Prang, Bernhard,53
+DC High Flyer,Naumann, Stefan,54
+DC High Flyer,Raab, Jens,55
+DC High Flyer,Pfahls, Noah,56
+,,57
+,,58
+,,59
+,,60
+,,
+,,
+DC LaPaloma,Hegenbart, Svantje,61
+DC LaPaloma,Wendt, Anna,62
+DC LaPaloma,Pfeifer, Anne,63
+DC LaPaloma,Dillmann, Jörg,64
+DC LaPaloma,See, Günther,65
+DC LaPaloma,Goldbach, Anna,66
+DC LaPaloma,Richter, Jessika,67
+DC LaPaloma,Bathon, Joachim,68
+DC LaPaloma,Goldbach, Daniel,69
+DC LaPaloma,Dickel, Marc-Hendrik,70
+DC LaPaloma,Reichert, Mario,71
+DC LaPaloma,Goldbach, Jay,72
+DC LaPaloma,See, Daniela,73
+,,74
+,,75
+,,76
+,,77
+,,78
+,,79
+,,80
+,,
+,,
+DC Oneshot,Cila, Bianca-Marie,81
+DC Oneshot,Heiliger, Niklas,82
+DC Oneshot,Widemann, Eduard,83
+DC Oneshot,Widemann, Robert,84
+DC Oneshot,Polzer, Thomas,85
+DC Oneshot,Grimm, Steven,86
+DC Oneshot,Khawam, Ahmad,87
+DC Oneshot,Popp, Erika,88
+DC Oneshot,Koch, Kristof,89
+,,90
+,,91
+,,92
+,,93
+,,94
+,,95
+,,96
+,,97
+,,98
+,,99
+,,100
+,,
+,,
+Eskalation 1,Kaiser, Karl-Heinz,101
+Eskalation 1,Jochner, Josef,102
+Eskalation 1,Kaiser, Susanne,103
+Eskalation 1,Kaiser, Melissa,104
+Eskalation 1,Raguet, Markus,105
+Eskalation 1,Schmidt-Prasch, Jennifer,106
+Eskalation 1,Schmidt, Patrick,107
+Eskalation 1,Syllwasschy, Sonja,108
+Eskalation 1,Syllwasschy, Tim,109
+Eskalation 1,Winkler, Viktoria,110
+Eskalation 1,Hartung, Rebekka,111
+Eskalation 1,Kling, Daniela,112
+Eskalation 1,Müller, Tabea,113
+Eskalation 1,Winkler, Doreen,114
+Eskalation 1,Dietrich, Patric,115
+,,116
+,,117
+,,118
+,,119
+,,120
+,,
+,,
+Eskalation 2,Christ, Anja,121
+Eskalation 2,Meister, Anna,122
+Eskalation 2,Hollweg, Isabell,123
+Eskalation 2,Thölken, Chantal,124
+Eskalation 2,Jung, Celina,125
+Eskalation 2,Tatai, Adam,126
+Eskalation 2,Bartel, Nils,127
+Eskalation 2,Urschek, Angela,128
+Eskalation 2,Walz, Helmut,129
+Eskalation 2,Christ, Marcel,130
+Eskalation 2,Hebel, Ben,131
+Eskalation 2,Dumitrascu, Adriana,132
+Eskalation 2,Levien, Adrian,133
+,,134
+,,135
+,,136
+,,137
+,,138
+,,139
+,,140
+,,
+,,
+Spassvogel,Lauenburger, Patrick,141
+Spassvogel,Meier, Julia,142
+Spassvogel,Adrian, Sabrina,143
+Spassvogel,Schmarr, Alexander,144
+Spassvogel,Bilen, Ilhami,145
+Spassvogel,Axt, Kai-Uwe,146
+Spassvogel,Köhler, Markus,147
+Spassvogel,Köhler, Mareike,148
+Spassvogel,Waldmann, Patrick,149
+Spassvogel,Fehl, Andy,150
+Spassvogel,Obenhin, Jan,151
+Spassvogel,Schum, Steffen,152
+Spassvogel,Lelito, Reiner,153
+Spassvogel,Lelito, Sabrina,154
+Spassvogel,Ünlü, Mete,155
+Spassvogel,Fehl, Nadine,156
+,,157
+,,158
+,,159
+,,160
