@@ -166,7 +166,8 @@ solid #444; font-weight: bold; cursor: pointer; border-radius: 5px; font-size:
  flex: 1;
  display: flex;
  background: #ffffff;
- margin: 70px 16px 85px 16px;
+ /* Abstand nach unten von 85px auf 110px erhöht, um Platz für Buttons zu schaffen */
+ margin: 70px 16px 110px 16px; 
  border-radius: 8px;
  border: 2px solid #ffcc00;
  position: relative;
@@ -181,13 +182,14 @@ solid #444; font-weight: bold; cursor: pointer; border-radius: 5px; font-size:
  position: fixed;
  bottom: 0; left: 0;
  width: 100%;
- height: 75px;
+ height: 85px; /* Höhe leicht erhöht */
  background: #1e1e1e;
  display: flex;
  gap: 15px;
- padding: 12px 16px;
+ padding: 12px 16px 25px 16px; /* Unten mehr Padding (25px) als Puffer für die Handy-Leiste */
  box-sizing: border-box;
  border-top: 1px solid #333;
+ z-index: 25001; /* Sicherstellen, dass die Buttons immer ganz oben liegen */
 }
 .sig-btn {
  flex: 1;
@@ -440,10 +442,18 @@ width: 100%; gap: 30px; margin-top: 4px; }
  .print-signature-box { display: flex; flex-direction: column; justify-content:
 flex-end; height: 45px; border-bottom: 1.2px solid #000 !important; font-size: 
 9px; width: 45%; padding-bottom: 1px; color: #000 !important; position: relative; }
- .print-sig-img { position: absolute; max-height: 42px; max-width: 95%; bottom: 2px; left: 10%; object-fit: contain; filter: contrast(200%) brightness(0.9); mix-blend-mode: multiply; }
+.print-sig-img {
+ position: absolute;
+ max-height: 40px;
+ width: auto; /* Verhindert das Verzerren der Breite */
+ max-width: 90%;
+ bottom: 2px;
+ left: 5%;
+ object-fit: contain; /* Garantiert, dass die Proportionen erhalten bleiben */
+ filter: contrast(200%) brightness(0.9); 
+ mix-blend-mode: multiply;
+}
 
-
- }
 
 
 /* ISOLIERTE SMARTPHONE-KORREKTUR NUR FÜR DEN MITTLEREN METADATEN-BLOCK */
@@ -1838,45 +1848,35 @@ function openSignaturePopup(side) {
  alert("Hinweis: Du kannst erst unterschreiben, wenn alle Spiele des Spielplans erfasst wurden!");
  return;
  }
- 
  const overlay = document.getElementById("popup_sig_" + side);
- 
- // 1. Schritt: Das Overlay sofort sichtbar machen (display: flex)
  overlay.style.display = "flex";
  document.body.style.overflow = "hidden";
 
- // 2. Schritt: Den Browser das Layout zeichnen lassen, BEVOR das Canvas initialisiert wird
- requestAnimationFrame(() => {
-   setTimeout(() => {
-     const canvas = document.getElementById("canvas_sig_" + side);
-     sigCanvases[side] = canvas;
-     const ctx = canvas.getContext("2d");
-     sigContexts[side] = ctx;
-     
-     // Sichere Maße direkt aus dem jetzt sichtbaren Bildschirm-Container ziehen
-     let exactWidth = canvas.parentElement.clientWidth;
-     let exactHeight = canvas.parentElement.clientHeight;
-     
-     if (!exactWidth || exactWidth <= 0) exactWidth = window.innerWidth - 32;
-     if (!exactHeight || exactHeight <= 0) exactHeight = window.innerHeight - 160;
-     
-     canvas.style.width = exactWidth + "px";
-     canvas.style.height = exactHeight + "px";
-     const pixelRatio = 3; 
-     canvas.width = exactWidth * pixelRatio;
-     canvas.height = exactHeight * pixelRatio;
-     
-     ctx.scale(pixelRatio, pixelRatio);
-     
-     ctx.strokeStyle = "#000000";
-     ctx.lineWidth = 3.5; 
-     ctx.lineCap = "round";
-     ctx.lineJoin = "round";
-     
-     setupCanvasEvents(side);
-   }, 50); // Ein minimaler Timeout von 50ms reicht völlig aus, damit das Canvas startklar ist
- });
+ // Sofortige Initialisierung ohne verschachtelte Timeouts
+ const canvas = document.getElementById("canvas_sig_" + side);
+ sigCanvases[side] = canvas;
+ const ctx = canvas.getContext("2d");
+ sigContexts[side] = ctx;
+ 
+ // Maße direkt bestimmen
+ let exactWidth = canvas.parentElement.clientWidth || (window.innerWidth - 32);
+ let exactHeight = canvas.parentElement.clientHeight || (window.innerHeight - 160);
+ 
+ canvas.style.width = exactWidth + "px";
+ canvas.style.height = exactHeight + "px";
+ const pixelRatio = 3; 
+ canvas.width = exactWidth * pixelRatio;
+ canvas.height = exactHeight * pixelRatio;
+ 
+ ctx.scale(pixelRatio, pixelRatio);
+ ctx.strokeStyle = "#000000";
+ ctx.lineWidth = 3.5; 
+ ctx.lineCap = "round";
+ ctx.lineJoin = "round";
+ 
+ setupCanvasEvents(side);
 }
+
 
 
 
