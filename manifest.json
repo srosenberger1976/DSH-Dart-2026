@@ -1,1 +1,31 @@
 
+{
+  "short_name": "DSH Dart",
+  "name": "American Dart - Liga DSH Live-Bogen",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#1a1a1a",
+  "theme_color": "#ffcc00",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "./"
+}
