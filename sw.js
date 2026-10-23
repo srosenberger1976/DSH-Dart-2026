@@ -8,7 +8,7 @@ const ASSETS = [
   './spieler.txt'
 ];
 
-// 1. Dateien beim Installieren in den Cache laden
+// Dateien beim ersten Laden in den Cache speichern
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -17,7 +17,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// 2. Alten Cache löschen, wenn sich die Version ändert
+// Alten Cache löschen bei Aktualisierungen
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -32,13 +32,11 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// 3. WICHTIG FÜR ANDROID: Anfragen abfangen und Offline-Bereitschaft signalisieren
+// Anfragen abfangen (wichtig für den Android-Installations-Check)
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      // Gibt die Datei aus dem Cache zurück, falls vorhanden, andernfalls aus dem Netzwerk
       return cachedResponse || fetch(event.request).catch(() => {
-        // Falls komplett offline und nicht im Cache
         if (event.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
@@ -46,4 +44,3 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
-
