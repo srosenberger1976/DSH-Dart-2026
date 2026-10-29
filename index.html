@@ -3320,92 +3320,86 @@ function ladeSpielplanVonGitHub() {
 
 
 
-
 function verarbeiteSpielplanText(text) {
-    const previewBox = document.getElementById("txt_spielplan_preview");
-    if (previewBox) { previewBox.value = text.trim(); }
+  const previewBox = document.getElementById("txt_spielplan_preview");
+  if (previewBox) { previewBox.value = text.trim(); }
+  mkkLoadedSchedules = {};
+  const lines = text.split("\n");
+  let aktuelleGruppe = "";
+  
+  lines.forEach(line => {
+    const trimmed = line.trim();
+    if (!trimmed) return;
     
-    mkkLoadedSchedules = {};
-    const lines = text.split("\n");
-    let aktuelleGruppe = ""; 
+    // Liga/Gruppe erkennen
+    if (trimmed.toLowerCase().includes("spielplan:")) {
+      if (trimmed.toUpperCase().includes("A-LIGA") || trimmed.toUpperCase().includes("A LIGA")) {
+        aktuelleGruppe = "Gruppe A";
+      } else if (trimmed.toUpperCase().includes("B-LIGA") || trimmed.toUpperCase().includes("B LIGA")) {
+        aktuelleGruppe = "Gruppe B";
+      } else if (trimmed.toUpperCase().includes("C-LIGA") || trimmed.toUpperCase().includes("C LIGA")) {
+        aktuelleGruppe = "Gruppe C";
+      }
+      if (aktuelleGruppe && !mkkLoadedSchedules[aktuelleGruppe]) {
+        mkkLoadedSchedules[aktuelleGruppe] = [];
+      }
+      return;
+    }
     
-    lines.forEach(line => {
-        const trimmed = line.trim();
-        if (!trimmed) return;
-        
-if (trimmed.toLowerCase().includes ("spielplan:")) {
-if (trimmed.toUpperCase().includes ("A-LIGA") || trimmed.toUpperCase().includes ("A LIGA")) {
-aktuelleGruppe = "Gruppe A"; 
-} else if (trimmed.toUpperCase().includes ("B-LIGA") || trimmed.toUpperCase().includes ("B LIGA")) {
-aktuelleGruppe = "Gruppe B";
-} else if (trimmed.toUpperCase().includes ("C-LIGA") || trimmed.toUpperCase().includes ("C LIGA")) {
-aktuelleGruppe = "Gruppe C";
-}
-            
-            if (aktuelleGruppe && !mkkLoadedSchedules[aktuelleGruppe]) {
-                mkkLoadedSchedules[aktuelleGruppe] = [];
-            }
-            return;
-        }
-        
-        // Zeilen wie HINRUNDE oder RÜCKRUNDE einfach überspringen
-        if (trimmed.toUpperCase() === "HINRUNDE" || trimmed.toUpperCase() === "RÜCKRUNDE") {
-            return;
-        }
-        
-        // 2. Spielpaarung auslesen (z.B. "Spiel 1: Dartschützen Oberzell vs. Bad Boyz 9.1")
-        if (aktuelleGruppe && trimmed.toLowerCase().startsWith("spiel") && trimmed.includes("vs.")) {
-            try {
-                const doppelpunktIndex = trimmed.indexOf(":");
-                if (doppelpunktIndex === -1) return;
-                
-                // Holt flexibel alles zwischen "Spiel" und dem Doppelpunkt (z.B. "1" oder "14")
-                const spielNummer = trimmed.substring(5, doppelpunktIndex).trim();
-                const spieltagDropdownWert = spielNummer + ". Spieltag";
-                
-                // Paarung hinter dem Doppelpunkt aufteilen
-                const paarungText = trimmed.substring(doppelpunktIndex + 1).trim();
-                const teams = paarungText.split("vs.");
-                
-                const heimTeam = teams[0] ? teams[0].trim() : "";
-                const gastTeam = teams[1] ? teams[1].trim() : "";
-                
-                if (heimTeam && gastTeam) {
-                    mkkLoadedSchedules[aktuelleGruppe].push({
-                        day: spieltagDropdownWert,
-                        home: heimTeam,
-                        guest: gastTeam
-                    });
-                }
-            } catch (e) {
-                console.log("Zeile übersprungen (Format passt nicht):", trimmed);
-            }
-        }
-    });
+    if (trimmed.toUpperCase() === "HINRUNDE" || trimmed.toUpperCase() === "RÜCKRUNDE") {
+      return;
+    }
     
-    localStorage.setItem("mkk_dart_loaded_schedules", JSON.stringify(mkkLoadedSchedules));
-    localStorage.setItem("mkk_dart_spielplan_raw", text);
+    // Spielpaarung auslesen (z. B. "Spiel 1: DC LaPaloma vs. DC Fraggles")
+    if (aktuelleGruppe && trimmed.toLowerCase().startsWith("spiel") && trimmed.includes("vs.")) {
+      try {
+        const doppelpunktIndex = trimmed.indexOf(":");
+        if (doppelpunktIndex === -1) return;
+        
+        // Holt die reine Zahl heraus und entfernt alle Leerzeichen rigoros
+        const spielNummer = trimmed.substring(5, doppelpunktIndex).replace(/\D/g, "").trim();
+        if (!spielNummer) return;
+        
+        const spieltagDropdownWert = spielNummer + ". Spieltag";
+        
+        // Paarung aufteilen
+        const paarungText = trimmed.substring(doppelpunktIndex + 1).trim();
+        const teams = paarungText.split("vs.");
+        const heimTeam = teams[0] ? teams[0].trim() : "";
+        const gastTeam = teams[1] ? teams[1].trim() : "";
+        
+        if (heimTeam && gastTeam) {
+          mkkLoadedSchedules[aktuelleGruppe].push({
+            day: spieltagDropdownWert,
+            home: heimTeam,
+            guest: gastTeam
+          });
+        }
+      } catch (e) {
+        console.log("Zeile übersprungen (Format passt nicht):", trimmed, e);
+      }
+    }
+  });
+  
+  localStorage.setItem("mkk_dart_loaded_schedules", JSON.stringify(mkkLoadedSchedules));
+  localStorage.setItem("mkk_dart_spielplan_raw", text);
 }
 
-// 3. FUNKTION: Sucht die ausgewählte Paarung und stellt die Dropdowns ein
 function autoDetectLeagueAndMatchday() {
   const homeTeam = document.getElementById("team_home")?.value;
   const guestTeam = document.getElementById("team_guest")?.value;
   
-  // Abbrechen, wenn noch nicht beide Teams im Setup gewählt wurden
   if (!homeTeam || !guestTeam) return;
   
-  // Namen für den sicheren Vergleich in Kleinbuchstaben umwandeln
   const homeLower = homeTeam.toLowerCase().trim();
   const guestLower = guestTeam.toLowerCase().trim();
   
   let matchFound = false;
   
-  // Schleife durch alle geladenen Gruppen
   for (const groupName in mkkLoadedSchedules) {
-    const matches = mkkLoadedSchedules [groupName];
+    const matches = mkkLoadedSchedules[groupName];
     
-    // Flexibler Vergleich: Prüft, ob die Namen im Text vorkommen (ignoriert Groß-/Kleinschreibung)
+    // Sucht extrem flexibel nach den Teamnamen
     const found = matches.find(m => {
       const mHomeLower = m.home.toLowerCase().trim();
       const mGuestLower = m.guest.toLowerCase().trim();
@@ -3415,25 +3409,20 @@ function autoDetectLeagueAndMatchday() {
     });
     
     if (found) {
-      // 1. Die dazugehörige Liga-Überschrift im Dropdown auswählen
       const groupSelect = document.getElementById("meta_group");
-      if (groupSelect) {
-        // Findet "Gruppe B" basierend auf "B-Liga" in der Textdatei
-        groupSelect.value = groupName; 
-      }
+      if (groupSelect) groupSelect.value = groupName; 
       
-      // 2. Die Spielnummer als Spieltag eintragen (z. B. "1. Spieltag")
       const daySelect = document.getElementById("meta_day");
       if (daySelect) {
+        // Setzt den Spieltag exakt auf den generierten Wert (z.B. "1. Spieltag")
         daySelect.value = found.day;
       }
       
       matchFound = true;
-      break; // Paarung gefunden, Schleife beenden
+      break;
     }
   }
   
-  // Wenn das Spiel gefunden wurde, UI aktualisieren und speichern
   if (matchFound) {
     if (typeof syncMetaToLabels === "function") syncMetaToLabels();
     if (typeof validateRosterAndSetup === "function") validateRosterAndSetup();
