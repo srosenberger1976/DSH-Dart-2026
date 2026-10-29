@@ -7,8 +7,9 @@
  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="DSH Dart"> 
  <!-- 1JETZT SIND HIER ECHTE GRAFIKDATEIEN FÜR ANDROID & IPHONE HINTERLEGT -->
- <link rel="apple-touch-icon" href="https://r2.dev">
- <link rel="icon" type="image/png" href="https://r2.dev">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+
  
  <meta charset="UTF-8">
 <title>DSH Bullshooter Liga Live-Bogen</title>
@@ -1377,7 +1378,6 @@ let isMatchPlayable = false; let importedTeams = {};
 
 
 
-
 function fuehreKombiUpdateAus() {
   const kombiBtn = document.getElementById("btn_kombi_import");
   if(kombiBtn) {
@@ -1385,8 +1385,8 @@ function fuehreKombiUpdateAus() {
     kombiBtn.style.opacity = "0.6";
   }
   
-  // Der direkte, vereinfachte Link zu deiner spieler.txt
-  const url = "https://githubusercontent.com";
+  // KORREKTUR: Der vollständige, echte Raw-Link zu deiner spieler.txt
+  const url = "https://githubusercontent.com" + Date.now();
   const spielerTextarea = document.getElementById("txt_import_area");
   if (!spielerTextarea) return;
   
@@ -1408,13 +1408,13 @@ function fuehreKombiUpdateAus() {
       alert("Spielerliste erfolgreich frisch geladen und dauerhaft gespeichert!");
     } else {
       alert("Die Datei auf GitHub scheint leer zu sein.");
-      ZustandKombiButtonZuruecksetzen();
+      if (typeof ZustandKombiButtonZuruecksetzen === "function") ZustandKombiButtonZuruecksetzen();
     }
   })
   .catch(error => {
     console.error(error);
     alert("Fehler beim Abrufen! Vergewissere dich, dass spieler.txt öffentlich auf GitHub einsehbar ist.");
-    ZustandKombiButtonZuruecksetzen();
+    if (typeof ZustandKombiButtonZuruecksetzen === "function") ZustandKombiButtonZuruecksetzen();
   });
 }
 
@@ -3333,8 +3333,8 @@ function closeStatsDetailPopup() {
 let mkkLoadedSchedules = {};
 
 function ladeSpielplanVonGitHub() {
-  // Der direkte, vereinfachte Link zu deiner spielplan.txt
-  const url = "https://githubusercontent.com";
+  // KORREKTUR: Der vollständige, echte Raw-Link zu deiner spielplan.txt auf GitHub
+  const url = "https://githubusercontent.com" + Date.now();
   const kombiBtn = document.getElementById("btn_plan_import");
   if(kombiBtn) {
     kombiBtn.innerText = "Spielplan wird geladen...";
@@ -3363,7 +3363,6 @@ function ladeSpielplanVonGitHub() {
     }
   });
 }
-
 
 
 function verarbeiteSpielplanText(text) {
