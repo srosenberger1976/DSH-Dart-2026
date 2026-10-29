@@ -1384,8 +1384,9 @@ function fuehreKombiUpdateAus() {
     kombiBtn.innerText = "Daten werden geladen & verarbeitet...";
     kombiBtn.style.opacity = "0.6";
   }
-  // Der direkte, echte Raw-Link zu deiner spieler.txt auf GitHub + Cache-Buster
-  const url = "https://githubusercontent.com" + Date.now();
+  
+  // Der direkte, vereinfachte Link zu deiner spieler.txt
+  const url = "https://githubusercontent.com";
   const spielerTextarea = document.getElementById("txt_import_area");
   if (!spielerTextarea) return;
   
@@ -1416,7 +1417,6 @@ function fuehreKombiUpdateAus() {
     ZustandKombiButtonZuruecksetzen();
   });
 }
-
 
 
 
@@ -3333,8 +3333,8 @@ function closeStatsDetailPopup() {
 let mkkLoadedSchedules = {};
 
 function ladeSpielplanVonGitHub() {
-  // Der direkte, echte Raw-Link zu deiner spielplan.txt auf GitHub + Cache-Buster
-  const url = "https://githubusercontent.com" + Date.now();
+  // Der direkte, vereinfachte Link zu deiner spielplan.txt
+  const url = "https://githubusercontent.com";
   const kombiBtn = document.getElementById("btn_plan_import");
   if(kombiBtn) {
     kombiBtn.innerText = "Spielplan wird geladen...";
@@ -3348,7 +3348,7 @@ function ladeSpielplanVonGitHub() {
   })
   .then(text => {
     verarbeiteSpielplanText(text);
-    console.log("MKK-Spielplan erfolgreich geladen und strukturiert!");
+    console.log("MKK-Spielplan erfolgreich geladen und structured!");
     autoDetectLeagueAndMatchday();
     alert("Spielplan erfolgreich von GitHub abgerufen!");
   })
