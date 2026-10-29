@@ -3391,34 +3391,49 @@ aktuelleGruppe = "Gruppe C";
 function autoDetectLeagueAndMatchday() {
   const homeTeam = document.getElementById("team_home")?.value;
   const guestTeam = document.getElementById("team_guest")?.value;
-
+  
   // Abbrechen, wenn noch nicht beide Teams im Setup gewählt wurden
-  if (!homeTeam || !guestTeam) return; 
-
+  if (!homeTeam || !guestTeam) return;
+  
+  // Namen für den sicheren Vergleich in Kleinbuchstaben umwandeln
+  const homeLower = homeTeam.toLowerCase().trim();
+  const guestLower = guestTeam.toLowerCase().trim();
+  
   let matchFound = false;
-
-  // Schleife durch alle Gruppen, die wir aus den Überschriften gelernt haben
+  
+  // Schleife durch alle geladenen Gruppen
   for (const groupName in mkkLoadedSchedules) {
-    const matches = mkkLoadedSchedules[groupName];
+    const matches = mkkLoadedSchedules [groupName];
     
-    // Suchen, ob Heim- und Gastteam genau so in dieser Liga zusammenspielen
-    const found = matches.find(m => m.home === homeTeam && m.guest === guestTeam);
+    // Flexibler Vergleich: Prüft, ob die Namen im Text vorkommen (ignoriert Groß-/Kleinschreibung)
+    const found = matches.find(m => {
+      const mHomeLower = m.home.toLowerCase().trim();
+      const mGuestLower = m.guest.toLowerCase().trim();
+      
+      return (mHomeLower.includes(homeLower) || homeLower.includes(mHomeLower)) && 
+             (mGuestLower.includes(guestLower) || guestLower.includes(mGuestLower));
+    });
     
     if (found) {
-      // 1. Die dazugehörige Liga-Überschrift im Dropdown auswählen ("Gruppe B" / "Gruppe C")
+      // 1. Die dazugehörige Liga-Überschrift im Dropdown auswählen
       const groupSelect = document.getElementById("meta_group");
-      if (groupSelect) groupSelect.value = groupName;
-
-      // 2. Die Spielnummer als Spieltag eintragen (z. B. "14. Spieltag")
+      if (groupSelect) {
+        // Findet "Gruppe B" basierend auf "B-Liga" in der Textdatei
+        groupSelect.value = groupName; 
+      }
+      
+      // 2. Die Spielnummer als Spieltag eintragen (z. B. "1. Spieltag")
       const daySelect = document.getElementById("meta_day");
-      if (daySelect) daySelect.value = found.day;
-
+      if (daySelect) {
+        daySelect.value = found.day;
+      }
+      
       matchFound = true;
-      break; // Abbrechen, da Spielpaarung eindeutig gefunden wurde
+      break; // Paarung gefunden, Schleife beenden
     }
   }
-
-  // Wenn das Spiel im System gefunden wurde, Benutzeroberfläche aktualisieren
+  
+  // Wenn das Spiel gefunden wurde, UI aktualisieren und speichern
   if (matchFound) {
     if (typeof syncMetaToLabels === "function") syncMetaToLabels();
     if (typeof validateRosterAndSetup === "function") validateRosterAndSetup();
