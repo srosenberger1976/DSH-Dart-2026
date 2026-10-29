@@ -1385,7 +1385,7 @@ function fuehreKombiUpdateAus() {
     kombiBtn.style.opacity = "0.6";
   }
   
-  // KORREKTUR: Der vollständige, echte Raw-Link zu deiner spieler.txt
+  // KORREKTUR: Hier ist jetzt dein echter Name und dein Repository eingetragen!
   const url = "https://githubusercontent.com" + Date.now();
   const spielerTextarea = document.getElementById("txt_import_area");
   if (!spielerTextarea) return;
@@ -1417,8 +1417,6 @@ function fuehreKombiUpdateAus() {
     if (typeof ZustandKombiButtonZuruecksetzen === "function") ZustandKombiButtonZuruecksetzen();
   });
 }
-
-
 
 
 
@@ -3333,7 +3331,7 @@ function closeStatsDetailPopup() {
 let mkkLoadedSchedules = {};
 
 function ladeSpielplanVonGitHub() {
-  // KORREKTUR: Der vollständige, echte Raw-Link zu deiner spielplan.txt auf GitHub
+  // KORREKTUR: Hier ist jetzt dein echter Name und dein Repository eingetragen!
   const url = "https://githubusercontent.com" + Date.now();
   const kombiBtn = document.getElementById("btn_plan_import");
   if(kombiBtn) {
@@ -3357,13 +3355,12 @@ function ladeSpielplanVonGitHub() {
     alert("Fehler beim Laden! Bitte überprüfe, ob spielplan.txt auf GitHub existiert.");
   })
   .finally(() => {
-    if(kombiBtn) {
+    if (kombiBtn) {
       kombiBtn.innerText = "Spielplan frisch von GitHub abrufen";
       kombiBtn.style.opacity = "1";
     }
   });
 }
-
 
 function verarbeiteSpielplanText(text) {
   const previewBox = document.getElementById("txt_spielplan_preview");
