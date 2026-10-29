@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dsh-dart-v2'; // Erhöht auf v2 gegen blockierte Updates
+const CACHE_NAME = 'dsh-dart-v3'; // Erhöht auf v3, um den alten Fehler-Cache zu überschreiben
 const ASSETS = [
   './',
   './index.html',
@@ -7,7 +7,7 @@ const ASSETS = [
   './icon-512.png'
 ];
 
-// Installieren des Service Workers und Dateien in den Cache laden
+// Installieren des Service Workers
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -33,13 +33,15 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Dateien aus dem Cache laden (Mit direkter Live-Ausnahme für GitHub-Textdateien)
+// Dateien abfangen und laden
 self.addEventListener('fetch', (event) => {
-  // WICHTIG: Wenn der Aufruf an GitHub geht, lass den Service Worker komplett die Finger davon lassen!
-  if (event.request.url.includes('://githubusercontent.com')) {
-    return; // Lädt die Daten direkt live und unverändert aus dem Internet
+  // KORREKTUR: Wenn es ein GitHub-Raw-Link ist, jage ihn direkt und ohne Cache live ins Internet!
+  if (event.request.url.includes('raw.githubusercontent.com')) {
+    event.respondWith(fetch(event.request));
+    return;
   }
 
+  // Für alle normalen App-Dateien (HTML, Icons) nimm den Cache
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       return cachedResponse || fetch(event.request);
