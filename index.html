@@ -2024,20 +2024,46 @@ outH.innerHTML = '<option value="">-- wähle Raus --</option>'; inH.innerHTML =
 '<option value="">-- wähle Rein --</option>';
 outG.innerHTML = '<option value="">-- wähle Raus --</option>'; inG.innerHTML =
 '<option value="">-- wähle Rein --</option>';
-m.pos.forEach(p => { if(!p) return; const realPos = p; const displayName =
-resolvePlayerName (p, activePopupMatchId); if (realPos.startsWith("H"))
-outH.innerHTML +=  `<option value="${realPos}">${realPos} (${displayName})</option>`; else if(realPos.startsWith("G")) outG.innerHTML +=
-`<option value="${realPos}">${realPos} (${displayName})</option>`; });
-["HE1", "HE2", "HE3", "HE4"].forEach(p => { const el =
-document.getElementById("p_" + p); if(el && el.value && el.value.trim() !== "")
-{ const alreadyUsed = substitutions.some (s => s.inPos === p &&
-activePopupMatchId >= s.matchId); if(!alreadyUsed) inH.innerHTML +=  `<option value="${p}">${p} (${el.value})</option>`; } });
-["GE1", "GE2", "GE3", "GE4"].forEach(p => { const el =
-document.getElementById("p_" + p); if(el && el.value && el.value.trim() !== "")
-{ const alreadyUsed = substitutions.some (s => s.inPos === p &&
-activePopupMatchId >= s.matchId); if(!alreadyUsed) inG.innerHTML +=  `<option value="${p}">${p} (${el.value})</option>`; } });
-document.getElementById("livePopup").style.display = "block";
+
+
+
+  // Dropdowns für Raus-Auswahl befüllen (Spieler, die gerade auf dem Feld stehen)
+  m.pos.forEach(p => { 
+    if(!p) return; 
+    const realPos = p; 
+    const displayName = resolvePlayerName(p, activePopupMatchId); 
+    if (realPos.startsWith("H")) {
+      outH.innerHTML += `<option value="${realPos}">${realPos} (${displayName})</option>`; 
+    } else if (realPos.startsWith("G")) {
+      outG.innerHTML += `<option value="${realPos}">${realPos} (${displayName})</option>`; 
+    }
+  });
+
+  // Heim-Ersatzspieler (HE1 - HE4) für die Rein-Auswahl prüfen (Hier wurden die kyrillischen Zeichen korrigiert!)
+  ["HE1", "HE2", "HE3", "HE4"].forEach(p => { 
+    const el = document.getElementById("p_" + p); 
+    if(el && el.value && el.value.trim() !== "") { 
+      const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId >= s.matchId); 
+      if(!alreadyUsed) {
+        inH.innerHTML += `<option value="${p}">${p} (${el.value})</option>`; 
+      }
+    } 
+  });
+
+  // Gast-Ersatzspieler (GE1 - GE4) für die Rein-Auswahl prüfen (Syntax-Fehler behoben!)
+  ["GE1", "GE2", "GE3", "GE4"].forEach(p => { 
+    const el = document.getElementById("p_" + p); 
+    if(el && el.value && el.value.trim() !== "") { 
+      const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId >= s.matchId); 
+      if(!alreadyUsed) {
+        inG.innerHTML += `<option value="${p}">${p} (${el.value})</option>`; 
+      }
+    } 
+  });
+
+  document.getElementById("livePopup").style.display = "block";
 }
+
 
 function executePopupSubstitution (teamSide) {
   const outPos = document.getElementById("pop_sub_out_" + teamSide).value; 
