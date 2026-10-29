@@ -1386,7 +1386,7 @@ function fuehreKombiUpdateAus() {
   }
   
   // KORREKTUR: Hier ist jetzt dein echter Name und dein Repository eingetragen!
-  const url = "https://githubusercontent.com" + Date.now();
+  const url = "spieler.txt?v=" + Date.now();
   const spielerTextarea = document.getElementById("txt_import_area");
   if (!spielerTextarea) return;
   
@@ -3332,7 +3332,7 @@ let mkkLoadedSchedules = {};
 
 function ladeSpielplanVonGitHub() {
   // KORREKTUR: Hier ist jetzt dein echter Name und dein Repository eingetragen!
-  const url = "https://githubusercontent.com" + Date.now();
+ const url = "spielplan.txt?v=" + Date.now();
   const kombiBtn = document.getElementById("btn_plan_import");
   if(kombiBtn) {
     kombiBtn.innerText = "Spielplan wird geladen...";
