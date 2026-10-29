@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dsh-dart-v1';
+const CACHE_NAME = 'dsh-dart-v2'; // Erhöht auf v2 gegen blockierte Updates
 const ASSETS = [
   './',
   './index.html',
@@ -33,8 +33,13 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Dateien aus dem Cache laden (Offline-Modus)
+// Dateien aus dem Cache laden (Mit direkter Live-Ausnahme für GitHub-Textdateien)
 self.addEventListener('fetch', (event) => {
+  // WICHTIG: Wenn der Aufruf an GitHub geht, lass den Service Worker komplett die Finger davon lassen!
+  if (event.request.url.includes('://githubusercontent.com')) {
+    return; // Lädt die Daten direkt live und unverändert aus dem Internet
+  }
+
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       return cachedResponse || fetch(event.request);
