@@ -1,0 +1,59 @@
+Spielplan: B-Liga 501 M.O 2/26
+HINRUNDE
+Spiel 1: DC LaPaloma vs. DC Fraggles
+Spiel 2: Spassvogel vs. DC Oneshot
+Spiel 3: Blue Bay vs. Eskalation 1
+Spiel 4: Eskalation 2 vs. DC High Flyer
+Spiel 5: DC Fraggles vs. Spassvogel
+Spiel 6: Eskalation 1 vs. DC LaPaloma
+Spiel 7: DC Oneshot vs. Eskalation 2
+Spiel 8: DC High Flyer vs. Blue Bay
+Spiel 9: DC Fraggles vs. Eskalation 1
+Spiel 10: Spassvogel vs. Eskalation 2
+Spiel 11: DC High Flyer vs. DC LaPaloma
+Spiel 12: Blue Bay vs. DC Oneshot
+Spiel 13: DC Fraggles vs. Eskalation 2
+Spiel 14: DC High Flyer vs. Eskalation 1
+Spiel 15: Spassvogel vs. Blue Bay
+Spiel 16: DC LaPaloma vs. DC Oneshot
+Spiel 17: DC Fraggles vs. DC High Flyer
+Spiel 18: Blue Bay vs. Eskalation 2
+Spiel 19: Eskalation 1 vs. DC Oneshot
+Spiel 20: DC LaPaloma vs. Spassvogel
+Spiel 21: DC Fraggles vs. Blue Bay
+Spiel 22: DC Oneshot vs. DC High Flyer
+Spiel 23: Eskalation 2 vs. DC LaPaloma
+Spiel 24: Spassvogel vs. Eskalation 1
+Spiel 25: DC Oneshot vs. DC Fraggles
+Spiel 26: DC LaPaloma vs. Blue Bay
+Spiel 27: DC High Flyer vs. Spassvogel
+Spiel 28: Eskalation 1 vs. Eskalation 2
+RÜCKRUNDE
+Spiel 29: DC Fraggles vs. DC LaPaloma
+Spiel 30: DC Oneshot vs. Spassvogel
+Spiel 31: Eskalation 1 vs. Blue Bay
+Spiel 32: DC High Flyer vs. Eskalation 2
+Spiel 33: Spassvogel vs. DC Fraggles
+Spiel 34: DC LaPaloma vs. Eskalation 1
+Spiel 35: Eskalation 2 vs. DC Oneshot
+Spiel 36: Blue Bay vs. DC High Flyer
+Spiel 37: Eskalation 1 vs. DC Fraggles
+Spiel 38: Spassvogel vs. Eskalation 2
+Spiel 39: DC High Flyer vs. DC LaPaloma
+Spiel 40: DC Oneshot vs. Blue Bay
+Spiel 41: Eskalation 2 vs. DC Fraggles
+Spiel 42: DC High Flyer vs. Eskalation 1
+Spiel 43: Blue Bay vs. Spassvogel
+Spiel 44: DC LaPaloma vs. DC Oneshot
+Spiel 45: DC Fraggles vs. DC High Flyer
+Spiel 46: Eskalation 2 vs. Blue Bay
+Spiel 47: DC Oneshot vs. Eskalation 1
+Spiel 48: Spassvogel vs. DC LaPaloma
+Spiel 49: Blue Bay vs. DC Fraggles
+Spiel 50: DC High Flyer vs. DC Oneshot
+Spiel 51: DC LaPaloma vs. Eskalation 2
+Spiel 52: Eskalation 1 vs. Spassvogel
+Spiel 53: DC Fraggles vs. DC Oneshot
+Spiel 54: Blue Bay vs. DC LaPaloma
+Spiel 55: Spassvogel vs. DC High Flyer
+Spiel 56: Eskalation 2 vs. Eskalation 1
