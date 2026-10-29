@@ -1359,42 +1359,44 @@ let isMatchPlayable = false; let importedTeams = {};
 
 
 function fuehreKombiUpdateAus() {
-const kombiBtn = document.getElementById("btn_kombi_import");
-if(kombiBtn) {
-kombiBtn.innerText = "Daten werden geladen & verarbeitet...";
-kombiBtn.style.opacity = "0.6";
+  const kombiBtn = document.getElementById("btn_kombi_import");
+  if(kombiBtn) {
+    kombiBtn.innerText = "Daten werden geladen & verarbeitet...";
+    kombiBtn.style.opacity = "0.6";
+  }
+  // Der direkte, echte Raw-Link zu deiner spieler.txt auf GitHub + Cache-Buster
+  const url = "https://githubusercontent.com" + Date.now();
+  const spielerTextarea = document.getElementById("txt_import_area");
+  if (!spielerTextarea) return;
+  
+  fetch(url, { cache: "no-store" })
+  .then(response => {
+    if (!response.ok) throw new Error("Datei konnte nicht von GitHub abgerufen werden.");
+    return response.text();
+  })
+  .then(daten => {
+    if (daten && daten.trim().length > 0) {
+      spielerTextarea.value = daten.trim();
+      importTeamsFromTxt();
+      aktualisiereKombiButtonText();
+      const panel = document.getElementById("accordion_panel");
+      if (panel) {
+        panel.style.display = "none";
+      }
+      document.body.classList.remove("settings-open");
+      alert("Spielerliste erfolgreich frisch geladen und dauerhaft gespeichert!");
+    } else {
+      alert("Die Datei auf GitHub scheint leer zu sein.");
+      ZustandKombiButtonZuruecksetzen();
+    }
+  })
+  .catch(error => {
+    console.error(error);
+    alert("Fehler beim Abrufen! Vergewissere dich, dass spieler.txt öffentlich auf GitHub einsehbar ist.");
+    ZustandKombiButtonZuruecksetzen();
+  });
 }
-const url = "./spieler.txt";
 
-const spielerTextarea = document.getElementById("txt_import_area");
-if (!spielerTextarea) return;
-fetch(url)
-.then(response => {
-if (!response.ok) throw new Error("Datei konnte nicht von GitHub abgerufen werden.");
-return response.text();
-})
-.then(daten => {
-if (daten && daten.trim().length > 0) {
-spielerTextarea.value = daten.trim();
-importTeamsFromTxt();
-aktualisiereKombiButtonText();
-const panel = document.getElementById("accordion_panel");
-if (panel) {
-panel.style.display = "none";
-}
-document.body.classList.remove("settings-open");
-alert("Spielerliste erfolgreich frisch geladen und dauerhaft gespeichert!");
-} else {
-alert("Die Datei auf GitHub scheint leer zu sein.");
-ZustandKombiButtonZuruecksetzen();
-}
-})
-.catch(error => {
-console.error(error);
-alert("Fehler beim Abrufen! Vergewissere dich, dass spieler.txt öffentlich auf GitHub einsehbar ist.");
-ZustandKombiButtonZuruecksetzen();
-});
-}
 
 
 
@@ -3285,35 +3287,37 @@ function closeStatsDetailPopup() {
 let mkkLoadedSchedules = {};
 
 function ladeSpielplanVonGitHub() {
-const url = "./spielplan.txt";
+  // Der direkte, echte Raw-Link zu deiner spielplan.txt auf GitHub + Cache-Buster
+  const url = "https://githubusercontent.com" + Date.now();
+  const kombiBtn = document.getElementById("btn_plan_import");
+  if(kombiBtn) {
+    kombiBtn.innerText = "Spielplan wird geladen...";
+    kombiBtn.style.opacity = "0.6";
+  }
+  
+  fetch(url, { cache: "no-store" })
+  .then(response => {
+    if (!response.ok) throw new Error("Spielplan-Datei konnte nicht geladen werden.");
+    return response.text();
+  })
+  .then(text => {
+    verarbeiteSpielplanText(text);
+    console.log("MKK-Spielplan erfolgreich geladen und strukturiert!");
+    autoDetectLeagueAndMatchday();
+    alert("Spielplan erfolgreich von GitHub abgerufen!");
+  })
+  .catch(error => {
+    console.error("Fehler beim Abrufen des Spielplans:", error);
+    alert("Fehler beim Laden! Bitte überprüfe, ob spielplan.txt auf GitHub existiert.");
+  })
+  .finally(() => {
+    if(kombiBtn) {
+      kombiBtn.innerText = "Spielplan frisch von GitHub abrufen";
+      kombiBtn.style.opacity = "1";
+    }
+  });
+}
 
-const kombiBtn = document.getElementById("btn_plan_import");
-if(kombiBtn) {
-kombiBtn.innerText = "Spielplan wird geladen...";
-kombiBtn.style.opacity = "0.6";
-}
-fetch(url)
-.then(response => {
-if (!response.ok) throw new Error("Spielplan-Datei konnte nicht geladen werden.");
-return response.text();
-})
-.then(text => {
-verarbeiteSpielplanText(text);
-console.log("MKK-Spielplan erfolgreich geladen und strukturiert!");
-autoDetectLeagueAndMatchday();
-alert("Spielplan erfolgreich von GitHub abgerufen!");
-})
-.catch(error => {
-console.error("Fehler beim Abrufen des Spielplans:", error);
-alert("Fehler beim Laden! Bitte überprüfe, ob spielplan.txt auf GitHub existiert.");
-})
-.finally(() => {
-if(kombiBtn) {
-kombiBtn.innerText = "Spielplan frisch von GitHub abrufen";
-kombiBtn.style.opacity = "1";
-}
-});
-}
 
 
 
