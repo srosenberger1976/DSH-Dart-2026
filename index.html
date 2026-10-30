@@ -1146,23 +1146,25 @@ font-style: italic;">Spielberichtsbogen</span>
     <div style="display: flex; gap: 10px; margin-top: 10px;">
         <button id="btn_sig_save_G" style="flex: 1; background: #00cc66; color: black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px;" onclick="speichereUnterschriftManuell('G')">Speichern</button>
         <button id="btn_sig_edit_G" style="flex: 1; background: #ffcc00; color: black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px; display: none;" onclick="bearbeiteUnterschriftManuell('G')">Bearbeiten</button>
-        <button style="flex: 1; background: #cc3333; color: white; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px;" onclick="clearFixedSignature('G')">Löschen</button>
-    </div>
-</div>
-
-
-
-
-
-
-  <button id="btn_print_pdf" class="print-btn row-disabled" style="margin-top: 15px;" onclick="starteSpezialDruck()">
-    PDF im 🖨 Schwarz-Weiß drucken & speichern
-  </button>
+<!-- --- CODE DAVOR (Zur Orientierung auf Seite 25) --- -->
+ <button style="flex: 1; background: #cc3333; color: white; border: none;
+padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; 
+text-transform: uppercase; font-size: 13px;" 
+onclick="clearFixedSignature('G')">Löschen</button>
  </div>
 </div>
 
+<!-- === DIESEN BUTTON-BLOCK KOMPLETT ERSETZEN === -->
+<button id="btn_print_pdf" class="print-btn row-disabled" style="margin-top: 15px;" onclick="starteSpezialDruck()">
+ PDF im Schwarz-Weiß drucken & speichern 🖨
+</button>
+<!-- ============================================= -->
 
+<!-- --- CODE DAHINTER (Zur Orientierung) --- -->
+ </div>
+</div>
 <div id="print-layout-root" style="display: none;">
+
 <div class="print-page">
 
   <!-- HIER IST DER NEUE CENTRIERTE BLOCK MIT TEXT -->
@@ -1437,6 +1439,39 @@ let isMatchPlayable = false; let importedTeams = {};
 
 
 
+/* --- CODE DAVOR (Zur Orientierung im Script-Bereich) --- */
+let isMatchPlayable = false; let importedTeams = {};
+
+// === HIER DIESE NEUE FUNKTION EINFÜGEN ===
+function starteSpezialDruck() {
+    // Prüft, ob die App auf dem Home-Bildschirm (Vollbildmodus) läuft
+    const isPWA = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+    
+    if (isPWA) {
+        // Falls als App geöffnet: Öffne die Seite in Safari mit dem Druck-Befehl als Signal
+        const safariUrl = window.location.href + (window.location.href.includes('?') ? '&' : '?') + 'triggerPrint=true';
+        window.open(safariUrl, '_blank');
+    } else {
+        // Falls bereits in Safari geöffnet: Direkt drucken
+        window.print();
+    }
+}
+
+// Autostart des Drucks, falls von der Home-App an Safari übergeben wurde
+window.addEventListener('DOMContentLoaded', () => {
+    if (window.location.search.includes('triggerPrint=true')) {
+        // Entfernt das Signal aus der Adressleiste für Sauberkeit
+        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({path: cleanUrl}, '', cleanUrl);
+        
+        // Startet die Druckvorschau in Safari nach einer Mini-Verzögerung automatisch
+        setTimeout(() => { window.print(); }, 800);
+    }
+});
+// =========================================
+
+/* --- CODE DAHINTER (Zur Orientierung) --- */
+function fuehreKombiUpdateAus() {
 
 
 
