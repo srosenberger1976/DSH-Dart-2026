@@ -3257,6 +3257,12 @@ margin: 0 !important;
 padding: 0 !important;
 -webkit-print-color-adjust: exact !important;
 print-color-adjust: exact !important;
+
+    /* NEU: Automatische Skalierung auf 85% */
+    zoom: 85%; /* Funktioniert perfekt in Chrome, Edge, Opera und Safari */
+    transform: scale(0.85); /* Fallback für Firefox */
+    transform-origin: top left; /* Richtet den skalierten Inhalt oben links aus */
+    width: 117.64% !important; /* Gleicht die Verkleinerung aus, damit die Breite stimmt (100 / 0.85) */
 }
 
 /* KORREKTUR: Entfernt das globale Linksbündig für td, damit die obere Tabellenstruktur nicht zerschossen wird */
