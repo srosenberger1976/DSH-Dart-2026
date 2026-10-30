@@ -2,17 +2,17 @@
 <html lang="de">
 <head>
  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link rel="manifest" href="manifest.json">
+ <link rel="manifest" href="/MKK-2026/manifest.json">
  <meta name="apple-mobile-web-app-capable" content="yes">
  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="DSH Dart"> 
+ <meta name="apple-mobile-web-app-title" content="MKK Dart">
+ 
  <!-- 1JETZT SIND HIER ECHTE GRAFIKDATEIEN FÜR ANDROID & IPHONE HINTERLEGT -->
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="icon" type="image/png" href="icon-192.png">
-
+ <link rel="apple-touch-icon" href="https://r2.dev">
+ <link rel="icon" type="image/png" href="https://r2.dev">
  
  <meta charset="UTF-8">
-<title>DSH Bullshooter Liga Live-Bogen</title>
+ <title>American Dart - Liga MKK Live-Bogen</title>
 
 
 
@@ -51,18 +51,6 @@
  border-top: 1px solid #444;
  background: #2d2d2d;
 }
-
-
-@keyframes pulsieren {
-    0% { transform: scale(0.95); opacity: 0.8; }
-    50% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(0.95); opacity: 0.8; }
-}
-
-
-
-
-
  body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #1a1a1a; 
 color: #fff; margin: 0; padding: 15px; }
  .container { max-width: 1200px; margin: 0 auto; background: #2a2a2a; border: 
@@ -475,13 +463,8 @@ print-color-adjust: exact; }
 display: none !important; }
  #print-layout-root { display: block !important; width: 100%; box-sizing: 
 border-box; padding: 15mm 10mm 10mm 10mm; }
- 
-.print-header-title {
-  font-family: 'Times New Roman', Times, serif !important;
-  font-style: italic !important;
-  text-decoration: underline !important;
-  font-weight: normal !important;
-}
+ .print-header-title { font-size: 22px; font-weight: bold; text-align: center; 
+text-transform: uppercase; margin-bottom: 8px; color: #000 !important; }
  .print-teams-container { display: grid; grid-template-columns: 1fr 1fr; gap: 
 15px; margin-bottom: 8px; }
  .print-team-table { width: 100%; border-collapse: collapse; }
@@ -544,42 +527,30 @@ body.settings-open .setup-hide-on-settings {
 
 
 
-/* ISOLIERTE SMARTPHONE-KORREKTUR FÜR METADATEN & POPUPS */
+/* ISOLIERTE SMARTPHONE-KORREKTUR NUR FÜR DEN MITTLEREN METADATEN-BLOCK */
 @media (max-width: 768px) {
-    .tab-navigation { gap: 6px !important; }
-    .tab-navigation .tab-btn { font-size: 12px !important; padding: 10px 4px !important; text-align: center; }
-    .settings-btn, .tab-navigation button[onclick^="resetWholeMatchday"] { width: 38px !important; height: 38px !important; min-width: 38px !important; font-size: 16px !important; }
-    .main-grid { display: flex !important; flex-direction: column !important; gap: 15px !important; }
-    .panel { padding: 12px !important; width: 100% !important; box-sizing: border-box !important; }
-    input, select { font-size: 15px !important; padding: 10px !important; }
+  .tab-navigation { gap: 6px !important; }
+  .tab-navigation .tab-btn { font-size: 12px !important; padding: 10px 4px !important; text-align: center; }
+  .settings-btn, .tab-navigation button[onclick^="resetWholeMatchday"] { width: 38px !important; height: 38px !important; min-width: 38px !important; font-size: 16px !important; }
+  .main-grid { display: flex !important; flex-direction: column !important; gap: 15px !important; }
+  .panel { padding: 12px !important; width: 100% !important; box-sizing: border-box !important; }
+  input, select { font-size: 15px !important; padding: 10px !important; }
 
-    /* Optimierung für das Live-Spiele-Popup auf dem Handy */
-    .popup-content {
-        width: 95% !important;
-        max-width: 100% !important;
-        padding: 12px !important;
-        box-sizing: border-box !important;
-    }
+  /* Optimierung für das Live-Spiele-Popup auf dem Handy */
+  .popup-content {
+    width: 95% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+  }
 
-    /* Groessere Buttons mit viel Luft fuer dicke Finger */
-    .click-box {
-        font-size: 15px !important;
-        padding: 16px 10px !important;
-        margin: 16px 0 !important; /* Verdoppelter Abstand */
-        min-height: 54px !important;
-        box-sizing: border-box !important;
-    }
-
-    /* Fette, schwarze Trennstriche unter den Button-Typen zur klaren Abgrenzung */
-    .click-box-home {
-        border-bottom: 4px solid #000000 !important;
-    }
-    .click-box-guest {
-        border-bottom: 4px solid #000000 !important; /* NEU: Jetzt auch fuer das Gast-Feld */
-    }
-}
-
-
+  .click-box { 
+    font-size: 15px !important; 
+    padding: 16px 10px !important; /* Macht die Buttons höher -> viel leichter zu treffen! */
+    margin: 8px 0 !important;
+    min-height: 54px !important;
+    box-sizing: border-box !important;
+  }
   
   .popup-header {
     font-size: 16px !important;
@@ -600,45 +571,24 @@ body.settings-open .setup-hide-on-settings {
   }
 }
 
-/* Vergrößert die Auswechselspieler-Sektion im Popup für leichte Bedienung */
+/* Vergrößert die Auswechselspieler-Sektion im Popup */
 #popup_sub_toggle_area label {
-    font-size: 14px !important;
-    font-weight: bold !important;
-    color: #aaa !important;
-    display: block !important;
-    margin-bottom: 4px !important;
-    text-align: left !important;
+  font-size: 99px !important;
+  font-weight: bold;
 }
 #popup_sub_toggle_area select {
-    font-size: 14px !important;
-    height: 40px !important;
-    padding: 6px 10px !important;
-    background: #262626 !important;
-    color: #fff !important;
-    border: 1px solid #555 !important;
-    border-radius: 6px !important;
-    box-sizing: border-box !important;
-    text-align: left !important;
-    text-align-last: left !important;
+  font-size: 44px !important;
+  height: 42px !important;
+  padding: 56px !important;
 }
 #popup_sub_toggle_area button {
-    font-size: 14px !important;
-    height: 40px !important;
-    font-weight: bold !important;
-    border-radius: 6px !important;
-    text-transform: uppercase !important;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3) !important;
+  font-size: 22px !important;
+  height: 66px !important;
 }
 .sub-popup-title {
-    font-size: 15px !important;
-    font-weight: bold !important;
-    color: #ffcc00 !important;
-    margin: 15px 0 8px 0 !important;
-    border-bottom: 1px dashed #555 !important;
-    padding-bottom: 4px !important;
-    text-align: left !important;
+  font-size: 22px !important;
+  margin: 99px 0 6px 0 !important;
 }
-
 
 
 /* Massiver 3D-Effekt und Großschrift für die Mannschaftsauswahl - Perfekt zentriert */
@@ -742,27 +692,13 @@ function aktiviereVollbild() {
 }
 </script>
 </head>
-
-<body onload="beendeStartbildschirm()">
-
-  <!-- NEU: Künstlicher Startbildschirm (Splash Screen) -->
-  <div id="app_splash_screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111111; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease-in-out;">
-    <img src="icon-512.png" alt="App Icon" style="width: 150px; height: 150px; margin-bottom: 40px; animation: pulsieren 5s infinite ease-in-out;">
-    <div style="color: #ffcc00; font-family: sans-serif; font-size: 45px; font-weight: bold; letter-spacing: 1px;">DSH BULLSHOOTER LIGA</div>
-    <div style="color: #888; font-family: sans-serif; font-size: 19px; margin-top: 15px;">Spielbericht wird geladen...</div>
-  </div>
-
-
-
-
 <body onclick="if(window.aktiviereVollbild) aktiviereVollbild();">
 <!-- Einziger, globaler Hauptcontainer für die gesamte Seite -->
 <div class="container">
     
     <h1 style="text-align: center; color: #ffcc00; margin-top: 0; margin-bottom: 20px; line-height: 1.2; border-bottom: 2px solid #ffcc00; padding-bottom: 10px; ">
-DSH Bullshooter Liga<br>
-<span style="font-size: 18px; color: #fff; font-weight: normal;
-font-style: italic;">Spielberichtsbogen</span>
+        MKK Bullshooter Liga 2026<br>
+        <span style="font-size: 18px; color: #fff; font-weight: normal; font-style: italic;">Spielberichtsbogen</span>
     </h1>
 
 
@@ -904,15 +840,12 @@ font-style: italic;">Spielberichtsbogen</span>
             <div style="display: flex; flex-direction: column; gap: 12px;">
                 <div>
                     <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Gruppe:</label>
-<select id="meta_group" onchange="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px;">
-<option value="">-- wählen --</option>
-<option value="Gruppe A">A Liga</option>
-<option value="Gruppe B">B Liga</option>
-<option value="Gruppe C">C Liga</option>
-<!-- NEU: Das Freispiel mit Pokal-Icon -->
-<option value="Freispiel">🏆 Freispiel</option>
-</select>
-
+                    <select id="meta_group" onchange="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px;">
+                        <option value="">-- wählen --</option>
+                        <option value="Gruppe A">A Liga</option>
+                        <option value="Gruppe B">B Liga</option>
+                        <option value="Gruppe C">C Liga</option>
+                    </select>
                 </div>
                 <div>
                     <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Spieltag:</label>
@@ -1146,77 +1079,43 @@ font-style: italic;">Spielberichtsbogen</span>
     <div style="display: flex; gap: 10px; margin-top: 10px;">
         <button id="btn_sig_save_G" style="flex: 1; background: #00cc66; color: black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px;" onclick="speichereUnterschriftManuell('G')">Speichern</button>
         <button id="btn_sig_edit_G" style="flex: 1; background: #ffcc00; color: black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px; display: none;" onclick="bearbeiteUnterschriftManuell('G')">Bearbeiten</button>
-<!-- --- CODE DAVOR (Zur Orientierung auf Seite 25) --- -->
- <button style="flex: 1; background: #cc3333; color: white; border: none;
-padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; 
-text-transform: uppercase; font-size: 13px;" 
-onclick="clearFixedSignature('G')">Löschen</button>
+        <button style="flex: 1; background: #cc3333; color: white; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px;" onclick="clearFixedSignature('G')">Löschen</button>
+    </div>
+</div>
+
+
+
+
+
+
+  <button id="btn_print_pdf" class="print-btn row-disabled" style="margin-top: 15px;" onclick="starteSpezialDruck()">
+    PDF im 🖨 Schwarz-Weiß drucken & speichern
+  </button>
  </div>
 </div>
 
-<!-- === DIESEN BUTTON-BLOCK KOMPLETT ERSETZEN === -->
-<button id="btn_print_pdf" class="print-btn row-disabled" style="margin-top: 15px;" onclick="starteSpezialDruck()">
- PDF im Schwarz-Weiß drucken & speichern 🖨
-</button>
-<!-- ============================================= -->
 
-<!-- --- CODE DAHINTER (Zur Orientierung) --- -->
- </div>
-</div>
-<div id="print-layout-root" style="display: none;">
+<div id="print-layout-root">
+ <div class="print-page">
 
-<div class="print-page">
-
-  <!-- HIER IST DER NEUE CENTRIERTE BLOCK MIT TEXT -->
-  <div style="text-align: center; width: 100%; margin-bottom: 10px;">
-    <div class="print-header-title" style="font-family: 'Times New Roman', Times, serif; font-size: 42px; font-style: italic; font-weight: normal; letter-spacing: 0.5px; display: inline-block; margin-bottom: 4px;">
-      <u>DSH Bullshooter Liga</u>
-    </div>
-    <div style="font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; color: #000; margin-top: 2px;">
-      Spielberichtsbogen nach Spielende in die TC Gruppe stellen
-    </div>
-  </div>
-
-<!-- Hier geht deine alte Tabelle für Gruppe, Spieltag, Datum einfach weiter -->
-<table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
-<tr>
-<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Gruppe A:</b> <span id="lbl_group_A"></span></td>
-<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Gruppe B:</b> <span id="lbl_group_B"></span></td>
-<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Gruppe C:</b> <span id="lbl_group_C"></span></td>
-<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Spieltag:</b> <span id="lbl_day"></span></td>
-<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Datum:</b> <span id="lbl_date"></span></td>
-</tr>
-<tr>
-<td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
-<div class="print-meta-cell-content">
-<span class="print-meta-label">Heimteam:</span>
-<span id="lbl_name_home" class="print-meta-value"></span>
-</div>
-</td>
-<td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
-<div class="print-meta-cell-content">
-<span class="print-meta-label">Gastteam:</span>
-<span id="lbl_name_guest" class="print-meta-value"></span>
-</div>
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
-<div class="print-meta-cell-content">
-<span class="print-meta-label">Heim TC:</span>
-<span id="lbl_captain_home" class="print-meta-value"></span>
-</div>
-</td>
-<td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
-<div class="print-meta-cell-content">
-<span class="print-meta-label">Gast TC:</span>
-<span id="lbl_captain_guest" class="print-meta-value"></span>
-</div>
-</td>
-</tr>
-</table>
-
-
+  <div class="print-header-title" style="font-family: 'Times New Roman', serif; font-size: 26px; font-style: italic;">American Dart - Liga MKK</div>
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
+   <tr>
+    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe A:</b> <span id="lbl_group_A"></span></td>
+    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe B:</b> <span id="lbl_group_B"></span></td>
+    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe C:</b> <span id="lbl_group_C"></span></td>
+    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Spieltag:</b> <span id="lbl_day"></span></td>
+    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Datum:</b> <span id="lbl_date"></span></td>
+   </tr>
+   <tr>
+    <td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Heimteam:</b> <span id="lbl_name_home"></span></td>
+    <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Gastteam:</b> <span id="lbl_name_guest"></span></td>
+   </tr>
+   <tr>
+    <td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Heim TC:</b> <span id="lbl_captain_home"></span></td>
+    <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Gast TC:</b> <span id="lbl_captain_guest"></span></td>
+   </tr>
+  </table>
   <div class="print-teams-container" style="margin-top: 5px;">
    <div>
     <table class="print-team-table">
@@ -1247,32 +1146,13 @@ onclick="clearFixedSignature('G')">Löschen</button>
   </div>
   <div class="print-main-content-layout">
    <div>
-
-
-
-<table class="print-match-table">
-<thead>
-<tr>
-  <th rowspan="2" style="width: 7%;">Spiel</th>
-  <th rowspan="2" style="width: 13%;">Typ</th>
-  <!-- HIER WURDE DIE ÜBERSCHRIFT ANGEPASST -->
-  <th colspan="4" style="width: 62%;">Spieler / Score</th>
-  <th colspan="2" style="width: 18%;">Spielstand</th>
-</tr>
-<tr>
-  <th style="width: 15.5%;">1</th>
-  <th style="width: 15.5%;">2</th>
-  <th style="width: 15.5%;">3</th>
-  <th style="width: 15.5%;">4</th>
-  <th style="width: 9%;">Heim</th>
-  <th style="width: 9%;">Gast</th>
-</tr>
-</thead>
-<tbody id="print_table_all"></tbody>
-</table>
-
-
-
+    <table class="print-match-table">
+     <thead>
+      <tr><th rowspan="2" style="width:8%">Spiel</th><th rowspan="2" style="width:7%">Typ</th><th colspan="8">Score</th><th colspan="2" style="width:17%">Spielstand</th></tr>
+      <tr><th colspan="2" style="width:17%">1</th><th colspan="2" style="width:17%">2</th><th colspan="2" style="width:17%">3</th><th colspan="2" style="width:17%">4</th><th style="width:8.5%">Heim</th><th style="width:8.5%">Gast</th></tr>
+     </thead>
+     <tbody id="print_table_all"></tbody>
+    </table>
    </div>
    <div class="print-right-panel">
     <div class="print-box-title">Auswechslungen Heimteam</div>
@@ -1315,71 +1195,65 @@ onclick="clearFixedSignature('G')">Löschen</button>
  </div>
 </div>
 <div id="livePopup" class="popup-overlay">
-  <div class="popup-content">
-    <div class="popup-nav-container">
-      <button class="nav-arrow-btn" id="popup_btn_prev" onclick="navigatePopupMatch(-1)">◀</button>
-      <div class="popup-header" id="popupGameTitle" style="margin:0; border:none; padding:0;">Spiel 1 (D)</div>
-      <button class="nav-arrow-btn" id="popup_btn_next" onclick="navigatePopupMatch(1)">▶</button>
-    </div>
-    <div id="popup_status_msg" class="popup-game-status-info" style="display:none;"> Spiel gewertet! Zum Ändern Button 🔒 nutzen:</div>
-    <button id="popup_fix_btn" class="fix-error-btn" style="display:none;" onclick="unlockCurrentMatchForFix()"> ⚠ Fehler beheben / Spiel freischalten</button>
-    
-    <div id="winnerSelectionArea"></div>
-    
-    <!-- NEUER BUTTON: Öffnet das separate Einflieg-Popup -->
-    <button onclick="oeffneWechselPopup()" style="margin-top: 15px; width: 100%; padding: 12px; background: #333; color: #ffcc00; border: 2px solid #ffcc00; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; font-size: 13px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">🔄 Auswechslungen vornehmen</button>
-    
-    <button class="close-btn" onclick="closeLivePopup()" style="margin-top:15px; padding:10px;">Schließen / Abbrechen</button>
+ <div class="popup-content">
+  <div class="popup-nav-container">
+   <button class="nav-arrow-btn" id="popup_btn_prev" onclick="navigatePopupMatch(-1)">◀</button>
+   <div class="popup-header" id="popupGameTitle" style="margin:0; border:none; padding:0;">Spiel 1 (D)</div>
+   <button class="nav-arrow-btn" id="popup_btn_next" onclick="navigatePopupMatch(1)">▶</button>
   </div>
-</div>
-
-<!-- NEUES EIGENSTÄNDIGES WECHSEL-POPUP (Fliegt von oben ein) -->
-<div id="subFlyPopup" class="popup-overlay" style="display: none; background: rgba(0,0,0,0.5); z-index: 10005;">
-  <div class="popup-content sub-fly-content" style="max-width: 480px; width: 92%; border-color: #ffcc00; box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
-    <div class="popup-header" style="margin-bottom: 15px; font-size: 18px;">Spieler einwechseln 🔄</div>
-    
-    <div id="popup_sub_block_H">
-      <div class="sub-popup-title" style="font-size: 14px; font-weight: bold; color: #ffcc00; margin-bottom: 8px;">Wechsel Heimteam: 🏠</div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr 48px; gap: 8px; align-items: end; margin-bottom: 15px;">
-        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Raus:</label><select id="pop_sub_out_H" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
-        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Rein:</label><select id="pop_sub_in_H" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
-        <button onclick="executePopupSubstitution('H')" style="padding: 0; height: 38px; background: #00cc66; color: #000; border: none; font-weight:bold; cursor:pointer; font-size:14px; border-radius:5px; width: 100%;">OK</button>
-      </div>
+  <div id="popup_status_msg" class="popup-game-status-info" style="display:none;"> Spiel gewertet! Zum Ändern Button 🔒 nutzen:</div>
+  <button id="popup_fix_btn" class="fix-error-btn" style="display:none;" onclick="unlockCurrentMatchForFix()"> ⚠ Fehler beheben / Spiel freischalten</button>
+  <div id="winnerSelectionArea"></div>
+  <button id="popup_toggle_sub_btn" onclick="togglePopupSubmissions()" style="margin-top: 15px; width: 100%; padding: 8px; background: #333; color: #ffcc00; border: 1px solid #ffcc00; font-weight: bold; cursor: pointer; border-radius: 4px; text-transform: uppercase; font-size: 11px;"> Auswechslungen anzeigen 🛠</button>
+  <div id="popup_sub_toggle_area" style="display: none; margin-top: 10px; border-top: 1px dashed #555; padding-top: 5px;">
+   <div id="popup_sub_block_H">
+    <div class="sub-popup-title"> Wechsel Heimteam: 🏠</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 40px; gap: 5px; align-items: end;">
+     <div><label style="margin:0; font-size:11px;">Raus:</label><select id="pop_sub_out_H" style="padding:4px; font-size:11px; width:100%;"></select></div>
+     <div><label style="margin:0; font-size:11px;">Rein:</label><select id="pop_sub_in_H" style="padding:4px; font-size:11px; width:100%;"></select></div>
+     <button onclick="executePopupSubstitution('H')" style="padding:4px 0; background:#00cc66; color:#000; border:none; font-weight:bold; cursor:pointer; font-size:11px; border-radius:3px;">OK</button>
     </div>
-    
-    <div id="popup_sub_block_G" style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #555;">
-      <div class="sub-popup-title" style="font-size: 14px; font-weight: bold; color: #ffcc00; margin-bottom: 8px;">Wechsel Gastteam: 🚀</div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr 48px; gap: 8px; align-items: end; margin-bottom: 15px;">
-        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Raus:</label><select id="pop_sub_out_G" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
-        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Rein:</label><select id="pop_sub_in_G" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
-        <button onclick="executePopupSubstitution('G')" style="padding: 0; height: 38px; background:#ff3333; color:#fff; border: none; font-weight: bold; cursor:pointer; font-size:14px; border-radius: 5px; width: 100%;">OK</button>
-      </div>
+   </div>
+   <div id="popup_sub_block_G" style="margin-top: 8px;">
+    <div class="sub-popup-title"> Wechsel Gastteam: 🚀</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 40px; gap: 5px; align-items: end;">
+     <div><label style="margin:0; font-size:11px;">Raus:</label><select id="pop_sub_out_G" style="padding:4px; font-size:11px;"></select></div>
+     <div><label style="margin:0; font-size:11px;">Rein:</label><select id="pop_sub_in_G" style="padding:4px; font-size:11px;"></select></div>
+     <button onclick="executePopupSubstitution('G')" style="padding:4px 0; background:#ff3333; color:#fff; border:none; font-weight:bold; cursor:pointer; font-size:11px; border-radius:3px;">OK</button>
     </div>
-    
-    <button class="close-btn" onclick="schliesseWechselPopup()" style="background: #cc3333; color: white; margin-top: 15px; padding: 10px;">Zurück zum Spiel</button>
+   </div>
   </div>
-</div>
+ 
 
-<!-- Das neue Popup für die detaillierte Spieler-Kontrolle -->
-<div id="statsDetailPopup" class="popup-overlay" style="display: none;">
-  <div class="popup-content" style="max-width: 600px; width: 95%;">
+
+
+      <button class="close-btn" onclick="closeLivePopup()" style="margin-top:15px; padding:8px;">Schließen / Abbrechen</button>
+    </div>
+  </div>
+
+  <!-- GENAU HIER: Das neue Popup für die detaillierte Spieler-Kontrolle -->
+  <div id="statsDetailPopup" class="popup-overlay" style="display: none;">
+   <div class="popup-content" style="max-width: 600px; width: 95%;">
     <div class="popup-header" id="statsDetailTitle" style="margin-bottom: 10px;">Spieler-Kontrolle</div>
     <div style="max-height: 350px; overflow-y: auto; margin-bottom: 15px;">
-      <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-        <thead>
-          <tr>
-            <th style="width: 15%;">Spiel</th>
-            <th style="width: 20%;">Typ</th>
-            <th style="width: 30%;">Deine Rolle</th>
-            <th style="width: 35%;">Partner / Gegner</th>
-          </tr>
-        </thead>
-        <tbody id="statsDetailTableBody"></tbody>
-      </table>
+     <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+      <thead>
+       <tr>
+        <th style="width: 15%;">Spiel</th>
+        <th style="width: 20%;">Typ</th>
+        <th style="width: 30%;">Deine Rolle</th>
+        <th style="width: 35%;">Partner / Gegner</th>
+       </tr>
+      </thead>
+      <tbody id="statsDetailTableBody"></tbody>
+     </table>
     </div>
     <button class="close-btn" onclick="closeStatsDetailPopup()" style="background: #ffcc00; color: #000; margin-top: 5px;">Schließen</button>
+   </div>
   </div>
-</div>
+
+
+
 
 <div id="pwaInstallPopup" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #2a2a2a; border: 2px solid #ffcc00; padding: 15px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 99999; width: 90%; max-width: 400px; box-sizing: border-box; font-family: Arial, sans-serif;">
  <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
@@ -1396,82 +1270,32 @@ onclick="clearFixedSignature('G')">Löschen</button>
 
 <script>
 const mkkSchedule = [
-  // 1-4: Doppel
-  { id: 1, type: "D", pos: ["H1", "G3", "H2", "G4"] },
-  { id: 2, type: "D", pos: ["G1", "H3", "G2", "H4"] },
-  { id: 3, type: "D", pos: ["H2", "G4", "H3", "G1"] },
-  { id: 4, type: "D", pos: ["G2", "H4", "G3", "H1"] },
-  // 5-12: Einzel
-  { id: 5, type: "E", pos: ["H1", "G1", "", ""] },
-  { id: 6, type: "E", pos: ["G2", "H2", "", ""] },
-  { id: 7, type: "E", pos: ["H3", "G3", "", ""] },
-  { id: 8, type: "E", pos: ["G4", "H4", "", ""] },
-  { id: 9, type: "E", pos: ["G2", "H1", "", ""] },
-  { id: 10, type: "E", pos: ["H2", "G3", "", ""] },
-  { id: 11, type: "E", pos: ["H4", "G1", "", ""] },
-  { id: 12, type: "E", pos: ["G4", "H3", "", ""] },
-  // 13-20: Cricket
-  { id: 13, type: "C", pos: ["H4", "G2", "H1", "G3"] },
-  { id: 14, type: "C", pos: ["G4", "H2", "G2", "H3"] },
-  { id: 15, type: "C", pos: ["H1", "G1", "H2", "G4"] },
-  { id: 16, type: "C", pos: ["G1", "H3", "G3", "H4"] },
-  { id: 17, type: "C", pos: ["H2", "G4", "H3", "G3"] },
-  { id: 18, type: "C", pos: ["G2", "H4", "G1", "H1"] },
-  { id: 19, type: "C", pos: ["H3", "G3", "H4", "G2"] },
-  { id: 20, type: "C", pos: ["G1", "H1", "G4", "H2"] },
-  // 21-28: Einzel
-  { id: 21, type: "E", pos: ["G3", "H1", "", ""] },
-  { id: 22, type: "E", pos: ["H2", "G4", "", ""] },
-  { id: 23, type: "E", pos: ["G1", "H3", "", ""] },
-  { id: 24, type: "E", pos: ["H4", "G2", "", ""] },
-  { id: 25, type: "E", pos: ["H1", "G4", "", ""] },
-  { id: 26, type: "E", pos: ["G1", "H2", "", ""] },
-  { id: 27, type: "E", pos: ["H3", "G2", "", ""] },
-  { id: 28, type: "E", pos: ["G3", "H4", "", ""] },
-  // 29-32: Doppel
-  { id: 29, type: "D", pos: ["H4", "G2", "H1", "G3"] },
-  { id: 30, type: "D", pos: ["G3", "H1", "G4", "H2"] },
-  { id: 31, type: "D", pos: ["H3", "G1", "H4", "G2"] },
-  { id: 32, type: "D", pos: ["G4", "H2", "G1", "H3"] }
+ { id: 1, type: "D", pos: ["H1", "G2", "H2", "G4"] }, { id: 2, type: "D", pos: ["G3", "H3", "G1", "H4"] },
+ { id: 3, type: "E", pos: ["H1", "G1", "", ""] }, { id: 4, type: "E", pos: ["G4", "H4", "", ""] },
+ { id: 5, type: "E", pos: ["H3", "G3", "", ""] }, { id: 6, type: "E", pos: ["G2", "H2", "", ""] },
+ { id: 7, type: "C", pos: ["H4", "G2", "H1", "G3"] }, { id: 8, type: "C", pos: ["G4", "H2", "G2", "H3"] },
+ { id: 9, type: "C", pos: ["G1", "H3", "G4", "H4"] }, { id: 10, type: "C", pos: ["H1", "G1", "H2", "G3"] },
+ { id: 11, type: "C", pos: ["G4", "H3", "G3", "H2"] }, { id: 12, type: "C", pos: ["H1", "G1", "H4", "G2"] },
+ { id: 13, type: "E", pos: ["H2", "G4", "", ""] }, { id: 14, type: "E", pos: ["G2", "H1", "", ""] },
+ { id: 15, type: "E", pos: ["H4", "G3", "", ""] }, { id: 16, type: "E", pos: ["G1", "H3", "", ""] },
+ { id: 17, type: "D", pos: ["G2", "H4", "G3", "H1"] }, { id: 18, type: "D", pos: ["H2", "G1", "H3", "G4"] },
+ { id: 19, type: "E", pos: ["G3", "H1", "", ""] }, { id: 20, type: "E", pos: ["H4", "G2", "", ""] },
+ { id: 21, type: "E", pos: ["G4", "H3", "", ""] }, { id: 22, type: "E", pos: ["H2", "G1", "", ""] },
+ { id: 23, type: "C", pos: ["G2", "H1", "G4", "H3"] }, { id: 24, type: "C", pos: ["H4", "G3", "H2", "G1"] },
+ { id: 25, type: "C", pos: ["G3", "H4", "G4", "H3"] }, { id: 26, type: "C", pos: ["H2", "G4", "H4", "G1"] },
+ { id: 27, type: "C", pos: ["G2", "H3", "G1", "H1"] }, { id: 28, type: "C", pos: ["H2", "G3", "H1", "G2"] },
+ { id: 29, type: "E", pos: ["G1", "H4", "", ""] }, { id: 30, type: "E", pos: ["H3", "G2", "", ""] },
+ { id: 31, type: "E", pos: ["G3", "H2", "", ""] }, { id: 32, type: "E", pos: ["H1", "G4", "", ""] },
+ { id: 33, type: "D", pos: ["H4", "G1", "H2", "G2"] }, { id: 34, type: "D", pos: ["G4", "H1", "G3", "H3"] }
 ];
 let matchResults = {}; let substitutions = []; let playerScores = {}; let activePopupMatchId = null;
 let isMatchPlayable = false; let importedTeams = {};
 
 
 
-/* --- CODE DAVOR (Zur Orientierung im Script-Bereich) --- */
-let isMatchPlayable = false; let importedTeams = {};
 
-// === HIER DIESE NEUE FUNKTION EINFÜGEN ===
-function starteSpezialDruck() {
-    // Prüft, ob die App auf dem Home-Bildschirm (Vollbildmodus) läuft
-    const isPWA = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
-    
-    if (isPWA) {
-        // Falls als App geöffnet: Öffne die Seite in Safari mit dem Druck-Befehl als Signal
-        const safariUrl = window.location.href + (window.location.href.includes('?') ? '&' : '?') + 'triggerPrint=true';
-        window.open(safariUrl, '_blank');
-    } else {
-        // Falls bereits in Safari geöffnet: Direkt drucken
-        window.print();
-    }
-}
 
-// Autostart des Drucks, falls von der Home-App an Safari übergeben wurde
-window.addEventListener('DOMContentLoaded', () => {
-    if (window.location.search.includes('triggerPrint=true')) {
-        // Entfernt das Signal aus der Adressleiste für Sauberkeit
-        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-        window.history.replaceState({path: cleanUrl}, '', cleanUrl);
-        
-        // Startet die Druckvorschau in Safari nach einer Mini-Verzögerung automatisch
-        setTimeout(() => { window.print(); }, 800);
-    }
-});
-// =========================================
 
-/* --- CODE DAHINTER (Zur Orientierung) --- */
-function fuehreKombiUpdateAus() {
 
 
 
@@ -1482,44 +1306,53 @@ function fuehreKombiUpdateAus() {
 
 function fuehreKombiUpdateAus() {
   const kombiBtn = document.getElementById("btn_kombi_import");
-  if(kombiBtn) {
-    kombiBtn.innerText = "Daten werden geladen & verarbeitet...";
-    kombiBtn.style.opacity = "0.6";
+  if(kombiBtn) { 
+    kombiBtn.innerText = "🔄 Daten werden geladen & verarbeitet..."; 
+    kombiBtn.style.opacity = "0.6"; 
   }
-  
-  // KORREKTUR: Hier ist jetzt dein echter Name und dein Repository eingetragen!
-  const url = "spieler.txt?v=" + Date.now();
+
+  const url = "/MKK-2026/spieler.txt";
   const spielerTextarea = document.getElementById("txt_import_area");
   if (!spielerTextarea) return;
-  
-  fetch(url, { cache: "no-store" })
-  .then(response => {
-    if (!response.ok) throw new Error("Datei konnte nicht von GitHub abgerufen werden.");
-    return response.text();
-  })
-  .then(daten => {
-    if (daten && daten.trim().length > 0) {
-      spielerTextarea.value = daten.trim();
-      importTeamsFromTxt();
-      aktualisiereKombiButtonText();
-      const panel = document.getElementById("accordion_panel");
-      if (panel) {
-        panel.style.display = "none";
-      }
-      document.body.classList.remove("settings-open");
-      alert("Spielerliste erfolgreich frisch geladen und dauerhaft gespeichert!");
-    } else {
-      alert("Die Datei auf GitHub scheint leer zu sein.");
-      if (typeof ZustandKombiButtonZuruecksetzen === "function") ZustandKombiButtonZuruecksetzen();
-    }
-  })
-  .catch(error => {
-    console.error(error);
-    alert("Fehler beim Abrufen! Vergewissere dich, dass spieler.txt öffentlich auf GitHub einsehbar ist.");
-    if (typeof ZustandKombiButtonZuruecksetzen === "function") ZustandKombiButtonZuruecksetzen();
-  });
-}
 
+  fetch(url)
+    .then(response => {
+      if (!response.ok) throw new Error("Datei konnte nicht von GitHub abgerufen werden.");
+      return response.text();
+    })
+    .then(daten => {
+      if (daten && daten.trim().length > 0) {
+        // 1. Daten in die Textbox schreiben
+        spielerTextarea.value = daten.trim();
+        
+        // 2. Mannschaften verarbeiten und im Browser-Gedächtnis sichern
+        importTeamsFromTxt();
+        
+        // 3. Button-Text anhand der ersten Zeile aktualisieren
+        aktualisiereKombiButtonText();
+        
+        // 4. AUTOMATISCHER SCHLIESS-TRICK: Klappt das Textfeld-Menü von alleine zu
+        const panel = document.getElementById("accordion_panel");
+        const arrow = document.getElementById("accordion_arrow");
+if (panel) {
+panel.style.display = "none"; // Schließt das Menü visuell
+document.body.classList.remove("settings-open"); // Macht den unteren Teil wieder sichtbar!
+if (arrow) arrow.innerText = "";
+
+        }
+        
+        alert("Spielerliste erfolgreich frisch geladen und dauerhaft gespeichert! 🎯");
+      } else {
+        alert("Die Datei auf GitHub scheint leer zu sein.");
+        ZustandKombiButtonZuruecksetzen();
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      alert("Fehler beim Abrufen! Bitte überprüfe deine Internetverbindung.");
+      ZustandKombiButtonZuruecksetzen();
+    });
+}
 
 
 function importTeamsFromTxt() {
@@ -1845,24 +1678,16 @@ function validateRosterAndSetup() {
         }
     }
 
-// Gesamte Freigabe des Spielberichts (Prüft alle Pflichtfelder)
-const istFreispiel = (metaG === "Freispiel");
-
-// Wenn es ein Freispiel ist, ignorieren wir die Pflicht für Gruppe/Spieltag im Hintergrund
-if((istFreispiel || (metaG && metaD)) && capH && capG && teamH && teamG && h1 && h2 && h3 && h4 && g1 && g2 && g3 && g4) {
-    isMatchPlayable = true;
-    bar.className = "status-bar status-ready";
-    if (istFreispiel) {
-        bar.innerText = "🏆 FREISPIEL AKTIV! Der Spielberichtsbogen ist komplett freigeschaltet. Good Darts!";
-    } else {
+    // Gesamte Freigabe des Spielberichts (Prüft alle Pflichtfelder)
+    if(metaG && metaD && capH && capG && teamH && teamG && h1 && h2 && h3 && h4 && g1 && g2 && g3 && g4) {
+        isMatchPlayable = true;
+        bar.className = "status-bar status-ready";
         bar.innerText = "Bereit! Der Spielberichtsbogen ist freigeschaltet. Wechsel oben in den Live-Spielplan!";
+    } else {
+        isMatchPlayable = false;
+        bar.className = "status-bar status-locked";
+        bar.innerText = "Spiel gesperrt: Bitte Gruppe, Spieltag, Kapitäne wählen und mindestens 4 Hauptspieler (H1-H4 & G1-G4) besetzen!";
     }
-} else {
-    isMatchPlayable = false;
-    bar.className = "status-bar status-locked";
-    bar.innerText = "Spiel gesperrt: Bitte Gruppe, Spieltag, Kapitäne wählen und mindestens 4 Hauptspieler (H1-H4 & G1-G4) besetzen!";
-}
-
     
     renderTable();
 }
@@ -1877,38 +1702,21 @@ function resolvePlayerName(pos, matchId, returnPositionCode = false) {
  let inputEl = document.getElementById("p_" + activePos); return inputEl ? inputEl.value || activePos : activePos;
 }
 
-// Öffnet das Wechsel-Popup und startet die Einflug-Animation
-function oeffneWechselPopup() {
-    const subPopup = document.getElementById("subFlyPopup");
-    if (!subPopup) return;
-    
-    subPopup.style.display = "block";
-    
-    // Kurze Verzögerung für den Browser, damit die CSS-Animation sauber anläuft
-    setTimeout(() => {
-        subPopup.classList.add("fly-active");
-    }, 10);
-}
-
-// Schließt das Wechsel-Popup mit Rückwärs-Animation
-function schliesseWechselPopup() {
-    const subPopup = document.getElementById("subFlyPopup");
-    if (!subPopup) return;
-    
-    subPopup.classList.remove("fly-active");
-    
-    // Wartet, bis das Popup aus dem Bild geflogen ist, und blendet es dann aus
-    setTimeout(() => {
-        subPopup.style.display = "none";
-    }, 400);
-}
-
-// Bereinigter Schließen-Befehl für das Haupt-Ergebnisfenster
 function closeLivePopup() {
-    document.getElementById("livePopup").style.display = "none";
-    schliesseWechselPopup(); // Sicherheitshalber auch das Wechselfenster mit wegpacken
+ document.getElementById("livePopup").style.display = "none";
+ const subArea = document.getElementById("popup_sub_toggle_area");
+ const toggleBtn = document.getElementById("popup_toggle_sub_btn");
+ if(subArea) subArea.style.display = "none";
+ if(toggleBtn) toggleBtn.innerText = " Auswechslungen 🛠 anzeigen";
 }
 
+function togglePopupSubmissions() {
+ const subArea = document.getElementById("popup_sub_toggle_area");
+ const toggleBtn = document.getElementById("popup_toggle_sub_btn");
+ if(!subArea) return;
+ if(subArea.style.display === "none") { subArea.style.display = "block"; toggleBtn.innerText = " Auswechslungen ausblenden ✖"; }
+ else { subArea.style.display = "none"; toggleBtn.innerText = " Auswechslungen anzeigen 🛠"; }
+}
 function renderTable() {
  const tbody = document.getElementById("matchTableBody"); const printBody = document.getElementById("print_table_all");
  if(!tbody || !printBody) return; tbody.innerHTML = ""; printBody.innerHTML = "";
@@ -1956,10 +1764,7 @@ function renderTable() {
  const f4 = c4 && ((c4.startsWith("H") && isHomeWinner) || (c4.startsWith("G") && isGuestWinner)) ? "font-weight:900; font-size:10px;" : "";
  const mark1 = res.checkerPos === c1 ? "X" : (res.assistantPos === c1 ? "/" : ""); const mark2 = res.checkerPos === c2 ? "X" : (res.assistantPos === c2 ? "/" : "");
  const mark3 = c3 ? (res.checkerPos === c3 ? "X" : (res.assistantPos === c3 ? "/" : "")) : ""; const mark4 = c4 ? (res.checkerPos === c4 ? "X" : (res.assistantPos === c4 ? "/" : "")) : "";
- 
-
-
-const scoreDisplayHome = hasBeenPlayed ? runningHome : ""; const scoreDisplayGuest = hasBeenPlayed ? runningGuest : "";
+ const scoreDisplayHome = hasBeenPlayed ? runningHome : ""; const scoreDisplayGuest = hasBeenPlayed ? runningGuest : "";
  const trP = document.createElement("tr");
  trP.innerHTML = `<td><b>${m.id}</b></td><td>${m.type}</td><td class="pos-cell" style="${f1}">${c1}</td><td class="gray-indicator-cell">${mark1}</td><td class="pos-cell" style="${f2}">${c2}</td><td class="gray-indicator-cell">${mark2}</td><td class="pos-cell" style="${f3}">${c3||""}</td><td class="gray-indicator-cell">${mark3}</td><td class="pos-cell" style="${f4}">${c4||""}</td><td class="gray-indicator-cell">${mark4}</td><td><b>${scoreDisplayHome}</b></td><td><b>${scoreDisplayGuest}</b></td>`;
  printBody.appendChild(trP);
@@ -2005,167 +1810,162 @@ const scoreDisplayHome = hasBeenPlayed ? runningHome : ""; const scoreDisplayGue
 
 
 
-function openLivePopup(matchId) {
-    activePopupMatchId = Number(matchId);
-    const m = mkkSchedule.find(x => x.id === activePopupMatchId);
-    if(!m) return;
+function openLivePopup (matchId) {
+activePopupMatchId = Number(matchId);
+const m = mkkSchedule.find(x => x.id === activePopupMatchId);
+if(!m) return;
+let typeLong = m.type;
+if (m.type === "E") typeLong = "501 M/O Einzel"; else if (m.type === "D")
+typeLong = "501 M/O Doppel"; else if (m.type === "C") typeLong = "Cricket Team";
+document.getElementById("popupGameTitle").innerText = `Spiel ${m.id} (${typeLong})`;
+document.getElementById("popup_btn_prev").disabled = (m.id === 1);
+document.getElementById("popup_btn_next").disabled = (m.id === 34);
+const isPlayed = !! matchResults[m.id];
+const statusMsg = document.getElementById("popup_status_msg");
+const fixBtn = document.getElementById("popup_fix_btn");
+if (isPlayed) {
+if(statusMsg) statusMsg.style.display = "block";
+if(fixBtn) fixBtn.style.display = "block";
+} else {
+if(statusMsg) statusMsg.style.display = "none";
+if(fixBtn) fixBtn.style.display = "none";
+}
+const c1 = m.pos [0] || ""; const c2 = m.pos [1] || ""; const c3 = m.pos [2] || "";
+const c4 = m.pos [3] || "";
+const p1 = resolvePlayerName (c1, activePopupMatchId); const p2 =
+resolvePlayerName (c2, activePopupMatchId); const p3 = c3 ? resolvePlayerName
+(c3, activePopupMatchId) : ""; const p4 = c4 ? resolvePlayerName (c4,
+activePopupMatchId) : "";
+const area = document.getElementById("winnerSelectionArea"); area.innerHTML = "";
+let curH = 0, curG = 0;
+for(let i=1; i<= activePopupMatchId; i++) { if(matchResults[i]) { curH +=
+matchResults[i].heim; curG += matchResults[i].gast; } }
+area.innerHTML += ` <div style="text-align:center; font-size:15px; font-weight:bold; color: #ffcc00; margin: 0 0 12px 0; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 3px; ">Spielstand: ${curH}: ${curG}</div>`;
+
+// HIER IST DIE WICHTIGE SPERRE FÜR BEREITS GESPIELTE SPIELE WIEDER AKTIV
+const disabledAttr = isPlayed ? "click-box-disabled" : "";
+
+if (m.type === "E") {
+    const side1 = c1.startsWith("H") ? "H" : "G";
+    const side2 = c2.startsWith("H") ? "H" : "G";
     
-    let typeLong = m.type;
-    if (m.type === "E") typeLong = "501 M/O Einzel"; 
-    else if (m.type === "D") typeLong = "501 M/O Doppel"; 
-    else if (m.type === "C") typeLong = "Cricket Team";
+    // Ermittelt die aktuell echten Positionen (Berücksichtigt aktive Wechsel!)
+    const realPos1 = resolvePlayerName(c1, activePopupMatchId, true);
+    const realPos2 = resolvePlayerName(c2, activePopupMatchId, true);
     
-    const titleEl = document.getElementById("popupGameTitle");
-    if (titleEl) titleEl.innerText = `Spiel ${m.id} (${typeLong})`;
-    
-    const prevBtn = document.getElementById("popup_btn_prev");
-    const nextBtn = document.getElementById("popup_btn_next");
-    if (prevBtn) prevBtn.disabled = (m.id === 1);
-    if (nextBtn) nextBtn.disabled = (m.id === 32);
-    
-    const isPlayed = !!matchResults[m.id];
-    const statusMsg = document.getElementById("popup_status_msg");
-    const fixBtn = document.getElementById("popup_fix_btn");
-    if (statusMsg) statusMsg.style.display = isPlayed ? "block" : "none";
-    if (fixBtn) fixBtn.style.display = isPlayed ? "block" : "none";
-    
-    const c1 = m.pos[0] || ""; 
-    const c2 = m.pos[1] || ""; 
-    const c3 = m.pos[2] || ""; 
-    const c4 = m.pos[3] || "";
-    
-    const p1 = resolvePlayerName(c1, activePopupMatchId); 
-    const p2 = resolvePlayerName(c2, activePopupMatchId); 
-    const p3 = c3 ? resolvePlayerName(c3, activePopupMatchId) : ""; 
-    const p4 = c4 ? resolvePlayerName(c4, activePopupMatchId) : "";
-    
-    const area = document.getElementById("winnerSelectionArea"); 
-    if (!area) return;
-    area.innerHTML = "";
-    
-    let curH = 0, curG = 0;
-    for(let i = 1; i < activePopupMatchId; i++) { 
-        if(matchResults[i]) { 
-            curH += matchResults[i].heim; 
-            curG += matchResults[i].gast; 
-        } 
-    }
-    area.innerHTML += `<div style="text-align:center; font-size: 15px; font-weight:bold; color: #ffcc00; margin: 0 0 12px 0; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 3px;">Spielstand vor dem Match: ${curH}: ${curG}</div>`;
-    
-    const disabledAttr = isPlayed ? "click-box-disabled" : "";
-    
-    if (m.type === "E") {
-        const side1 = c1.startsWith("H") ? "H" : "G";
-        const side2 = c2.startsWith("H") ? "H" : "G";
-        const realPos1 = resolvePlayerName(c1, activePopupMatchId, true);
-        const realPos2 = resolvePlayerName(c2, activePopupMatchId, true);
-        
-        let einzelPlayers = [
-            { name: p1, pos: realPos1, side: side1, scoreNum: 1 },
-            { name: p2, pos: realPos2, side: side2, scoreNum: 2 }
-        ];
-        einzelPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
-        
+    let einzelPlayers = [
+        { name: p1, pos: realPos1, side: side1, scoreNum: 1 },
+        { name: p2, pos: realPos2, side: side2, scoreNum: 2 }
+    ];
+    einzelPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
+   
+
+
+
+
         einzelPlayers.forEach(p => {
             const sideBadge = p.side === 'H' ? 'Heim' : 'Gast';
             const btnStyle = p.side === 'H'
-                ? 'background: #00cc66 !important; color: #000 !important; font-weight: bold; padding: 12px; margin:6px 0; border: none; display: block;'
-                : 'background: #ffcc00 !important; color: #000 !important; font-weight: bold; padding: 12px; margin:6px 0; border: none; display:block;';
+                ? 'background: #00cc66 !important; color: #000 !important; font-weight:bold; padding: 12px; margin:6px 0; border: none; display:block;'
+                : 'background: #ffcc00 !important; color: #000 !important; font-weight:bold; padding: 12px; margin:6px 0; border: none; display:block;';
                 
-            area.innerHTML += `<div class="click-box ${disabledAttr} click-box-${p.side.toLowerCase()}" style="${btnStyle}" onclick="if(!${isPlayed}){ registerWinner('${p.name}', '${p.pos}', '${p.side}'); }">
+            area.innerHTML += `<div class="click-box ${disabledAttr}" style="${btnStyle}" onclick="registerWinner('${p.name}', '${p.pos}', '${p.side}')">
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left;">
                     <div style="display: flex; align-items: center; gap: 10px; min-width: 120px;">
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px; min-width: 35px;">${sideBadge}</span>
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px;">Score ${p.scoreNum}</span>
                     </div>
-                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">${p.name}</span>
-                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">${p.pos}</span>
+                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">
+                        ${p.name}
+                    </span>
+                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">
+                        ${p.pos}
+                    </span>
                 </div>
             </div>`;
         });
-    } else {
-        let hPlayers = [], gPlayers = [];
-        const rp1 = resolvePlayerName(c1, activePopupMatchId, true);
-        const rp2 = resolvePlayerName(c2, activePopupMatchId, true);
-        const rp3 = c3 ? resolvePlayerName(c3, activePopupMatchId, true) : "";
-        const rp4 = c4 ? resolvePlayerName(c4, activePopupMatchId, true) : "";
-        
-        if(c1.startsWith("H")) hPlayers.push({name: p1, pos: rp1, scoreNum: 1}); else gPlayers.push({name: p1, pos: rp1, scoreNum: 1});
-        if(c2.startsWith("H")) hPlayers.push({name: p2, pos: rp2, scoreNum: 2}); else gPlayers.push({name: p2, pos: rp2, scoreNum: 2});
-        if(c3) { if(c3.startsWith("H")) hPlayers.push({name: p3, pos: rp3, scoreNum: 3}); else gPlayers.push({name: p3, pos: rp3, scoreNum: 3}); }
-        if(c4) { if(c4.startsWith("H")) hPlayers.push({name: p4, pos: rp4, scoreNum: 4}); else gPlayers.push({name: p4, pos: rp4, scoreNum: 4}); }
-        
-        hPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
-        gPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
-        
-        let allPopupPlayers = [...hPlayers, ...gPlayers];
-        allPopupPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
-        
+
+} else {
+    const hPlayers = [], gPlayers = [];
+    
+    // Ermittelt die aktuell echten Positionen für Doppel/Cricket (Berücksichtigt aktive Wechsel!)
+    const rp1 = resolvePlayerName(c1, activePopupMatchId, true);
+    const rp2 = resolvePlayerName(c2, activePopupMatchId, true);
+    const rp3 = c3 ? resolvePlayerName(c3, activePopupMatchId, true) : "";
+    const rp4 = c4 ? resolvePlayerName(c4, activePopupMatchId, true) : "";
+
+    if(c1.startsWith("H")) hPlayers.push({name: p1, pos: rp1, scoreNum: 1}); else gPlayers.push({name: p1, pos: rp1, scoreNum: 1});
+    if(c2.startsWith("H")) hPlayers.push({name: p2, pos: rp2, scoreNum: 2}); else gPlayers.push({name: p2, pos: rp2, scoreNum: 2});
+    if(c3) { if(c3.startsWith("H")) hPlayers.push({name: p3, pos: rp3, scoreNum: 3}); else gPlayers.push({name: p3, pos: rp3, scoreNum: 3}); }
+    if(c4) { if(c4.startsWith("H")) hPlayers.push({name: p4, pos: rp4, scoreNum: 4}); else gPlayers.push({name: p4, pos: rp4, scoreNum: 4}); }
+    
+    hPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
+    gPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
+    let allPopupPlayers = [...hPlayers, ...gPlayers];
+    allPopupPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
         allPopupPlayers.forEach(p => {
             const isHome = p.pos.startsWith("H");
             const sideBadge = isHome ? 'Heim' : 'Gast';
             const partnerList = isHome ? hPlayers : gPlayers;
             const partner = partnerList.find(x => x.pos !== p.pos) || {name: null, pos: null};
             const currentSideCode = isHome ? 'H' : 'G';
-            
             const btnStyle = isHome
                 ? 'background: #00cc66 !important; color: #000 !important; font-weight:bold; padding: 12px; margin:5px 0; border: none; display:block;'
                 : 'background: #ffcc00 !important; color: #000 !important; font-weight: bold; padding: 12px; margin:5px 0; border: none; display:block;';
                 
-            area.innerHTML += `<div class="click-box ${disabledAttr} click-box-${currentSideCode.toLowerCase()}" style="${btnStyle}" onclick="if(!${isPlayed}){ registerWinner('${p.name}', '${p.pos}', '${currentSideCode}', '${partner.name}', '${partner.pos}'); }">
+            area.innerHTML += `<div class="click-box ${disabledAttr}" style="${btnStyle}" onclick="registerWinner('${p.name}', '${p.pos}', '${currentSideCode}', '${partner.name}', '${partner.pos}')">
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left;">
                     <div style="display: flex; align-items: center; gap: 10px; min-width: 120px;">
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px; min-width: 35px;">${sideBadge}</span>
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px;">Score ${p.scoreNum}</span>
                     </div>
-                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">${p.name}</span>
-                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">${p.pos}</span>
+                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">
+                        ${p.name}
+                    </span>
+                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">
+                        ${p.pos}
+                    </span>
                 </div>
             </div>`;
         });
-    }
-    
-    // BROWSER-SCHUTZ: Befüllt die Dropdowns im neuen, unsichtbaren Wechsel-Popup sicher mit Daten
-    const outH = document.getElementById("pop_sub_out_H"); 
-    const inH = document.getElementById("pop_sub_in_H");
-    const outG = document.getElementById("pop_sub_out_G"); 
-    const inG = document.getElementById("pop_sub_in_G");
-    
-    if (outH && inH && outG && inG) {
-        outH.innerHTML = '<option value="">-- wähle Raus --</option>'; 
-        inH.innerHTML = '<option value="">-- wähle Rein --</option>';
-        outG.innerHTML = '<option value="">-- wähle Raus --</option>'; 
-        inG.innerHTML = '<option value="">-- wähle Rein --</option>';
-        
-        m.pos.forEach(p => {
-            if(!p) return;
-            const displayName = resolvePlayerName(p, activePopupMatchId);
-            if (p.startsWith("H")) {
-                outH.innerHTML += `<option value="${p}">${p} (${displayName})</option>`;
-            } else if (p.startsWith("G")) {
-                outG.innerHTML += `<option value="${p}">${p} (${displayName})</option>`;
-            }
-        });
-        
-        ["HE1", "HE2", "HE3", "HE4"].forEach(p => {
-            const el = document.getElementById("p_" + p);
-            if(el && el.value && el.value.trim() !== "") {
-                const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId > s.matchId);
-                if(!alreadyUsed) inH.innerHTML += `<option value="${p}">${p} (${el.value})</option>`;
-            }
-        });
-        
-        ["GE1", "GE2", "GE3", "GE4"].forEach(p => {
-            const el = document.getElementById("p_" + p);
-            if(el && el.value && el.value.trim() !== "") {
-                const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId > s.matchId);
-                if(!alreadyUsed) inG.innerHTML += `<option value="${p}">${p} (${el.value})</option>`;
-            }
-        });
-    }
-    
-    const livePopup = document.getElementById("livePopup");
-    if (livePopup) livePopup.style.display = "block";
+
+}
+
+
+
+
+const activeSubs = substitutions.filter(s => s.matchId <= activePopupMatchId);
+let subsHtml = "";
+if(activeSubs.length > 0) {
+subsHtml = `<div style="margin-top:10px; background:rgba(255,255,255,0.05); padding: 6px; border-radius: 4px; border:1px solid #444; font-size:11px; text-align: left; color: #bbb;"><b style="color:#ffcc00;"> Aktive Wechsel bis Spiel ${activePopupMatchId}:</b><br>`;
+activeSubs.forEach((s, idx) => { subsHtml +=  `<div style="display: flex; justify-content: space-between; align-items: center; margin: 2px 0;"><span> Ab Spiel ${s.matchId}: <b>${s.inPos}</b> für <b>${s.outPos}</b></span><span onclick="removeSubstitution(${s.matchId}, '${s.outPos}')" style="color:#cc3333; cursor:pointer; font-weight: bold; margin-left: auto; padding:0 4px;"> Löschen</span></div>`; });
+subsHtml += '</div>';
+}
+area.innerHTML += subsHtml;
+document.getElementById("popup_sub_toggle_area").style.display = "none";
+document.getElementById("popup_toggle_sub_btn").innerText = "Auswechslungen anzeigen";
+const outH = document.getElementById("pop_sub_out_H"); const inH = document.getElementById("pop_sub_in_H");
+
+
+const outG = document.getElementById("pop_sub_out_G"); const inG =
+document.getElementById("pop_sub_in_G");
+outH.innerHTML = '<option value="">-- wähle Raus --</option>'; inH.innerHTML =
+'<option value="">-- wähle Rein --</option>';
+outG.innerHTML = '<option value="">-- wähle Raus --</option>'; inG.innerHTML =
+'<option value="">-- wähle Rein --</option>';
+m.pos.forEach(p => { if(!p) return; const realPos = p; const displayName =
+resolvePlayerName (p, activePopupMatchId); if (realPos.startsWith("H"))
+outH.innerHTML +=  `<option value="${realPos}">${realPos} (${displayName})</option>`; else if(realPos.startsWith("G")) outG.innerHTML +=
+`<option value="${realPos}">${realPos} (${displayName})</option>`; });
+["HE1", "HE2", "HE3", "HE4"].forEach(p => { const el =
+document.getElementById("p_" + p); if(el && el.value && el.value.trim() !== "")
+{ const alreadyUsed = substitutions.some (s => s.inPos === p &&
+activePopupMatchId >= s.matchId); if(!alreadyUsed) inH.innerHTML +=  `<option value="${p}">${p} (${el.value})</option>`; } });
+["GE1", "GE2", "GE3", "GE4"].forEach(p => { const el =
+document.getElementById("p_" + p); if(el && el.value && el.value.trim() !== "")
+{ const alreadyUsed = substitutions.some (s => s.inPos === p &&
+activePopupMatchId >= s.matchId); if(!alreadyUsed) inG.innerHTML +=  `<option value="${p}">${p} (${el.value})</option>`; } });
+document.getElementById("livePopup").style.display = "block";
 }
 
 function executePopupSubstitution (teamSide) {
@@ -2191,12 +1991,12 @@ function executePopupSubstitution (teamSide) {
       g++; 
     }
   });
-    alert("Auswechslung erfolgreich registriert!");
-    renderTable();
-    openLivePopup(activePopupMatchId); // Aktualisiert die Namen im Haupt-Popup
-    schliesseWechselPopup();           // Fliegt das Wechsel-Popup elegant wieder nach oben raus
+  alert("Auswechslung erfolgreich registriert!");
+  renderTable(); 
+  openLivePopup(activePopupMatchId);
+  document.getElementById("popup_sub_toggle_area").style.display = "none";
+  document.getElementById("popup_toggle_sub_btn").innerText = "Auswechslungen anzeigen";
 }
-
 
 function removeSubstitution (matchId, outPos) {
   substitutions = substitutions.filter(s => !(s.matchId === matchId && s.outPos === outPos));
@@ -2207,9 +2007,9 @@ function removeSubstitution (matchId, outPos) {
   alert("Auswechslung gelöscht!");
 }
 
-function navigatePopupMatch (direction) {
-const targetId = activePopupMatchId + direction;
-if(targetId >=1 && targetId <=32) { openLivePopup (targetId); }
+function navigatePopupMatch (direction) { 
+  const targetId = activePopupMatchId + direction; 
+  if(targetId >=1 && targetId <=34) { openLivePopup(targetId); } 
 }
 
 function unlockCurrentMatchForFix() {
@@ -2263,145 +2063,120 @@ function registerWinner (ignoredName, checkerPos, side, ignoredAssName = null, a
   renderTable();
   saveMatchdayToLocalStorage();
   setTimeout(() => {
-    if(activePopupMatchId < 32) { 
+    if(activePopupMatchId < 34) { 
       openLivePopup(activePopupMatchId + 1); 
     } else { 
-      alert("Alle 32 Spiele erfasst! Der Spielberichtsbogen ist fertig.");
+      alert("Alle 34 Spiele erfasst! Der Spielberichtsbogen ist fertig.");
       closeLivePopup(); 
     }
   }, 300);
 }
 
 function updateStats() {
-    const hLive = document.getElementById("live_stats_H_body");
-    const gLive = document.getElementById("live_stats_G_body");
-    const hB = document.getElementById("print_stats_H");
-    const gB = document.getElementById("print_stats_G");
-    if(!hLive || !gLive || !hB || !gB) return;
+  const hLive = document.getElementById("live_stats_H_body"); 
+  const gLive = document.getElementById("live_stats_G_body");
+  const hB = document.getElementById("print_stats_H"); 
+  const gB = document.getElementById("print_stats_G");
+  if(!hLive || !gLive || !hB || !gB) return; 
+  hB.innerHTML = ""; gB.innerHTML = ""; hLive.innerHTML = ""; gLive.innerHTML = "";
+  
+  const dynamischeScores = {};
+  Object.keys(matchResults).forEach(id => {
+    const res = matchResults[id];
+    if (!res) return;
+    if (res.checkerPos) {
+      const cName = resolvePlayerName(res.checkerPos, id);
+      if (cName) {
+        if (!dynamischeScores[cName]) dynamischeScores[cName] = { check: 0, assist: 0 };
+        dynamischeScores[cName].check += 1;
+      }
+    }
+    if (res.assistantPos) {
+      const aName = resolvePlayerName(res.assistantPos, id);
+      if (aName) {
+        if (!dynamischeScores[aName]) dynamischeScores[aName] = { check: 0, assist: 0 };
+        dynamischeScores[aName].assist += 1;
+      }
+    }
+  });
+  
+  // Die festen 8 Positionen für beide Teams
+  const posHome = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4"];
+  const posGuest = ["G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
+  
+  // Befüllung Heimteam (Immer 8 Zeilen)
+  posHome.forEach(p => {
+    const el = document.getElementById("p_" + p);
+    let spielerName = el ? el.value.trim() : "";
+    let istErsatz = p.startsWith("HE");
     
-    hB.innerHTML = ""; gB.innerHTML = ""; hLive.innerHTML = ""; gLive.innerHTML = "";
-    const dynamischeScores = {};
+    let anzeigeName = spielerName;
+    let styleZusatz = "";
     
-    Object.keys(matchResults).forEach(id => {
-        const res = matchResults[id];
-        if (!res) return;
-        if (res.checkerPos) {
-            const cName = resolvePlayerName(res.checkerPos, id);
-            if (cName) {
-                if (!dynamischeScores[cName]) dynamischeScores[cName] = { check: 0, assist: 0 };
-                dynamischeScores[cName].check += 1;
-            }
-        }
-        if (res.assistantPos) {
-            const aName = resolvePlayerName(res.assistantPos, id);
-            if (aName) {
-                if (!dynamischeScores[aName]) dynamischeScores[aName] = { check: 0, assist: 0 };
-                dynamischeScores[aName].assist += 1;
-            }
-        }
-    });
-
-    const posHome = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4"];
-    const posGuest = ["G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
+    // Wenn das Feld leer ist oder nur den Standard-Auswahltext enthält
+    if (!spielerName || spielerName.includes("--")) {
+      anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
+      styleZusatz = 'style="color: #888888; font-style: italic;"';
+    }
     
-    // Prüfen, ob überhaupt ein Spiel läuft oder Teams gewählt wurden (für Blanko-Druck)
-    const hatHeimTeam = document.getElementById("team_home")?.value !== "";
-    const hatGastTeam = document.getElementById("team_guest")?.value !== "";
-    const spieleVorhanden = Object.keys(matchResults).length > 0;
-    const istBlanko = !hatHeimTeam && !hatGastTeam && !spieleVorhanden;
-
-    // Befüllung Heimteam (Immer 8 Zeilen)
-    posHome.forEach(p => {
-        const el = document.getElementById("p_" + p);
-        let spielerName = el ? el.value.trim() : "";
-        let istErsatz = p.startsWith("HE");
-        let anzeigeName = spielerName;
-        let styleZusatz = "";
-        
-        if (!spielerName || spielerName.includes("--")) {
-            anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
-            styleZusatz = 'style="color: #888888; font-style: italic;"';
-        }
-        
-        const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
-        const punkteGesamt = (s.check * 2) + (s.assist * 1);
-        
-        let cellLive = (!spielerName || spielerName.includes("--"))
-            ? `<td ${styleZusatz}>${anzeigeName}</td>`
-            : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
-            
-        let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color: #ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
-        
-        // Blanko-Logik für den Ausdruck: Komplett leere Zeilen erzeugen
-        let rowPrint = "";
-        if (istBlanko) {
-            rowPrint = '<tr><td style="height:15px;"></td><td></td><td></td><td></td></tr>';
-        } else {
-            rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
-        }
-        
-        hLive.innerHTML += rowLive;
-        hB.innerHTML += rowPrint;
-    });
-
-    // Befüllung Gastteam (Immer 8 Zeilen)
-    posGuest.forEach(p => {
-        const el = document.getElementById("p_" + p);
-        let spielerName = el ? el.value.trim() : "";
-        let istErsatz = p.startsWith("GE");
-        let anzeigeName = spielerName;
-        let styleZusatz = "";
-        
-        if (!spielerName || spielerName.includes("--")) {
-            anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
-            styleZusatz = 'style="color: #888888; font-style: italic;"';
-        }
-        
-        const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
-        const punkteGesamt = (s.check * 2) + (s.assist * 1);
-        
-        let cellLive = (!spielerName || spielerName.includes("--"))
-            ? `<td ${styleZusatz}>${anzeigeName}</td>`
-            : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
-            
-        let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
-        
-        // Blanko-Logik für den Ausdruck: Komplett leere Zeilen erzeugen
-        let rowPrint = "";
-        if (istBlanko) {
-            rowPrint = '<tr><td style="height:15px;"></td><td></td><td></td><td></td></tr>';
-        } else {
-            rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
-        }
-        
-        gLive.innerHTML += rowLive;
-        gB.innerHTML += rowPrint;
-    });
+    const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
+    const punkteGesamt = (s.check * 2) + (s.assist * 1);
     
-    playerScores = dynamischeScores;
-    localStorage.setItem("mkk_live_player_scores", JSON.stringify(playerScores));
+    // Am Bildschirm bekommt der Name ein Klick-Event, wenn ein echter Spieler da ist
+    let cellLive = (!spielerName || spielerName.includes("--")) 
+      ? `<td ${styleZusatz}>${anzeigeName}</td>`
+      : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
+      
+    let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
+    let rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
+    
+    hLive.innerHTML += rowLive;
+    hB.innerHTML += rowPrint;
+  });
+  
+  // Befüllung Gastteam (Immer 8 Zeilen)
+  posGuest.forEach(p => {
+    const el = document.getElementById("p_" + p);
+    let spielerName = el ? el.value.trim() : "";
+    let istErsatz = p.startsWith("GE");
+    
+    let anzeigeName = spielerName;
+    let styleZusatz = "";
+    
+    if (!spielerName || spielerName.includes("--")) {
+      anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
+      styleZusatz = 'style="color: #888888; font-style: italic;"';
+    }
+    
+    const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
+    const punkteGesamt = (s.check * 2) + (s.assist * 1);
+    
+    let cellLive = (!spielerName || spielerName.includes("--")) 
+      ? `<td ${styleZusatz}>${anzeigeName}</td>`
+      : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
+      
+    let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
+    let rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
+    
+    gLive.innerHTML += rowLive;
+    gB.innerHTML += rowPrint;
+  });
+  
+  playerScores = dynamischeScores;
+  localStorage.setItem("mkk_live_player_scores", JSON.stringify(playerScores));
 }
 
 function syncMetaToLabels() {
-    const groupVal = document.getElementById("meta_group").value;
-    
-    // Setzt die Kreuze für A, B, C zurück oder lässt sie bei Freispiel einfach ganz frei
-    document.getElementById("lbl_group_A").innerText = (groupVal === "Gruppe A") ? "X" : "";
-    document.getElementById("lbl_group_B").innerText = (groupVal === "Gruppe B") ? "X" : "";
-    document.getElementById("lbl_group_C").innerText = (groupVal === "Gruppe C") ? "X" : "";
-    
-    // Wenn Freispiel aktiv ist, bleibt der Spieltag im PDF unsichtbar und leer
-    const dayVal = document.getElementById("meta_day").value;
-    document.getElementById("lbl_day").innerText = (groupVal === "Freispiel") ? "" : dayVal;
-    
-    document.getElementById("lbl_date").innerText = document.getElementById("meta_date").value;
-    document.getElementById("lbl_name_home").innerText = document.getElementById("team_home").value;
-    document.getElementById("lbl_name_guest").innerText = document.getElementById("team_guest").value;
-    document.getElementById("lbl_captain_home").innerText = document.getElementById("captain_home").value;
-    document.getElementById("lbl_captain_guest").innerText = document.getElementById("captain_guest").value;
-    
-    // ... restliche IDs-Schleife (H1, H2 etc.) bleibt wie sie ist ...
-
+  const groupVal = document.getElementById("meta_group").value;
+  document.getElementById("lbl_group_A").innerText = (groupVal === "Gruppe A") ? "X" : "";
+  document.getElementById("lbl_group_B").innerText = (groupVal === "Gruppe B") ? "X" : "";
+  document.getElementById("lbl_group_C").innerText = (groupVal === "Gruppe C") ? "X" : "";
+  document.getElementById("lbl_day").innerText = document.getElementById("meta_day").value;
+  document.getElementById("lbl_date").innerText = document.getElementById("meta_date").value;
+  document.getElementById("lbl_name_home").innerText = document.getElementById("team_home").value;
+  document.getElementById("lbl_name_guest").innerText = document.getElementById("team_guest").value;
+  document.getElementById("lbl_captain_home").innerText = document.getElementById("captain_home").value;
+  document.getElementById("lbl_captain_guest").innerText = document.getElementById("captain_guest").value;
   const ids = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4", "G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
   ids.forEach(id => {
     const el = document.getElementById("p_" + id); 
@@ -2438,55 +2213,26 @@ function updatePrintSubstitutions() {
 
 
 function resetWholeMatchday() {
-if(confirm("Möchtest du wirklich alle eingetragenen Ergebnisse, Auswechslungen und geladenen Teams löschen, um ein neues Spiel zu starten?")) {
-matchResults = {}; substitutions = []; playerScores = {};
-localStorage.removeItem("mkk_live_match_results");
-localStorage.removeItem("mkk_live_substitutions");
-localStorage.removeItem("mkk_live_player_scores");
-localStorage.removeItem("mkk_live_dropdown_state");
-
-// NEU: Unterschriften komplett aus dem Speicher und der Ansicht löschen
-['H', 'G'].forEach(side => {
-localStorage.removeItem("mkk_sig_data_" + side);
-
-// Bilder im Drucklayout verstecken
-const img = document.getElementById("img_print_sig_" + side);
-if (img) { img.style.display = "none"; img.src = ""; }
-
-// Bilder in der Vorschau verstecken (falls vorhanden)
-const previewImg = document.getElementById("sig_preview_img_" + side);
-const previewText = document.getElementById("sig_preview_text_" + side);
-if (previewImg) { previewImg.style.display = "none"; previewImg.src = ""; }
-if (previewText) { previewText.style.display = "block"; }
-
-// Canvas-Zeichenflächen komplett leeren
-const canvas = document.getElementById("fixed_canvas_" + side);
-if (canvas) {
-const ctx = canvas.getContext("2d");
-ctx.clearRect(0, 0, canvas.width, canvas.height);
+ if(confirm("Möchtest du wirklich alle eingetragenen Ergebnisse, Auswechslungen und geladenen Teams löschen, um ein neues Spiel zu starten?")) {
+  matchResults = {}; substitutions = []; playerScores = {};
+  localStorage.removeItem("mkk_live_match_results"); localStorage.removeItem("mkk_live_substitutions"); localStorage.removeItem("mkk_live_player_scores"); localStorage.removeItem("mkk_live_dropdown_state");
+  updatePrintSubstitutions();
+  document.querySelectorAll("select").forEach(s => { s.value = ""; });
+  document.querySelectorAll("input[type='text']").forEach(i => { if(i.id !== "meta_date") { i.value = ""; } });
+  renderTable(); validateRosterAndSetup(); syncMetaToLabels();
+  alert("Alle Spieldaten wurden erfolgreich zurückgesetzt!");
+  switchTab('setup');
+ }
 }
 
-// Visuelle Sperre der Unterschriftenfelder aufheben (wieder weiß und aktiv machen)
-if (typeof setzeSperrZustandVisual === "function") {
-setzeSperrZustandVisual(side, false);
-}
-});
-
-updatePrintSubstitutions();
-document.querySelectorAll("select").forEach(s => { s.value = ""; });
-document.querySelectorAll("input[type='text']").forEach(i => { if(i.id !== "meta_date") { i.value = ""; } });
-renderTable(); validateRosterAndSetup(); syncMetaToLabels();
-
-// Status der Unterschriften-Buttons neu prüfen
-if (typeof checkFixedSignaturesComplete === "function") {
-checkFixedSignaturesComplete();
-}
-}
-alert("Alle Spieldaten und Unterschriften wurden erfolgreich zurückgesetzt!");
-switchTab('setup');
+function saveActiveDropdowns() {
+ const ids = ["team_home", "team_guest", "captain_home", "captain_guest", "meta_group", "meta_day", "meta_date", "p_H1","p_H2","p_H3","p_H4","p_HE1","p_HE2","p_HE3","p_HE4", "p_G1","p_G2","p_G3","p_G4","p_GE1","p_GE2","p_GE3","p_GE4", "pass_H1","pass_H2","pass_H3","pass_H4","pass_HE1","pass_HE2","pass_HE3","pass_HE4", "pass_G1","pass_G2","pass_G3","pass_G4","pass_GE1","pass_GE2","pass_GE3","pass_GE4"];
+ const dropdownState = {}; ids.forEach(id => { const el = document.getElementById(id); if(el) dropdownState[id] = el.value; });
+ localStorage.setItem("mkk_live_dropdown_state", JSON.stringify(dropdownState));
 }
 
-function switchTab(tabName) {
+function switchTab (tabName) {
+    // AUTOMATISCHER SCHLIESS-SCHUTZ: Schließt das Zahnrad-Menü beim Tab-Wechsel
     const panel = document.getElementById("accordion_panel");
     if (panel) panel.style.display = "none";
     document.body.classList.remove("settings-open");
@@ -2494,10 +2240,12 @@ function switchTab(tabName) {
     document.getElementById("tab_setup").classList.remove("active");
     document.getElementById("tab_game").classList.remove("active");
     document.getElementById("tab_" + tabName).classList.add("active");
+    
     document.getElementById("btn_tab_setup").classList.remove("active");
     document.getElementById("btn_tab_game").classList.remove("active");
     document.getElementById("btn_tab_" + tabName).classList.add("active");
     
+    // Startet die Unterschriftenfelder neu, sobald der Spielplan-Tab geöffnet wird
     if (tabName === "game") {
         setTimeout(() => {
             if (typeof initFixedCanvasesWithoutPopup === "function") {
@@ -2505,9 +2253,14 @@ function switchTab(tabName) {
             }
         }, 100);
         
-        // KORREKTUR: Den alten blockierenden 'landscape'-Lock komplett entfernt!
-        // Das Display passt sich jetzt einfach nativ der echten Drehung des Kapitaens an.
+        // NEU: Bildschirm automatisch ins Querformat drehen und sperren
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape')
+                .then(() => console.log("Bildschirm erfolgreich ins Querformat gedreht"))
+                .catch((err) => console.log("Drehung blockiert (erfordert vorherigen Klick/Vollbild):", err));
+        }
     } else if (tabName === "setup") {
+        // NEU: Wenn man zurück zur Aufstellung geht, wieder ins normale Hochformat wechseln
         if (screen.orientation && screen.orientation.unlock) {
             screen.orientation.unlock();
         }
@@ -2522,7 +2275,7 @@ function switchTab(tabName) {
 
 document.addEventListener("DOMContentLoaded", () => {
   if ('serviceWorker' in navigator) {
-   navigator.serviceWorker.register('./sw.js')
+   navigator.serviceWorker.register('/MKK-2026/sw.js')
 
     .then(reg => { console.log('Service Worker registriert!'); reg.update(); })
     .catch(err => console.error('Service Worker Fehler:', err));
@@ -2669,30 +2422,6 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => { popup.style.display = 'block'; }, 3000);
     }
 });
-
-
-
-
-
-function beendeStartbildschirm() {
-    // 3000ms entspricht exakt 3 Sekunden Wartezeit
-    setTimeout(() => {
-        const splash = document.getElementById("app_splash_screen");
-        if (splash) {
-            splash.style.opacity = "0"; // Blendet das Bild weich aus
-            setTimeout(() => {
-                splash.style.display = "none"; // Entfernt es aus dem Klickbereich
-            }, 500); // Wartet das CSS-Ausblenden ab
-        }
-    }, 3000); 
-}
-
-
-
-
-
-
-
 
 function triggerPwaInstallation() {
     const popup = document.getElementById('pwaInstallPopup');
@@ -2930,28 +2659,19 @@ function checkFixedSignaturesComplete() {
     const hatG = localStorage.getItem("mkk_sig_data_G") !== null;
     const btnPrint = document.getElementById("btn_print_pdf");
     const infoText = document.getElementById("sig_info_text");
-    const gesamtSpieleAnzahl = 32; 
     
+    const gesamtSpieleAnzahl = mkkSchedule.length;
     let gespielteSpieleAnzahl = 0;
+    Object.keys(matchResults).forEach(id => { if (matchResults[id]) gespielteSpieleAnzahl++; });
     
-    mkkSchedule.forEach(m => {
-        if (typeof matchResults !== "undefined" && matchResults[m.id]) {
-            gespielteSpieleAnzahl++;
-        }
-    });
-
     if (gespielteSpieleAnzahl >= gesamtSpieleAnzahl && hatH && hatG) {
         if(btnPrint) btnPrint.classList.remove("row-disabled");
         if(infoText) {
             infoText.style.color = "#00cc66";
-            infoText.innerText = "Spielbericht vollständig und unterschrieben! Der PDF-Druck ist jetzt freigegeben.";
+            infoText.innerText = "Spielbericht vollständig! Der PDF-Druck ist jetzt freigegeben.";
         }
     } else {
         if(btnPrint) btnPrint.classList.add("row-disabled");
-        if(infoText && gespielteSpieleAnzahl >= gesamtSpieleAnzahl) {
-            infoText.style.color = "#ffcc00";
-            infoText.innerText = "Alle 32 Spiele erfasst! Bitte speichere nun die Unterschriften von Heim und Gast ab.";
-        }
     }
 }
 
@@ -2967,14 +2687,17 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
+
+
 function starteSpezialDruck() {
     // Sicherheitscheck: Prüfen, ob der Button gesperrt ist
     const btn = document.getElementById("btn_print_pdf");
     if (btn && btn.classList.contains("row-disabled")) {
         alert("Hinweis: Der Ausdruck ist erst nach Erfassung aller Spiele möglich!");
-        return;
+        return; 
     }
-    
+
     // 1. Metadaten einsammeln
     const metaGroup = document.getElementById("meta_group")?.value || "";
     const metaDay = document.getElementById("meta_day")?.value || "";
@@ -2983,23 +2706,7 @@ function starteSpezialDruck() {
     const teamG = document.getElementById("team_guest")?.value || "";
     const capH = document.getElementById("captain_home")?.value || "";
     const capG = document.getElementById("captain_guest")?.value || "";
-    
-    // BLANKO-PRÜFUNG: Wenn keine Teams gewählt und keine Spiele eingetragen sind, ist es ein Blanko-Druck
-    const spieleVorhanden = typeof matchResults !== "undefined" && Object.keys(matchResults).length > 0;
-    const istBlankoDruck = !teamH && !teamG && !spieleVorhanden;
-    
-    // KORREKTUR: Wenn es ein Blanko-Druck ist, blenden wir die Unterschriften auf dem Papier radikal aus!
-    const imgH = document.getElementById("img_print_sig_H");
-    const imgG = document.getElementById("img_print_sig_G");
-    if (istBlankoDruck) {
-        if (imgH) imgH.style.display = "none";
-        if (imgG) imgG.style.display = "none";
-    } else {
-        // Bei einem echten, beendeten Spiel laden wir sie ganz normal
-        if (imgH && localStorage.getItem("mkk_sig_data_H")) { imgH.style.display = "block"; }
-        if (imgG && localStorage.getItem("mkk_sig_data_G")) { imgG.style.display = "block"; }
-    }
-    
+
     // 2. Metadaten auf das Druckblatt schreiben
     if(document.getElementById("lbl_group_A"))
         document.getElementById("lbl_group_A").innerText = (metaGroup === "Gruppe A") ? "X" : "";
@@ -3014,7 +2721,7 @@ function starteSpezialDruck() {
     if(document.getElementById("lbl_name_guest")) document.getElementById("lbl_name_guest").innerText = teamG;
     if(document.getElementById("lbl_captain_home")) document.getElementById("lbl_captain_home").innerText = capH;
     if(document.getElementById("lbl_captain_guest")) document.getElementById("lbl_captain_guest").innerText = capG;
-    
+
     // 3. Aufstellung & Passnummern übertragen
     const ids = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4", "G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
     ids.forEach(id => {
@@ -3025,61 +2732,71 @@ function starteSpezialDruck() {
         const passLbl = document.getElementById("lbl_pass_" + id);
         if(passEl && passLbl) passLbl.innerText = passEl.value || "";
     });
-    
+
     // 4. Alle Matches für das Papier aufbauen
     const printBody = document.getElementById("print_table_all");
     if (printBody && typeof mkkSchedule !== "undefined") {
         printBody.innerHTML = "";
         let runningHome = 0;
         let runningGuest = 0;
+
         mkkSchedule.forEach(m => {
             const res = (typeof matchResults !== "undefined" && matchResults[m.id]) || { heim: 0, gast: 0, checkerPos: "", assistantPos: "" };
             const hasBeenPlayed = (typeof matchResults !== "undefined" && !!matchResults[m.id]);
-            if (hasBeenPlayed) {
-                runningHome += res.heim;
-                runningGuest += res.gast;
+            if (hasBeenPlayed) { 
+                runningHome += res.heim; 
+                runningGuest += res.gast; 
             }
-            
-            const c1 = (m.pos && m.pos[0]) ? resolvePlayerName(m.pos[0], m.id, true) : "";
-            const c2 = (m.pos && m.pos[1]) ? resolvePlayerName(m.pos[1], m.id, true) : "";
-            const c3 = (m.pos && m.pos[2]) ? resolvePlayerName(m.pos[2], m.id, true) : "";
-            const c4 = (m.pos && m.pos[3]) ? resolvePlayerName(m.pos[3], m.id, true) : "";
-            
-            let vollesWortTyp = m.type;
-            if (m.type === "E") vollesWortTyp = "Einzel";
-            else if (m.type === "D") vollesWortTyp = "Doppel";
-            else if (m.type === "C") vollesWortTyp = "Cricket";
-            
+
+// Ermittelt die aktuell echten Positionskürzel (Berücksichtigt aktive Wechsel für die Score-Zellen!)
+const c1 = (m.pos && m.pos[0]) ? resolvePlayerName(m.pos[0], m.id, true) : "";
+const c2 = (m.pos && m.pos[1]) ? resolvePlayerName(m.pos[1], m.id, true) : "";
+const c3 = (m.pos && m.pos[2]) ? resolvePlayerName(m.pos[2], m.id, true) : "";
+const c4 = (m.pos && m.pos[3]) ? resolvePlayerName(m.pos[3], m.id, true) : "";
+
+
+            const mark1 = res.checkerPos === c1 ? "X" : (res.assistantPos === c1 ? "/" : "");
+            const mark2 = res.checkerPos === c2 ? "X" : (res.assistantPos === c2 ? "/" : "");
+            const mark3 = c3 ? (res.checkerPos === c3 ? "X" : (res.assistantPos === c3 ? "/" : "")) : "";
+            const mark4 = c4 ? (res.checkerPos === c4 ? "X" : (res.assistantPos === c4 ? "/" : "")) : "";
+
             const scoreDisplayHome = hasBeenPlayed ? runningHome : "";
             const scoreDisplayGuest = hasBeenPlayed ? runningGuest : "";
-            
+
             const trP = document.createElement("tr");
-            trP.innerHTML =
-                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8px; font-weight:bold; text-align:center;">' + m.id + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8px; text-align:center;">' + vollesWortTyp + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c1 || "-") + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c2 || "-") + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c3 || "-") + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c4 || "-") + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8.5px; font-weight:bold; text-align:center; background: #e0e0e0 !important;">' + scoreDisplayHome + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8.5px; font-weight:bold; text-align:center; background: #e0e0e0 !important;">' + scoreDisplayGuest + '</td>';
+            trP.innerHTML = '<td style="border:1.2px solid #000; padding:1px; font-size:8.5px;"><b>' + m.id + '</b></td>' +
+                '<td style="border: 1.2px solid #000; padding:1px; font-size:8.5px;">' + m.type + '</td>' +
+                '<td style="border: 1.2px solid #000; padding:1px; font-size:8.5px; font-weight:bold;">' + c1 + '</td>' +
+                '<td style="border:1.2px solid #000; background:#e8e8e8; font-weight:bold; width: 12px; padding:1px; font-size:8.5px;">' + mark1 + '</td>' +
+                '<td style="border: 1.2px solid #000; padding:1px; font-size:8.5px; font-weight:bold;">' + c2 + '</td>' +
+                '<td style="border:1.2px solid #000; background:#e8e8e8; font-weight:bold; width: 12px; padding:1px; font-size:8.5px;">' + mark2 + '</td>' +
+                '<td style="border: 1.2px solid #000; padding:1px; font-size:8.5px; font-weight:bold;">' + c3 + '</td>' +
+                '<td style="border:1.2px solid #000; background:#e8e8e8; font-weight:bold; width: 12px; padding:1px; font-size:8.5px;">' + mark3 + '</td>' +
+                '<td style="border: 1.2px solid #000; padding:1px; font-size:8.5px; font-weight:bold;">' + c4 + '</td>' +
+                '<td style="border: 1.2px solid #000; background:#e8e8e8; font-weight:bold; width: 12px; padding:1px; font-size:8.5px;">' + mark4 + '</td>' +
+                '<td style="border: 1.2px solid #000; padding:1px; font-size:8.5px;"><b>' + scoreDisplayHome + '</b></td>' +
+                '<td style="border:1.2px solid #000; padding:1px; font-size:8.5px;"><b>' + scoreDisplayGuest + '</b></td>';
             printBody.appendChild(trP);
         });
     }
-    
+
     // 5. Gesamtergebnis eintragen & Titel für PDF-Dateinamen setzen
     const ergebnisText = document.getElementById("lbl_res_total")?.innerText || "0 : 0";
     const sauberesErgebnis = ergebnisText.replace(":", "zu").trim();
     const alterTitel = document.title;
-    document.title = metaDate + " " + teamH + " gegen " + teamG + " - " + sauberesErgebnis;
-    
+    document.title = metaDate + " " + teamH + " gegen " + teamG + " " + sauberesErgebnis;
+
     // 6. Vollbild-Modus sauber beenden (wichtig für iOS)
-    if (document.exitFullscreen) { document.exitFullscreen().catch(() => {}); }
-    else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
-    
-    // 7. NACH DER VERZÖGERUNG: Druckdialog öffnen
+    if (document.exitFullscreen) { 
+        document.exitFullscreen().catch(() => {}); 
+    } else if (document.webkitExitFullscreen) { 
+        document.webkitExitFullscreen(); 
+    }
+
+    // 7. NACH DER VERZÖGERUNG: Druckdialog öffnen (Sowohl für Android als auch iOS stabil)
     setTimeout(() => {
         window.print();
+        // Stellt den Titel der Web-App nach dem Schließen des Druckfensters wieder her
         setTimeout(() => { document.title = alterTitel; }, 1000);
     }, 350);
 }
@@ -3088,40 +2805,55 @@ function starteSpezialDruck() {
 
 
 
+
 function closeSetupPopup(side) {
+  // Liste aller Positions-IDs für das jeweilige Team
   const spielerIds = side === 'H' 
     ? ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4"] 
     : ["G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
     
   let fehlendePässe = [];
 
+  // Alle ausgewählten Spieler auf fehlende Passnummern prüfen
   spielerIds.forEach(id => {
     const spielerName = document.getElementById("p_" + id)?.value;
     const passNummer = document.getElementById("pass_" + id)?.value.trim();
     
+    // Wenn ein Spieler ausgewählt ist, aber das Passnummer-Feld leer ist
     if (spielerName && spielerName !== "" && !spielerName.includes("--") && !passNummer) {
       fehlendePässe.push(`${id}: ${spielerName}`);
     }
   });
 
+  // Falls Spieler ohne Passnummer gefunden wurden, Warnung anzeigen
   if (fehlendePässe.length > 0) {
     const textListe = fehlendePässe.join("\n");
     const weiter = confirm(`Achtung! Folgende aufgestellte Spieler haben keine Passnummer:\n\n${textListe}\n\nMöchtest du die Aufstellung trotzdem so speichern und das Fenster schließen?`);
     if (!weiter) {
-      return;
+      return; // Bricht das Schließen ab, das Popup bleibt offen zum Korrigieren
     }
   }
 
+  // Wenn alles okay ist oder der Nutzer "Ok" geklickt hat, normal schließen und speichern
   document.getElementById("popup_setup_" + side).style.display = "none";
   document.body.style.overflow = "auto";
   validateRosterAndSetup();
   syncMetaToLabels();
   saveActiveDropdowns();
 }
-
+// FIX: Erzwingt, dass die App beim allerersten S
 window.scrollTo(0, 0);
 
+
+
+
+
+
+
+
+
 function zeigeFehlendePflichtfelder() {
+  // Wenn das Spiel bereits freigeschaltet (grün) ist, brauchen wir keine Warnung ausgeben
   if (isMatchPlayable) return;
 
   const metaG = document.getElementById("meta_group").value;
@@ -3133,13 +2865,17 @@ function zeigeFehlendePflichtfelder() {
   
   let checkliste = [];
 
+  // 1. Allgemeine Spieldaten prüfen
   if (!metaG) checkliste.push("❌ Liga/Gruppe fehlt noch");
   if (!metaD) checkliste.push("❌ Spieltag fehlt noch");
 
+  // 2. Heimteam prüfen
   if (!teamH) {
     checkliste.push("❌ Heimteam: Mannschaft wurde noch nicht ausgewählt");
   } else {
     if (!capH) checkliste.push(`❌ Heimteam (${teamH}): Kapitän (TC) fehlt noch`);
+    
+    // Stammspieler einzeln prüfen
     for (let i = 1; i <= 4; i++) {
       const p = document.getElementById("p_H" + i).value;
       if (!p || p.includes("--")) {
@@ -3148,10 +2884,13 @@ function zeigeFehlendePflichtfelder() {
     }
   }
 
+  // 3. Gastteam prüfen
   if (!teamG) {
     checkliste.push("❌ Gastteam: Mannschaft wurde noch nicht ausgewählt");
   } else {
     if (!capG) checkliste.push(`❌ Gastteam (${teamG}): Kapitän (TC) fehlt noch`);
+    
+    // Stammspieler einzeln prüfen
     for (let i = 1; i <= 4; i++) {
       const p = document.getElementById("p_G" + i).value;
       if (!p || p.includes("--")) {
@@ -3160,8 +2899,9 @@ function zeigeFehlendePflichtfelder() {
     }
   }
 
+  // Checkliste als übersichtliches Fenster ausgeben
   if (checkliste.length > 0) {
-    alert(`Folgende Angaben fehlen noch für die Freigabe:\n\n${checkliste.join("\n")}`);
+    alert(`📋 Folgende Angaben fehlen noch für die Freigabe:\n\n${checkliste.join("\n")}`);
   }
 }
 
@@ -3213,41 +2953,41 @@ window.starteSpezialDruck = function() {
         let runningHome = 0;
         let runningGuest = 0;
         
- mkkSchedule.forEach( m => {
-const res = (typeof matchResults !== "undefined" && matchResults [m.id]) || { heim: 0, gast: 0, checkerPos: "", assistantPos: "" };
-const hasBeenPlayed = (typeof matchResults !== "undefined" && !!matchResults[m.id]);
-if (hasBeenPlayed) {
-runningHome += res.heim;
-runningGuest += res.gast;
-}
-
-// HIER SIND DIE STRÄFLICH VERGESSENEN VARIABLEN WIEDER DA:
+        mkkSchedule.forEach(m => {
+            const res = (typeof matchResults !== "undefined" && matchResults[m.id]) || { heim: 0, gast: 0, checkerPos: "", assistantPos: "" };
+            const hasBeenPlayed = (typeof matchResults !== "undefined" && ! ! matchResults[m.id]);
+            if (hasBeenPlayed) { runningHome += res.heim; runningGuest += res.gast; }
+            
+// Ermittelt die aktuell echten Positionskürzel (Berücksichtigt aktive Wechsel für die Score-Zellen!)
 const c1 = (m.pos && m.pos[0]) ? resolvePlayerName(m.pos[0], m.id, true) : "";
 const c2 = (m.pos && m.pos[1]) ? resolvePlayerName(m.pos[1], m.id, true) : "";
 const c3 = (m.pos && m.pos[2]) ? resolvePlayerName(m.pos[2], m.id, true) : "";
 const c4 = (m.pos && m.pos[3]) ? resolvePlayerName(m.pos[3], m.id, true) : "";
 
-// Typ-Kürzel in volles Wort übersetzen
-let vollesWortTyp = m.type;
-if (m.type === "E") vollesWortTyp = "Einzel";
-else if (m.type === "D") vollesWortTyp = "Doppel";
-else if (m.type === "C") vollesWortTyp = "Cricket";
-
-const scoreDisplayHome = hasBeenPlayed ? runningHome : "";
-const scoreDisplayGuest = hasBeenPlayed ? runningGuest : "";
-
-const trP = document.createElement("tr");
-trP.innerHTML = 
-  '<td style="border:1.2px solid #000; padding:4px 2px; font-size:9px; font-weight:bold; text-align:center;">' + m.id + '</td>' +
-  '<td style="border:1.2px solid #000; padding:4px 2px; font-size:9px; text-align:center;">' + vollesWortTyp + '</td>' +
-  '<td style="border:1.2px solid #000; padding:4px 4px; font-size:9px; text-align:center;">' + (c1 || "-") + '</td>' +
-  '<td style="border:1.2px solid #000; padding:4px 4px; font-size:9px; text-align:center;">' + (c2 || "-") + '</td>' +
-  '<td style="border:1.2px solid #000; padding:4px 4px; font-size:9px; text-align:center;">' + (c3 || "-") + '</td>' +
-  '<td style="border:1.2px solid #000; padding:4px 4px; font-size:9px; text-align:center;">' + (c4 || "-") + '</td>' +
-  '<td style="border:1.2px solid #000; padding:4px 2px; font-size:9.5px; font-weight:bold; text-align:center; background:#e0e0e0 !important;">' + scoreDisplayHome + '</td>' +
-  '<td style="border:1.2px solid #000; padding:4px 2px; font-size:9.5px; font-weight:bold; text-align:center; background:#e0e0e0 !important;">' + scoreDisplayGuest + '</td>';
-
-printBody.appendChild(trP);
+            
+            // Markierungen für Haken (Assist) und Kreuz (Check)
+            const mark1 = res.checkerPos === c1 ? "X" : (res.assistantPos === c1 ? "/" : "");
+            const mark2 = res.checkerPos === c2 ? "X" : (res.assistantPos === c2 ? "/" : "");
+            const mark3 = c3 ? (res.checkerPos === c3 ? "X" : (res.assistantPos === c3 ? "/" : "")) : "";
+            const mark4 = c4 ? (res.checkerPos === c4 ? "X" : (res.assistantPos === c4 ? "/" : "")) : "";
+            
+            const scoreDisplayHome = hasBeenPlayed ? runningHome : "";
+            const scoreDisplayGuest = hasBeenPlayed ? runningGuest : "";
+            
+            const trP = document.createElement("tr");
+            trP.innerHTML = '<td style="border:1.2px solid #000; padding:1px; font-size:8.5px;"><b>' + m.id + '</b></td>' +
+                            '<td style="border:1.2px solid #000; padding:1px; font-size:8.5px;">' + m.type + '</td>' +
+                            '<td style="border:1.2px solid #000; padding:1px; font-size:8.5px; font-weight:bold;">' + c1 + '</td>' +
+                            '<td style="border:1.2px solid #000; background:#e8e8e8; font-weight:bold; width:12px; padding:1px; font-size:8.5px;">' + mark1 + '</td>' +
+                            '<td style="border:1.2px solid #000; padding:1px; font-size:8.5px; font-weight:bold;">' + c2 + '</td>' +
+                            '<td style="border:1.2px solid #000; background:#e8e8e8; font-weight:bold; width:12px; padding:1px; font-size:8.5px;">' + mark2 + '</td>' +
+                            '<td style="border:1.2px solid #000; padding:1px; font-size:8.5px; font-weight:bold;">' + c3 + '</td>' +
+                            '<td style="border:1.2px solid #000; background:#e8e8e8; font-weight:bold; width:12px; padding:1px; font-size:8.5px;">' + mark3 + '</td>' +
+                            '<td style="border:1.2px solid #000; padding:1px; font-size:8.5px; font-weight:bold;">' + c4 + '</td>' +
+                            '<td style="border:1.2px solid #000; background:#e8e8e8; font-weight:bold; width:12px; padding:1px; font-size:8.5px;">' + mark4 + '</td>' +
+                            '<td style="border:1.2px solid #000; padding:1px; font-size:8.5px;"><b>' + scoreDisplayHome + '</b></td>' +
+                            '<td style="border:1.2px solid #000; padding:1px; font-size:8.5px;"><b>' + scoreDisplayGuest + '</b></td>';
+            printBody.appendChild(trP);
         });
     }
 
@@ -3269,280 +3009,44 @@ printBody.appendChild(trP);
 </script>
 
 <style>
-
-/* Animation für das einfliegende Wechsel-Popup */
-.sub-fly-content {
-    transform: translate(-50%, -150%) scale(0.5); /* Startet unsichtbar weit oben */
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Federt elegant ein */
-}
-
-/* Zustand wenn das Popup aktiv geschaltet ist */
-.popup-overlay.fly-active .sub-fly-content {
-    transform: translate(-50%, -50%) scale(1) !important; /* Fliegt exakt in die Mitte */
-}
-
-/* --- CODE DAVOR (Zur Orientierung) --- */
 @media print {
-/* --- DIESEN BLOCK KOMPLETT ERSETZEN --- */
-html, body {
-    height: auto !important;
-    overflow: visible !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    width: 100% !important;
-    font-size: 10px !important; /* Etwas kleiner, um Höhe einzusparen */
-}
-
-@page {
-    size: A4 portrait;
-    margin: 4mm !important; /* Extrem schmaler Rand, um maximalen Platz zu gewinnen */
-}
-
-/* Verhindert das Abschneiden und quetscht das Dokument zusammen */
-.container, #print-area, table, body > div {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    margin-bottom: 2px !important;
-    padding-bottom: 0 !important;
-}
-
-/* Macht die Tabellenzellen noch einmal flacher */
-th, td {
-    padding: 1px 3px !important; 
-    line-height: 1.0 !important;
-}
-
-/* Falls Unterschriften-Boxen oder ein Canvas genutzt werden, hier die Höhe beschränken */
-canvas, .signature-pad, .unterschrift-box {
-    height: 40px !important;
-    max-height: 40px !important;
-}
-/* --- CODE DAHINTER (Zur Orientierung) --- */
-
-/* KORREKTUR: Entfernt das globale Linksbündig für td... */
-
-
-
-/* Flex-Container füllt nun die komplette Zelle aus */
-.print-meta-cell-content {
-display: flex !important;
-align-items: center !important;
-justify-content: flex-start !important;
-width: 100% !important;
-height: 100% !important;
-box-sizing: border-box !important;
-text-align: left !important; /* Erzwingt die Linksbündigkeit nur innerhalb der Box */
-}
-
-/* Die feste Beschriftung klebt links am Rand */
-.print-meta-label {
-text-align: left !important;
-white-space: nowrap !important;
-font-weight: bold !important;
-font-size: 10px !important;
-color: #000 !important;
-padding-left: 2px !important;
-}
-
-/* Der dynamische Name nutzt den Restplatz und zentriert sich mathematisch exakt */
-.print-meta-value {
-flex: 1 !important;
-text-align: center !important;
-font-weight: bold !important;
-font-size: 10px !important;
-color: #000 !important;
-margin-right: 55px !important; /* Gleicht die Breite des linken Labels perfekt aus, damit der Name mittig sitzt */
-}
-
-
-
-    body > .container, h1, .tab-navigation, #tab_setup, .panel, .status-bar,
-
-  .flex-buttons, .fixed-sig-panel, .accordion-menu, #tab_game > h3, 
-  #tab_game > .main-grid, #tab_game > div, .print-btn, #livePopup, .popup-overlay {
-    display: none !important;
-  }
-
-  #print-layout-root {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 3mm 4mm 2mm 4mm !important;
-  }
-
-  .print-main-content-layout {
-    display: grid !important;
-    grid-template-columns: 56% 42% !important;
-    gap: 2% !important;
-    align-items: start !important; /* Richtet beide Spalten sauber oben am Rand aus */
-  }
-
-  /* Spielplan-Tabelle startet ganz oben und füllt die komplette Höhe gleichmäßig aus */
-  .print-match-table {
-    width: 100% !important;
-    border-collapse: collapse !important;
-    margin-top: 0px !important;
-  }
-  
-  .print-match-table th {
-    border: 1px solid #000 !important;
-    padding: 3px 2px !important;
-    font-size: 8px !important;
-    line-height: 1.0 !important;
-  }
-
-  .print-match-table td {
-    border: 1px solid #000 !important;
-    padding: 0px 2px !important;
-    font-size: 8px !important;
-    height: 16.5px !important; /* Errechnet: Zieht die 32 Zeilen perfekt bis zu den Unterschriften */
-    line-height: 16px !important;
-  }
-
-  .clickable-player-name {
-    text-decoration: none !important;
-    cursor: default !important;
-  }
-
-  /* Rechte Info-Spalte: Hält alle Boxen kompakt oben zusammen */
-  .print-right-panel {
-    margin-top: 0px !important;
-    padding-top: 0px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important; /* Verhindert das Schweben der Boxen */
-    gap: 0px !important;
-  }
-  
-  .print-box-title {
-    font-size: 8px !important;
-    background: #e0e0e0 !important;
-    border: 1px solid #000 !important;
-    border-bottom: none !important;
-    padding: 2px !important;
-    margin: 0px !important;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .print-sub-table, .print-stats-table {
-    width: 100% !important;
-    border-collapse: collapse !important;
-    margin-top: 0px !important;
-    margin-bottom: 5px !important; /* Fester, kleiner Abstand nach jeder Box */
-  }
-  
-
-.print-header-title u {
-  text-decoration: underline !important;
-  border-bottom: 1px solid #000 !important; /* Sicherheits-Linie falls u ignoriert wird */
-}
-
-
-
-
-
-
-
-  .print-sub-table td {
-    border: 1px solid #000 !important;
-    padding: 2px 4px !important;
-    font-size: 7.5px !important;
-    height: 13.5px !important;
-  }
-
-  .print-stats-table th, .print-stats-table td {
-    border: 1px solid #000 !important;
-    padding: 2.2px 4px !important;
-    font-size: 7.5px !important;
-  }
-
-  /* Footer & Unterschriften bleiben unten fixiert */
-  .print-footer-summary {
-    margin-top: 5px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 4px !important;
-    width: 100% !important;
-  }
-
-  .print-result-box {
-    border: 1px solid #000 !important;
-    padding: 3px 15px !important;
-    font-size: 11px !important;
-    font-weight: bold !important;
-    background: #e0e0e0 !important;
-    text-align: center !important;
-    width: 50% !important;
-    margin-top: 0px !important;
-  }
-
-  .print-signature-wrapper {
-    display: flex !important;
-    justify-content: space-between !important;
-    width: 100% !important;
-    gap: 20px !important;
-    margin-top: 2px !important;
-  }
-
-@media print {
-    /* ... deine anderen Styles ... */
-
-    .print-signature-box {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-end !important;
-        height: 30px !important;
-        border-bottom: 1px solid #000 !important;
-        font-size: 8px !important;
-        width: 45% !important;
-        padding-bottom: 1px !important;
-        position: relative !important;
-        
-        /* KORREKTUR: Zentriert den Text der Beschriftung exakt unter der Linie */
-        text-align: center !important; 
+    body > .container {
+        display: block !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+    h1, .tab-navigation, #tab_setup, .panel, .status-bar, .flex-buttons,
+    .fixed-sig-panel, .accordion-menu, #tab_game > h3, #tab_game > .main-grid,
+    #tab_game > div, .print-btn, #livePopup, .popup-overlay {
+        display: none !important;
+    }
+    #print-layout-root {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    /* NEU: Entfernt die Unterstreichung der Spielernamen im PDF-Druck */
+    .clickable-player-name {
+        text-decoration: none !important;
+        cursor: default !important;
     }
 }
 
-
-  .print-sig-img {
-    position: absolute !important;
-    max-height: 28px !important;
-    max-width: 95% !important;
-    bottom: 1px !important;
-    left: 10% !important;
-    object-fit: contain !important;
-  }
-}
 /* Stil für die Klickbarkeit der Spielernamen NUR im Live-Punktekonto auf dem Bildschirm */
-.clickable-player-name {
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.clickable-player-name { 
+    cursor: pointer; 
+    text-decoration: underline; 
+    text-underline-offset: 3px; 
 }
-.clickable-player-name:hover {
-  color: #ffcc00 !important;
+.clickable-player-name:hover { 
+    color: #ffcc00 !important; 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </style>
+
 <script>
 // ==========================================================================
 // HINWEIS: Hier oben drüber im Script-Bereich stehen deine restlichen Funktionen!
@@ -3602,140 +3106,140 @@ function closeStatsDetailPopup() {
 let mkkLoadedSchedules = {};
 
 function ladeSpielplanVonGitHub() {
-  // KORREKTUR: Hier ist jetzt dein echter Name und dein Repository eingetragen!
- const url = "spielplan.txt?v=" + Date.now();
+  const url = "/MKK-2026/spielplan.txt"; 
   const kombiBtn = document.getElementById("btn_plan_import");
+  
   if(kombiBtn) {
     kombiBtn.innerText = "Spielplan wird geladen...";
     kombiBtn.style.opacity = "0.6";
   }
-  
-  fetch(url, { cache: "no-store" })
-  .then(response => {
-    if (!response.ok) throw new Error("Spielplan-Datei konnte nicht geladen werden.");
-    return response.text();
-  })
-  .then(text => {
-    verarbeiteSpielplanText(text);
-    console.log("MKK-Spielplan erfolgreich geladen und structured!");
-    autoDetectLeagueAndMatchday();
-    alert("Spielplan erfolgreich von GitHub abgerufen!");
-  })
-  .catch(error => {
-    console.error("Fehler beim Abrufen des Spielplans:", error);
-    alert("Fehler beim Laden! Bitte überprüfe, ob spielplan.txt auf GitHub existiert.");
-  })
-  .finally(() => {
-    if (kombiBtn) {
-      kombiBtn.innerText = "Spielplan frisch von GitHub abrufen";
-      kombiBtn.style.opacity = "1";
-    }
-  });
+
+  fetch(url)
+    .then(response => {
+      if (!response.ok) throw new Error("Spielplan-Datei konnte nicht geladen werden.");
+      return response.text();
+    })
+    .then(text => {
+      verarbeiteSpielplanText(text);
+      console.log("MKK-Spielplan erfolgreich geladen und strukturiert!");
+      
+      // Automatische Erkennung prüfen
+      autoDetectLeagueAndMatchday();
+      
+      alert("Spielplan erfolgreich von GitHub abgerufen!");
+    })
+    .catch(error => {
+      console.error("Fehler beim Abrufen des Spielplans:", error);
+      alert("Fehler beim Laden des Spielplans! Bitte Internetverbindung prüfen.");
+    })
+    .finally(() => {
+      if(kombiBtn) {
+        kombiBtn.innerText = "Spielplan frisch von GitHub abrufen 🔄";
+        kombiBtn.style.opacity = "1";
+      }
+    });
 }
+
 
 function verarbeiteSpielplanText(text) {
-  const previewBox = document.getElementById("txt_spielplan_preview");
-  if (previewBox) { previewBox.value = text.trim(); }
-  mkkLoadedSchedules = {};
-  const lines = text.split("\n");
-  let aktuelleGruppe = "";
-  
-  lines.forEach(line => {
-    const trimmed = line.trim();
-    if (!trimmed) return;
+    const previewBox = document.getElementById("txt_spielplan_preview");
+    if (previewBox) { previewBox.value = text.trim(); }
     
-    // Liga/Gruppe erkennen
-    if (trimmed.toLowerCase().includes("spielplan:")) {
-      if (trimmed.toUpperCase().includes("A-LIGA") || trimmed.toUpperCase().includes("A LIGA")) {
-        aktuelleGruppe = "Gruppe A";
-      } else if (trimmed.toUpperCase().includes("B-LIGA") || trimmed.toUpperCase().includes("B LIGA")) {
-        aktuelleGruppe = "Gruppe B";
-      } else if (trimmed.toUpperCase().includes("C-LIGA") || trimmed.toUpperCase().includes("C LIGA")) {
-        aktuelleGruppe = "Gruppe C";
-      }
-      if (aktuelleGruppe && !mkkLoadedSchedules[aktuelleGruppe]) {
-        mkkLoadedSchedules[aktuelleGruppe] = [];
-      }
-      return;
-    }
+    mkkLoadedSchedules = {};
+    const lines = text.split("\n");
+    let aktuelleGruppe = ""; 
     
-    if (trimmed.toUpperCase() === "HINRUNDE" || trimmed.toUpperCase() === "RÜCKRUNDE") {
-      return;
-    }
-    
-    // Spielpaarung auslesen (z. B. "Spiel 1: DC LaPaloma vs. DC Fraggles")
-    if (aktuelleGruppe && trimmed.toLowerCase().startsWith("spiel") && trimmed.includes("vs.")) {
-      try {
-        const doppelpunktIndex = trimmed.indexOf(":");
-        if (doppelpunktIndex === -1) return;
+    lines.forEach(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return;
         
-        // Holt die reine Zahl heraus und entfernt alle Leerzeichen rigoros
-        const spielNummer = trimmed.substring(5, doppelpunktIndex).replace(/\D/g, "").trim();
-        if (!spielNummer) return;
-        
-        const spieltagDropdownWert = spielNummer + ". Spieltag";
-        
-        // Paarung aufteilen
-        const paarungText = trimmed.substring(doppelpunktIndex + 1).trim();
-        const teams = paarungText.split("vs.");
-        const heimTeam = teams[0] ? teams[0].trim() : "";
-        const gastTeam = teams[1] ? teams[1].trim() : "";
-        
-        if (heimTeam && gastTeam) {
-          mkkLoadedSchedules[aktuelleGruppe].push({
-            day: spieltagDropdownWert,
-            home: heimTeam,
-            guest: gastTeam
-          });
+        // 1. Liga-Überschrift erkennen und EXAKT an die HTML-Option-Values anpassen
+        if (trimmed.toLowerCase().includes("spielplan:")) {
+            if (trimmed.toUpperCase().includes("A-LIGA")) {
+                aktuelleGruppe = "Gruppe A"; // Entspricht value="Gruppe A"
+            } else if (trimmed.toUpperCase().includes("B-LIGA")) {
+                aktuelleGruppe = "Gruppe B"; // Entspricht value="Gruppe B"
+            } else if (trimmed.toUpperCase().includes("C-LIGA")) {
+                aktuelleGruppe = "Gruppe C"; // Entspricht value="Gruppe C"
+            }
+            
+            if (aktuelleGruppe && !mkkLoadedSchedules[aktuelleGruppe]) {
+                mkkLoadedSchedules[aktuelleGruppe] = [];
+            }
+            return;
         }
-      } catch (e) {
-        console.log("Zeile übersprungen (Format passt nicht):", trimmed, e);
-      }
-    }
-  });
-  
-  localStorage.setItem("mkk_dart_loaded_schedules", JSON.stringify(mkkLoadedSchedules));
-  localStorage.setItem("mkk_dart_spielplan_raw", text);
+        
+        // Zeilen wie HINRUNDE oder RÜCKRUNDE einfach überspringen
+        if (trimmed.toUpperCase() === "HINRUNDE" || trimmed.toUpperCase() === "RÜCKRUNDE") {
+            return;
+        }
+        
+        // 2. Spielpaarung auslesen (z.B. "Spiel 1: Dartschützen Oberzell vs. Bad Boyz 9.1")
+        if (aktuelleGruppe && trimmed.toLowerCase().startsWith("spiel") && trimmed.includes("vs.")) {
+            try {
+                const doppelpunktIndex = trimmed.indexOf(":");
+                if (doppelpunktIndex === -1) return;
+                
+                // Holt flexibel alles zwischen "Spiel" und dem Doppelpunkt (z.B. "1" oder "14")
+                const spielNummer = trimmed.substring(5, doppelpunktIndex).trim();
+                const spieltagDropdownWert = spielNummer + ". Spieltag";
+                
+                // Paarung hinter dem Doppelpunkt aufteilen
+                const paarungText = trimmed.substring(doppelpunktIndex + 1).trim();
+                const teams = paarungText.split("vs.");
+                
+                const heimTeam = teams[0] ? teams[0].trim() : "";
+                const gastTeam = teams[1] ? teams[1].trim() : "";
+                
+                if (heimTeam && gastTeam) {
+                    mkkLoadedSchedules[aktuelleGruppe].push({
+                        day: spieltagDropdownWert,
+                        home: heimTeam,
+                        guest: gastTeam
+                    });
+                }
+            } catch (e) {
+                console.log("Zeile übersprungen (Format passt nicht):", trimmed);
+            }
+        }
+    });
+    
+    localStorage.setItem("mkk_dart_loaded_schedules", JSON.stringify(mkkLoadedSchedules));
+    localStorage.setItem("mkk_dart_spielplan_raw", text);
 }
 
+// 3. FUNKTION: Sucht die ausgewählte Paarung und stellt die Dropdowns ein
 function autoDetectLeagueAndMatchday() {
   const homeTeam = document.getElementById("team_home")?.value;
   const guestTeam = document.getElementById("team_guest")?.value;
-  
-  if (!homeTeam || !guestTeam) return;
-  
-  const homeLower = homeTeam.toLowerCase().trim();
-  const guestLower = guestTeam.toLowerCase().trim();
-  
+
+  // Abbrechen, wenn noch nicht beide Teams im Setup gewählt wurden
+  if (!homeTeam || !guestTeam) return; 
+
   let matchFound = false;
-  
+
+  // Schleife durch alle Gruppen, die wir aus den Überschriften gelernt haben
   for (const groupName in mkkLoadedSchedules) {
     const matches = mkkLoadedSchedules[groupName];
     
-    // Sucht extrem flexibel nach den Teamnamen
-    const found = matches.find(m => {
-      const mHomeLower = m.home.toLowerCase().trim();
-      const mGuestLower = m.guest.toLowerCase().trim();
-      
-      return (mHomeLower.includes(homeLower) || homeLower.includes(mHomeLower)) && 
-             (mGuestLower.includes(guestLower) || guestLower.includes(mGuestLower));
-    });
+    // Suchen, ob Heim- und Gastteam genau so in dieser Liga zusammenspielen
+    const found = matches.find(m => m.home === homeTeam && m.guest === guestTeam);
     
     if (found) {
+      // 1. Die dazugehörige Liga-Überschrift im Dropdown auswählen ("Gruppe B" / "Gruppe C")
       const groupSelect = document.getElementById("meta_group");
-      if (groupSelect) groupSelect.value = groupName; 
-      
+      if (groupSelect) groupSelect.value = groupName;
+
+      // 2. Die Spielnummer als Spieltag eintragen (z. B. "14. Spieltag")
       const daySelect = document.getElementById("meta_day");
-      if (daySelect) {
-        // Setzt den Spieltag exakt auf den generierten Wert (z.B. "1. Spieltag")
-        daySelect.value = found.day;
-      }
-      
+      if (daySelect) daySelect.value = found.day;
+
       matchFound = true;
-      break;
+      break; // Abbrechen, da Spielpaarung eindeutig gefunden wurde
     }
   }
-  
+
+  // Wenn das Spiel im System gefunden wurde, Benutzeroberfläche aktualisieren
   if (matchFound) {
     if (typeof syncMetaToLabels === "function") syncMetaToLabels();
     if (typeof validateRosterAndSetup === "function") validateRosterAndSetup();
