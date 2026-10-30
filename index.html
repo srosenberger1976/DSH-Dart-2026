@@ -2167,97 +2167,113 @@ function registerWinner (ignoredName, checkerPos, side, ignoredAssName = null, a
 }
 
 function updateStats() {
-  const hLive = document.getElementById("live_stats_H_body"); 
-  const gLive = document.getElementById("live_stats_G_body");
-  const hB = document.getElementById("print_stats_H"); 
-  const gB = document.getElementById("print_stats_G");
-  if(!hLive || !gLive || !hB || !gB) return; 
-  hB.innerHTML = ""; gB.innerHTML = ""; hLive.innerHTML = ""; gLive.innerHTML = "";
-  
-  const dynamischeScores = {};
-  Object.keys(matchResults).forEach(id => {
-    const res = matchResults[id];
-    if (!res) return;
-    if (res.checkerPos) {
-      const cName = resolvePlayerName(res.checkerPos, id);
-      if (cName) {
-        if (!dynamischeScores[cName]) dynamischeScores[cName] = { check: 0, assist: 0 };
-        dynamischeScores[cName].check += 1;
-      }
-    }
-    if (res.assistantPos) {
-      const aName = resolvePlayerName(res.assistantPos, id);
-      if (aName) {
-        if (!dynamischeScores[aName]) dynamischeScores[aName] = { check: 0, assist: 0 };
-        dynamischeScores[aName].assist += 1;
-      }
-    }
-  });
-  
-  // Die festen 8 Positionen für beide Teams
-  const posHome = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4"];
-  const posGuest = ["G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
-  
-  // Befüllung Heimteam (Immer 8 Zeilen)
-  posHome.forEach(p => {
-    const el = document.getElementById("p_" + p);
-    let spielerName = el ? el.value.trim() : "";
-    let istErsatz = p.startsWith("HE");
+    const hLive = document.getElementById("live_stats_H_body");
+    const gLive = document.getElementById("live_stats_G_body");
+    const hB = document.getElementById("print_stats_H");
+    const gB = document.getElementById("print_stats_G");
+    if(!hLive || !gLive || !hB || !gB) return;
     
-    let anzeigeName = spielerName;
-    let styleZusatz = "";
+    hB.innerHTML = ""; gB.innerHTML = ""; hLive.innerHTML = ""; gLive.innerHTML = "";
+    const dynamischeScores = {};
     
-    // Wenn das Feld leer ist oder nur den Standard-Auswahltext enthält
-    if (!spielerName || spielerName.includes("--")) {
-      anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
-      styleZusatz = 'style="color: #888888; font-style: italic;"';
-    }
+    Object.keys(matchResults).forEach(id => {
+        const res = matchResults[id];
+        if (!res) return;
+        if (res.checkerPos) {
+            const cName = resolvePlayerName(res.checkerPos, id);
+            if (cName) {
+                if (!dynamischeScores[cName]) dynamischeScores[cName] = { check: 0, assist: 0 };
+                dynamischeScores[cName].check += 1;
+            }
+        }
+        if (res.assistantPos) {
+            const aName = resolvePlayerName(res.assistantPos, id);
+            if (aName) {
+                if (!dynamischeScores[aName]) dynamischeScores[aName] = { check: 0, assist: 0 };
+                dynamischeScores[aName].assist += 1;
+            }
+        }
+    });
+
+    const posHome = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4"];
+    const posGuest = ["G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
     
-    const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
-    const punkteGesamt = (s.check * 2) + (s.assist * 1);
+    // Prüfen, ob überhaupt ein Spiel läuft oder Teams gewählt wurden (für Blanko-Druck)
+    const hatHeimTeam = document.getElementById("team_home")?.value !== "";
+    const hatGastTeam = document.getElementById("team_guest")?.value !== "";
+    const spieleVorhanden = Object.keys(matchResults).length > 0;
+    const istBlanko = !hatHeimTeam && !hatGastTeam && !spieleVorhanden;
+
+    // Befüllung Heimteam (Immer 8 Zeilen)
+    posHome.forEach(p => {
+        const el = document.getElementById("p_" + p);
+        let spielerName = el ? el.value.trim() : "";
+        let istErsatz = p.startsWith("HE");
+        let anzeigeName = spielerName;
+        let styleZusatz = "";
+        
+        if (!spielerName || spielerName.includes("--")) {
+            anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
+            styleZusatz = 'style="color: #888888; font-style: italic;"';
+        }
+        
+        const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
+        const punkteGesamt = (s.check * 2) + (s.assist * 1);
+        
+        let cellLive = (!spielerName || spielerName.includes("--"))
+            ? `<td ${styleZusatz}>${anzeigeName}</td>`
+            : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
+            
+        let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color: #ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
+        
+        // Blanko-Logik für den Ausdruck: Komplett leere Zeilen erzeugen
+        let rowPrint = "";
+        if (istBlanko) {
+            rowPrint = '<tr><td style="height:15px;"></td><td></td><td></td><td></td></tr>';
+        } else {
+            rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
+        }
+        
+        hLive.innerHTML += rowLive;
+        hB.innerHTML += rowPrint;
+    });
+
+    // Befüllung Gastteam (Immer 8 Zeilen)
+    posGuest.forEach(p => {
+        const el = document.getElementById("p_" + p);
+        let spielerName = el ? el.value.trim() : "";
+        let istErsatz = p.startsWith("GE");
+        let anzeigeName = spielerName;
+        let styleZusatz = "";
+        
+        if (!spielerName || spielerName.includes("--")) {
+            anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
+            styleZusatz = 'style="color: #888888; font-style: italic;"';
+        }
+        
+        const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
+        const punkteGesamt = (s.check * 2) + (s.assist * 1);
+        
+        let cellLive = (!spielerName || spielerName.includes("--"))
+            ? `<td ${styleZusatz}>${anzeigeName}</td>`
+            : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
+            
+        let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
+        
+        // Blanko-Logik für den Ausdruck: Komplett leere Zeilen erzeugen
+        let rowPrint = "";
+        if (istBlanko) {
+            rowPrint = '<tr><td style="height:15px;"></td><td></td><td></td><td></td></tr>';
+        } else {
+            rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
+        }
+        
+        gLive.innerHTML += rowLive;
+        gB.innerHTML += rowPrint;
+    });
     
-    // Am Bildschirm bekommt der Name ein Klick-Event, wenn ein echter Spieler da ist
-    let cellLive = (!spielerName || spielerName.includes("--")) 
-      ? `<td ${styleZusatz}>${anzeigeName}</td>`
-      : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
-      
-    let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
-    let rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
-    
-    hLive.innerHTML += rowLive;
-    hB.innerHTML += rowPrint;
-  });
-  
-  // Befüllung Gastteam (Immer 8 Zeilen)
-  posGuest.forEach(p => {
-    const el = document.getElementById("p_" + p);
-    let spielerName = el ? el.value.trim() : "";
-    let istErsatz = p.startsWith("GE");
-    
-    let anzeigeName = spielerName;
-    let styleZusatz = "";
-    
-    if (!spielerName || spielerName.includes("--")) {
-      anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
-      styleZusatz = 'style="color: #888888; font-style: italic;"';
-    }
-    
-    const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
-    const punkteGesamt = (s.check * 2) + (s.assist * 1);
-    
-    let cellLive = (!spielerName || spielerName.includes("--")) 
-      ? `<td ${styleZusatz}>${anzeigeName}</td>`
-      : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
-      
-    let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
-    let rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
-    
-    gLive.innerHTML += rowLive;
-    gB.innerHTML += rowPrint;
-  });
-  
-  playerScores = dynamischeScores;
-  localStorage.setItem("mkk_live_player_scores", JSON.stringify(playerScores));
+    playerScores = dynamischeScores;
+    localStorage.setItem("mkk_live_player_scores", JSON.stringify(playerScores));
 }
 
 function syncMetaToLabels() {
@@ -2307,23 +2323,54 @@ function updatePrintSubstitutions() {
 
 
 function resetWholeMatchday() {
- if(confirm("Möchtest du wirklich alle eingetragenen Ergebnisse, Auswechslungen und geladenen Teams löschen, um ein neues Spiel zu starten?")) {
-  matchResults = {}; substitutions = []; playerScores = {};
-  localStorage.removeItem("mkk_live_match_results"); localStorage.removeItem("mkk_live_substitutions"); localStorage.removeItem("mkk_live_player_scores"); localStorage.removeItem("mkk_live_dropdown_state");
-  updatePrintSubstitutions();
-  document.querySelectorAll("select").forEach(s => { s.value = ""; });
-  document.querySelectorAll("input[type='text']").forEach(i => { if(i.id !== "meta_date") { i.value = ""; } });
-  renderTable(); validateRosterAndSetup(); syncMetaToLabels();
-  alert("Alle Spieldaten wurden erfolgreich zurückgesetzt!");
-  switchTab('setup');
- }
+if(confirm("Möchtest du wirklich alle eingetragenen Ergebnisse, Auswechslungen und geladenen Teams löschen, um ein neues Spiel zu starten?")) {
+matchResults = {}; substitutions = []; playerScores = {};
+localStorage.removeItem("mkk_live_match_results");
+localStorage.removeItem("mkk_live_substitutions");
+localStorage.removeItem("mkk_live_player_scores");
+localStorage.removeItem("mkk_live_dropdown_state");
+
+// NEU: Unterschriften komplett aus dem Speicher und der Ansicht löschen
+['H', 'G'].forEach(side => {
+localStorage.removeItem("mkk_sig_data_" + side);
+
+// Bilder im Drucklayout verstecken
+const img = document.getElementById("img_print_sig_" + side);
+if (img) { img.style.display = "none"; img.src = ""; }
+
+// Bilder in der Vorschau verstecken (falls vorhanden)
+const previewImg = document.getElementById("sig_preview_img_" + side);
+const previewText = document.getElementById("sig_preview_text_" + side);
+if (previewImg) { previewImg.style.display = "none"; previewImg.src = ""; }
+if (previewText) { previewText.style.display = "block"; }
+
+// Canvas-Zeichenflächen komplett leeren
+const canvas = document.getElementById("fixed_canvas_" + side);
+if (canvas) {
+const ctx = canvas.getContext("2d");
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function saveActiveDropdowns() {
- const ids = ["team_home", "team_guest", "captain_home", "captain_guest", "meta_group", "meta_day", "meta_date", "p_H1","p_H2","p_H3","p_H4","p_HE1","p_HE2","p_HE3","p_HE4", "p_G1","p_G2","p_G3","p_G4","p_GE1","p_GE2","p_GE3","p_GE4", "pass_H1","pass_H2","pass_H3","pass_H4","pass_HE1","pass_HE2","pass_HE3","pass_HE4", "pass_G1","pass_G2","pass_G3","pass_G4","pass_GE1","pass_GE2","pass_GE3","pass_GE4"];
- const dropdownState = {}; ids.forEach(id => { const el = document.getElementById(id); if(el) dropdownState[id] = el.value; });
- localStorage.setItem("mkk_live_dropdown_state", JSON.stringify(dropdownState));
+// Visuelle Sperre der Unterschriftenfelder aufheben (wieder weiß und aktiv machen)
+if (typeof setzeSperrZustandVisual === "function") {
+setzeSperrZustandVisual(side, false);
 }
+});
+
+updatePrintSubstitutions();
+document.querySelectorAll("select").forEach(s => { s.value = ""; });
+document.querySelectorAll("input[type='text']").forEach(i => { if(i.id !== "meta_date") { i.value = ""; } });
+renderTable(); validateRosterAndSetup(); syncMetaToLabels();
+
+// Status der Unterschriften-Buttons neu prüfen
+if (typeof checkFixedSignaturesComplete === "function") {
+checkFixedSignaturesComplete();
+}
+}
+alert("Alle Spieldaten und Unterschriften wurden erfolgreich zurückgesetzt!");
+switchTab('setup');
+}
+
 
 function switchTab (tabName) {
     // AUTOMATISCHER SCHLIESS-SCHUTZ: Schließt das Zahnrad-Menü beim Tab-Wechsel
@@ -3101,16 +3148,40 @@ printBody.appendChild(trP);
 
 <style>
 @media print {
-  html, body {
-    height: 100% !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
+    html, body {
+        height: 100% !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
 
-  body > .container, h1, .tab-navigation, #tab_setup, .panel, .status-bar, 
+    /* AB HIER NEU EINFÜGEN */
+    .print-meta-cell-content {
+        display: flex !important;
+        align-items: center !important;
+        width: 100% !important;
+        height: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .print-meta-label {
+        text-align: left !important;
+        white-space: nowrap !important;
+        padding-right: 5px !important;
+    }
+    
+    .print-meta-value {
+        flex: 1 !important;
+        text-align: center !important;
+        font-weight: bold !important;
+        padding-right: 45px !important; /* Gleicht das linke Label perfekt aus */
+    }
+    /* ENDE DER NEUEN KLASSEN */
+
+    body > .container, h1, .tab-navigation, #tab_setup, .panel, .status-bar,
+
   .flex-buttons, .fixed-sig-panel, .accordion-menu, #tab_game > h3, 
   #tab_game > .main-grid, #tab_game > div, .print-btn, #livePopup, .popup-overlay {
     display: none !important;
@@ -3271,6 +3342,20 @@ printBody.appendChild(trP);
 .clickable-player-name:hover {
   color: #ffcc00 !important;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
 <script>
 // ==========================================================================
