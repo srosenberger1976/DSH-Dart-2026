@@ -3247,8 +3247,6 @@ printBody.appendChild(trP);
 }
 
 
-
-
 /* --- CODE DAVOR (Zur Orientierung) --- */
 @media print {
 /* --- DIESEN BLOCK KOMPLETT ERSETZEN --- */
@@ -3259,30 +3257,36 @@ html, body {
     padding: 0 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    
-    /* Der neue iOS-Fix: Keine starren Pixel-Breiten, sondern flexible Anpassung */
     width: 100% !important;
-    display: block !important;
-    float: none !important;
 }
 
 @page {
     size: A4 portrait;
-    margin: 6mm !important; /* Sehr schmale Ränder, damit alles Platz hat */
+    margin: 5mm !important; /* Maximiert die bedruckbare Fläche */
 }
 
-/* Erzwingt, dass alle Tabellen und Container die volle Seitenbreite nutzen */
-table, div, form, .container {
+/* Der iOS-Kompakt-Fix: Quetscht Zeilenhöhen und Abstände zusammen, damit die 4cm Platz haben */
+table {
     width: 100% !important;
     max-width: 100% !important;
-    box-sizing: border-box !important;
+    table-layout: auto !important;
+    margin-bottom: 2px !important;
+}
+
+th, td {
+    padding: 2px 4px !important; /* Minimiert Zellabstände im Druck */
+    font-size: 11px !important;  /* Macht die Schrift minimal kleiner für die Passform */
+    line-height: 1.1 !important; /* Verringert den Zeilenabstand */
+}
+
+/* Verkleinert Signaturen- und Textboxen im Druckbereich */
+input, textarea, .signature-pad, canvas {
+    max-height: 50px !important; /* Verhindert riesige Unterschriftenfelder, die Platz rauben */
 }
 /* --- CODE DAHINTER (Zur Orientierung) --- */
 
 /* KORREKTUR: Entfernt das globale Linksbündig für td... */
 
-
-/* KORREKTUR: Entfernt das globale Linksbündig für td, damit die obere Tabellenstruktur nicht zerschossen wird */
 
 /* Flex-Container füllt nun die komplette Zelle aus */
 .print-meta-cell-content {
