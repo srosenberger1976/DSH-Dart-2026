@@ -3246,7 +3246,6 @@ printBody.appendChild(trP);
     transform: translate(-50%, -50%) scale(1) !important; /* Fliegt exakt in die Mitte */
 }
 
-
 /* --- CODE DAVOR (Zur Orientierung) --- */
 @media print {
 /* --- DIESEN BLOCK KOMPLETT ERSETZEN --- */
@@ -3258,34 +3257,37 @@ html, body {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     width: 100% !important;
+    font-size: 10px !important; /* Etwas kleiner, um Höhe einzusparen */
 }
 
 @page {
     size: A4 portrait;
-    margin: 5mm !important; /* Maximiert die bedruckbare Fläche */
+    margin: 4mm !important; /* Extrem schmaler Rand, um maximalen Platz zu gewinnen */
 }
 
-/* Der iOS-Kompakt-Fix: Quetscht Zeilenhöhen und Abstände zusammen, damit die 4cm Platz haben */
-table {
-    width: 100% !important;
-    max-width: 100% !important;
-    table-layout: auto !important;
+/* Verhindert das Abschneiden und quetscht das Dokument zusammen */
+.container, #print-area, table, body > div {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
     margin-bottom: 2px !important;
+    padding-bottom: 0 !important;
 }
 
+/* Macht die Tabellenzellen noch einmal flacher */
 th, td {
-    padding: 2px 4px !important; /* Minimiert Zellabstände im Druck */
-    font-size: 11px !important;  /* Macht die Schrift minimal kleiner für die Passform */
-    line-height: 1.1 !important; /* Verringert den Zeilenabstand */
+    padding: 1px 3px !important; 
+    line-height: 1.0 !important;
 }
 
-/* Verkleinert Signaturen- und Textboxen im Druckbereich */
-input, textarea, .signature-pad, canvas {
-    max-height: 50px !important; /* Verhindert riesige Unterschriftenfelder, die Platz rauben */
+/* Falls Unterschriften-Boxen oder ein Canvas genutzt werden, hier die Höhe beschränken */
+canvas, .signature-pad, .unterschrift-box {
+    height: 40px !important;
+    max-height: 40px !important;
 }
 /* --- CODE DAHINTER (Zur Orientierung) --- */
 
 /* KORREKTUR: Entfernt das globale Linksbündig für td... */
+
 
 
 /* Flex-Container füllt nun die komplette Zelle aus */
