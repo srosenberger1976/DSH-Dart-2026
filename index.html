@@ -3253,21 +3253,29 @@ printBody.appendChild(trP);
 @media print {
 /* --- DIESEN BLOCK KOMPLETT ERSETZEN --- */
 html, body {
-    height: auto !important; /* Verhindert das Abschneiden auf Mobilgeräten */
-    overflow: visible !important; /* Erlaubt iOS den vollen Tabelleninhalt zu sehen */
+    height: auto !important;
+    overflow: visible !important;
     margin: 0 !important;
     padding: 0 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     
-    /* Der Trick für iOS & PC: Eine feste Breite erzwingt die automatische Verkleinerung auf A4 */
-    min-width: 1200px !important; 
-    width: 1200px !important;
+    /* Der neue iOS-Fix: Keine starren Pixel-Breiten, sondern flexible Anpassung */
+    width: 100% !important;
+    display: block !important;
+    float: none !important;
 }
 
 @page {
     size: A4 portrait;
-    margin: 8mm !important; /* Schmale Ränder, damit alles auf eine Seite passt */
+    margin: 6mm !important; /* Sehr schmale Ränder, damit alles Platz hat */
+}
+
+/* Erzwingt, dass alle Tabellen und Container die volle Seitenbreite nutzen */
+table, div, form, .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 /* --- CODE DAHINTER (Zur Orientierung) --- */
 
