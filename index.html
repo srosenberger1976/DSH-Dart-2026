@@ -51,6 +51,18 @@
  border-top: 1px solid #444;
  background: #2d2d2d;
 }
+
+
+@keyframes pulsieren {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+
+
+
+
  body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #1a1a1a; 
 color: #fff; margin: 0; padding: 15px; }
  .container { max-width: 1200px; margin: 0 auto; background: #2a2a2a; border: 
@@ -532,30 +544,42 @@ body.settings-open .setup-hide-on-settings {
 
 
 
-/* ISOLIERTE SMARTPHONE-KORREKTUR NUR FÜR DEN MITTLEREN METADATEN-BLOCK */
+/* ISOLIERTE SMARTPHONE-KORREKTUR FÜR METADATEN & POPUPS */
 @media (max-width: 768px) {
-  .tab-navigation { gap: 6px !important; }
-  .tab-navigation .tab-btn { font-size: 12px !important; padding: 10px 4px !important; text-align: center; }
-  .settings-btn, .tab-navigation button[onclick^="resetWholeMatchday"] { width: 38px !important; height: 38px !important; min-width: 38px !important; font-size: 16px !important; }
-  .main-grid { display: flex !important; flex-direction: column !important; gap: 15px !important; }
-  .panel { padding: 12px !important; width: 100% !important; box-sizing: border-box !important; }
-  input, select { font-size: 15px !important; padding: 10px !important; }
+    .tab-navigation { gap: 6px !important; }
+    .tab-navigation .tab-btn { font-size: 12px !important; padding: 10px 4px !important; text-align: center; }
+    .settings-btn, .tab-navigation button[onclick^="resetWholeMatchday"] { width: 38px !important; height: 38px !important; min-width: 38px !important; font-size: 16px !important; }
+    .main-grid { display: flex !important; flex-direction: column !important; gap: 15px !important; }
+    .panel { padding: 12px !important; width: 100% !important; box-sizing: border-box !important; }
+    input, select { font-size: 15px !important; padding: 10px !important; }
 
-  /* Optimierung für das Live-Spiele-Popup auf dem Handy */
-  .popup-content {
-    width: 95% !important;
-    max-width: 100% !important;
-    padding: 12px !important;
-    box-sizing: border-box !important;
-  }
+    /* Optimierung für das Live-Spiele-Popup auf dem Handy */
+    .popup-content {
+        width: 95% !important;
+        max-width: 100% !important;
+        padding: 12px !important;
+        box-sizing: border-box !important;
+    }
 
-  .click-box { 
-    font-size: 15px !important; 
-    padding: 16px 10px !important; /* Macht die Buttons höher -> viel leichter zu treffen! */
-    margin: 8px 0 !important;
-    min-height: 54px !important;
-    box-sizing: border-box !important;
-  }
+    /* Groessere Buttons mit viel Luft fuer dicke Finger */
+    .click-box {
+        font-size: 15px !important;
+        padding: 16px 10px !important;
+        margin: 16px 0 !important; /* Verdoppelter Abstand */
+        min-height: 54px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Fette, schwarze Trennstriche unter den Button-Typen zur klaren Abgrenzung */
+    .click-box-home {
+        border-bottom: 4px solid #000000 !important;
+    }
+    .click-box-guest {
+        border-bottom: 4px solid #000000 !important; /* NEU: Jetzt auch fuer das Gast-Feld */
+    }
+}
+
+
   
   .popup-header {
     font-size: 16px !important;
@@ -718,6 +742,19 @@ function aktiviereVollbild() {
 }
 </script>
 </head>
+
+<body onload="beendeStartbildschirm()">
+
+  <!-- NEU: Künstlicher Startbildschirm (Splash Screen) -->
+  <div id="app_splash_screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111111; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease-in-out;">
+    <img src="icon-512.png" alt="App Icon" style="width: 150px; height: 150px; margin-bottom: 40px; animation: pulsieren 5s infinite ease-in-out;">
+    <div style="color: #ffcc00; font-family: sans-serif; font-size: 45px; font-weight: bold; letter-spacing: 1px;">DSH BULLSHOOTER LIGA</div>
+    <div style="color: #888; font-family: sans-serif; font-size: 19px; margin-top: 15px;">Spielbericht wird geladen...</div>
+  </div>
+
+
+
+
 <body onclick="if(window.aktiviereVollbild) aktiviereVollbild();">
 <!-- Einziger, globaler Hauptcontainer für die gesamte Seite -->
 <div class="container">
@@ -867,12 +904,15 @@ font-style: italic;">Spielberichtsbogen</span>
             <div style="display: flex; flex-direction: column; gap: 12px;">
                 <div>
                     <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Gruppe:</label>
-                    <select id="meta_group" onchange="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px;">
-                        <option value="">-- wählen --</option>
-                        <option value="Gruppe A">A Liga</option>
-                        <option value="Gruppe B">B Liga</option>
-                        <option value="Gruppe C">C Liga</option>
-                    </select>
+<select id="meta_group" onchange="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px;">
+<option value="">-- wählen --</option>
+<option value="Gruppe A">A Liga</option>
+<option value="Gruppe B">B Liga</option>
+<option value="Gruppe C">C Liga</option>
+<!-- NEU: Das Freispiel mit Pokal-Icon -->
+<option value="Freispiel">🏆 Freispiel</option>
+</select>
+
                 </div>
                 <div>
                     <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Spieltag:</label>
@@ -1135,25 +1175,46 @@ font-style: italic;">Spielberichtsbogen</span>
     </div>
   </div>
 
-  <!-- Hier geht deine alte Tabelle für Gruppe, Spieltag, Datum einfach weiter -->
-  <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
-  <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
-   <tr>
-    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe A:</b> <span id="lbl_group_A"></span></td>
-    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe B:</b> <span id="lbl_group_B"></span></td>
-    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe C:</b> <span id="lbl_group_C"></span></td>
-    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Spieltag:</b> <span id="lbl_day"></span></td>
-    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Datum:</b> <span id="lbl_date"></span></td>
-   </tr>
-   <tr>
-    <td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Heimteam:</b> <span id="lbl_name_home"></span></td>
-    <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Gastteam:</b> <span id="lbl_name_guest"></span></td>
-   </tr>
-   <tr>
-    <td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Heim TC:</b> <span id="lbl_captain_home"></span></td>
-    <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Gast TC:</b> <span id="lbl_captain_guest"></span></td>
-   </tr>
-  </table>
+<!-- Hier geht deine alte Tabelle für Gruppe, Spieltag, Datum einfach weiter -->
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
+<tr>
+<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Gruppe A:</b> <span id="lbl_group_A"></span></td>
+<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Gruppe B:</b> <span id="lbl_group_B"></span></td>
+<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Gruppe C:</b> <span id="lbl_group_C"></span></td>
+<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Spieltag:</b> <span id="lbl_day"></span></td>
+<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Datum:</b> <span id="lbl_date"></span></td>
+</tr>
+<tr>
+<td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
+<div class="print-meta-cell-content">
+<span class="print-meta-label">Heimteam:</span>
+<span id="lbl_name_home" class="print-meta-value"></span>
+</div>
+</td>
+<td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
+<div class="print-meta-cell-content">
+<span class="print-meta-label">Gastteam:</span>
+<span id="lbl_name_guest" class="print-meta-value"></span>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
+<div class="print-meta-cell-content">
+<span class="print-meta-label">Heim TC:</span>
+<span id="lbl_captain_home" class="print-meta-value"></span>
+</div>
+</td>
+<td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
+<div class="print-meta-cell-content">
+<span class="print-meta-label">Gast TC:</span>
+<span id="lbl_captain_guest" class="print-meta-value"></span>
+</div>
+</td>
+</tr>
+</table>
+
+
   <div class="print-teams-container" style="margin-top: 5px;">
    <div>
     <table class="print-team-table">
@@ -1252,65 +1313,71 @@ font-style: italic;">Spielberichtsbogen</span>
  </div>
 </div>
 <div id="livePopup" class="popup-overlay">
- <div class="popup-content">
-  <div class="popup-nav-container">
-   <button class="nav-arrow-btn" id="popup_btn_prev" onclick="navigatePopupMatch(-1)">◀</button>
-   <div class="popup-header" id="popupGameTitle" style="margin:0; border:none; padding:0;">Spiel 1 (D)</div>
-   <button class="nav-arrow-btn" id="popup_btn_next" onclick="navigatePopupMatch(1)">▶</button>
-  </div>
-  <div id="popup_status_msg" class="popup-game-status-info" style="display:none;"> Spiel gewertet! Zum Ändern Button 🔒 nutzen:</div>
-  <button id="popup_fix_btn" class="fix-error-btn" style="display:none;" onclick="unlockCurrentMatchForFix()"> ⚠ Fehler beheben / Spiel freischalten</button>
-  <div id="winnerSelectionArea"></div>
-  <button id="popup_toggle_sub_btn" onclick="togglePopupSubmissions()" style="margin-top: 15px; width: 100%; padding: 8px; background: #333; color: #ffcc00; border: 1px solid #ffcc00; font-weight: bold; cursor: pointer; border-radius: 4px; text-transform: uppercase; font-size: 11px;"> Auswechslungen anzeigen 🛠</button>
-  <div id="popup_sub_toggle_area" style="display: none; margin-top: 10px; border-top: 1px dashed #555; padding-top: 5px;">
-   <div id="popup_sub_block_H">
-    <div class="sub-popup-title"> Wechsel Heimteam: 🏠</div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr 40px; gap: 5px; align-items: end;">
-     <div><label style="margin:0; font-size:11px;">Raus:</label><select id="pop_sub_out_H" style="padding:4px; font-size:11px; width:100%;"></select></div>
-     <div><label style="margin:0; font-size:11px;">Rein:</label><select id="pop_sub_in_H" style="padding:4px; font-size:11px; width:100%;"></select></div>
-     <button onclick="executePopupSubstitution('H')" style="padding:4px 0; background:#00cc66; color:#000; border:none; font-weight:bold; cursor:pointer; font-size:11px; border-radius:3px;">OK</button>
+  <div class="popup-content">
+    <div class="popup-nav-container">
+      <button class="nav-arrow-btn" id="popup_btn_prev" onclick="navigatePopupMatch(-1)">◀</button>
+      <div class="popup-header" id="popupGameTitle" style="margin:0; border:none; padding:0;">Spiel 1 (D)</div>
+      <button class="nav-arrow-btn" id="popup_btn_next" onclick="navigatePopupMatch(1)">▶</button>
     </div>
-   </div>
-   <div id="popup_sub_block_G" style="margin-top: 8px;">
-    <div class="sub-popup-title"> Wechsel Gastteam: 🚀</div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr 40px; gap: 5px; align-items: end;">
-     <div><label style="margin:0; font-size:11px;">Raus:</label><select id="pop_sub_out_G" style="padding:4px; font-size:11px;"></select></div>
-     <div><label style="margin:0; font-size:11px;">Rein:</label><select id="pop_sub_in_G" style="padding:4px; font-size:11px;"></select></div>
-     <button onclick="executePopupSubstitution('G')" style="padding:4px 0; background:#ff3333; color:#fff; border:none; font-weight:bold; cursor:pointer; font-size:11px; border-radius:3px;">OK</button>
-    </div>
-   </div>
+    <div id="popup_status_msg" class="popup-game-status-info" style="display:none;"> Spiel gewertet! Zum Ändern Button 🔒 nutzen:</div>
+    <button id="popup_fix_btn" class="fix-error-btn" style="display:none;" onclick="unlockCurrentMatchForFix()"> ⚠ Fehler beheben / Spiel freischalten</button>
+    
+    <div id="winnerSelectionArea"></div>
+    
+    <!-- NEUER BUTTON: Öffnet das separate Einflieg-Popup -->
+    <button onclick="oeffneWechselPopup()" style="margin-top: 15px; width: 100%; padding: 12px; background: #333; color: #ffcc00; border: 2px solid #ffcc00; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; font-size: 13px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">🔄 Auswechslungen vornehmen</button>
+    
+    <button class="close-btn" onclick="closeLivePopup()" style="margin-top:15px; padding:10px;">Schließen / Abbrechen</button>
   </div>
- 
+</div>
 
-
-
-      <button class="close-btn" onclick="closeLivePopup()" style="margin-top:15px; padding:8px;">Schließen / Abbrechen</button>
+<!-- NEUES EIGENSTÄNDIGES WECHSEL-POPUP (Fliegt von oben ein) -->
+<div id="subFlyPopup" class="popup-overlay" style="display: none; background: rgba(0,0,0,0.5); z-index: 10005;">
+  <div class="popup-content sub-fly-content" style="max-width: 480px; width: 92%; border-color: #ffcc00; box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
+    <div class="popup-header" style="margin-bottom: 15px; font-size: 18px;">Spieler einwechseln 🔄</div>
+    
+    <div id="popup_sub_block_H">
+      <div class="sub-popup-title" style="font-size: 14px; font-weight: bold; color: #ffcc00; margin-bottom: 8px;">Wechsel Heimteam: 🏠</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 48px; gap: 8px; align-items: end; margin-bottom: 15px;">
+        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Raus:</label><select id="pop_sub_out_H" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
+        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Rein:</label><select id="pop_sub_in_H" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
+        <button onclick="executePopupSubstitution('H')" style="padding: 0; height: 38px; background: #00cc66; color: #000; border: none; font-weight:bold; cursor:pointer; font-size:14px; border-radius:5px; width: 100%;">OK</button>
+      </div>
     </div>
+    
+    <div id="popup_sub_block_G" style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #555;">
+      <div class="sub-popup-title" style="font-size: 14px; font-weight: bold; color: #ffcc00; margin-bottom: 8px;">Wechsel Gastteam: 🚀</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 48px; gap: 8px; align-items: end; margin-bottom: 15px;">
+        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Raus:</label><select id="pop_sub_out_G" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
+        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Rein:</label><select id="pop_sub_in_G" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
+        <button onclick="executePopupSubstitution('G')" style="padding: 0; height: 38px; background:#ff3333; color:#fff; border: none; font-weight: bold; cursor:pointer; font-size:14px; border-radius: 5px; width: 100%;">OK</button>
+      </div>
+    </div>
+    
+    <button class="close-btn" onclick="schliesseWechselPopup()" style="background: #cc3333; color: white; margin-top: 15px; padding: 10px;">Zurück zum Spiel</button>
   </div>
+</div>
 
-  <!-- GENAU HIER: Das neue Popup für die detaillierte Spieler-Kontrolle -->
-  <div id="statsDetailPopup" class="popup-overlay" style="display: none;">
-   <div class="popup-content" style="max-width: 600px; width: 95%;">
+<!-- Das neue Popup für die detaillierte Spieler-Kontrolle -->
+<div id="statsDetailPopup" class="popup-overlay" style="display: none;">
+  <div class="popup-content" style="max-width: 600px; width: 95%;">
     <div class="popup-header" id="statsDetailTitle" style="margin-bottom: 10px;">Spieler-Kontrolle</div>
     <div style="max-height: 350px; overflow-y: auto; margin-bottom: 15px;">
-     <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-      <thead>
-       <tr>
-        <th style="width: 15%;">Spiel</th>
-        <th style="width: 20%;">Typ</th>
-        <th style="width: 30%;">Deine Rolle</th>
-        <th style="width: 35%;">Partner / Gegner</th>
-       </tr>
-      </thead>
-      <tbody id="statsDetailTableBody"></tbody>
-     </table>
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+        <thead>
+          <tr>
+            <th style="width: 15%;">Spiel</th>
+            <th style="width: 20%;">Typ</th>
+            <th style="width: 30%;">Deine Rolle</th>
+            <th style="width: 35%;">Partner / Gegner</th>
+          </tr>
+        </thead>
+        <tbody id="statsDetailTableBody"></tbody>
+      </table>
     </div>
     <button class="close-btn" onclick="closeStatsDetailPopup()" style="background: #ffcc00; color: #000; margin-top: 5px;">Schließen</button>
-   </div>
   </div>
-
-
-
+</div>
 
 <div id="pwaInstallPopup" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #2a2a2a; border: 2px solid #ffcc00; padding: 15px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 99999; width: 90%; max-width: 400px; box-sizing: border-box; font-family: Arial, sans-serif;">
  <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
@@ -1743,16 +1810,24 @@ function validateRosterAndSetup() {
         }
     }
 
-    // Gesamte Freigabe des Spielberichts (Prüft alle Pflichtfelder)
-    if(metaG && metaD && capH && capG && teamH && teamG && h1 && h2 && h3 && h4 && g1 && g2 && g3 && g4) {
-        isMatchPlayable = true;
-        bar.className = "status-bar status-ready";
-        bar.innerText = "Bereit! Der Spielberichtsbogen ist freigeschaltet. Wechsel oben in den Live-Spielplan!";
+// Gesamte Freigabe des Spielberichts (Prüft alle Pflichtfelder)
+const istFreispiel = (metaG === "Freispiel");
+
+// Wenn es ein Freispiel ist, ignorieren wir die Pflicht für Gruppe/Spieltag im Hintergrund
+if((istFreispiel || (metaG && metaD)) && capH && capG && teamH && teamG && h1 && h2 && h3 && h4 && g1 && g2 && g3 && g4) {
+    isMatchPlayable = true;
+    bar.className = "status-bar status-ready";
+    if (istFreispiel) {
+        bar.innerText = "🏆 FREISPIEL AKTIV! Der Spielberichtsbogen ist komplett freigeschaltet. Good Darts!";
     } else {
-        isMatchPlayable = false;
-        bar.className = "status-bar status-locked";
-        bar.innerText = "Spiel gesperrt: Bitte Gruppe, Spieltag, Kapitäne wählen und mindestens 4 Hauptspieler (H1-H4 & G1-G4) besetzen!";
+        bar.innerText = "Bereit! Der Spielberichtsbogen ist freigeschaltet. Wechsel oben in den Live-Spielplan!";
     }
+} else {
+    isMatchPlayable = false;
+    bar.className = "status-bar status-locked";
+    bar.innerText = "Spiel gesperrt: Bitte Gruppe, Spieltag, Kapitäne wählen und mindestens 4 Hauptspieler (H1-H4 & G1-G4) besetzen!";
+}
+
     
     renderTable();
 }
@@ -1767,21 +1842,38 @@ function resolvePlayerName(pos, matchId, returnPositionCode = false) {
  let inputEl = document.getElementById("p_" + activePos); return inputEl ? inputEl.value || activePos : activePos;
 }
 
-function closeLivePopup() {
- document.getElementById("livePopup").style.display = "none";
- const subArea = document.getElementById("popup_sub_toggle_area");
- const toggleBtn = document.getElementById("popup_toggle_sub_btn");
- if(subArea) subArea.style.display = "none";
- if(toggleBtn) toggleBtn.innerText = " Auswechslungen 🛠 anzeigen";
+// Öffnet das Wechsel-Popup und startet die Einflug-Animation
+function oeffneWechselPopup() {
+    const subPopup = document.getElementById("subFlyPopup");
+    if (!subPopup) return;
+    
+    subPopup.style.display = "block";
+    
+    // Kurze Verzögerung für den Browser, damit die CSS-Animation sauber anläuft
+    setTimeout(() => {
+        subPopup.classList.add("fly-active");
+    }, 10);
 }
 
-function togglePopupSubmissions() {
- const subArea = document.getElementById("popup_sub_toggle_area");
- const toggleBtn = document.getElementById("popup_toggle_sub_btn");
- if(!subArea) return;
- if(subArea.style.display === "none") { subArea.style.display = "block"; toggleBtn.innerText = " Auswechslungen ausblenden ✖"; }
- else { subArea.style.display = "none"; toggleBtn.innerText = " Auswechslungen anzeigen 🛠"; }
+// Schließt das Wechsel-Popup mit Rückwärs-Animation
+function schliesseWechselPopup() {
+    const subPopup = document.getElementById("subFlyPopup");
+    if (!subPopup) return;
+    
+    subPopup.classList.remove("fly-active");
+    
+    // Wartet, bis das Popup aus dem Bild geflogen ist, und blendet es dann aus
+    setTimeout(() => {
+        subPopup.style.display = "none";
+    }, 400);
 }
+
+// Bereinigter Schließen-Befehl für das Haupt-Ergebnisfenster
+function closeLivePopup() {
+    document.getElementById("livePopup").style.display = "none";
+    schliesseWechselPopup(); // Sicherheitshalber auch das Wechselfenster mit wegpacken
+}
+
 function renderTable() {
  const tbody = document.getElementById("matchTableBody"); const printBody = document.getElementById("print_table_all");
  if(!tbody || !printBody) return; tbody.innerHTML = ""; printBody.innerHTML = "";
@@ -1878,189 +1970,168 @@ const scoreDisplayHome = hasBeenPlayed ? runningHome : ""; const scoreDisplayGue
 
 
 
-function openLivePopup (matchId) {
-activePopupMatchId = Number(matchId);
-const m = mkkSchedule.find(x => x.id === activePopupMatchId);
-if(!m) return;
-let typeLong = m.type;
-if (m.type === "E") typeLong = "501 M/O Einzel"; else if (m.type === "D")
-typeLong = "501 M/O Doppel"; else if (m.type === "C") typeLong = "Cricket Team";
-document.getElementById("popupGameTitle").innerText = `Spiel ${m.id} (${typeLong})`;
-document.getElementById("popup_btn_prev").disabled = (m.id === 1);
-document.getElementById("popup_btn_next").disabled = (m.id === 34);
-const isPlayed = !! matchResults[m.id];
-const statusMsg = document.getElementById("popup_status_msg");
-const fixBtn = document.getElementById("popup_fix_btn");
-if (isPlayed) {
-if(statusMsg) statusMsg.style.display = "block";
-if(fixBtn) fixBtn.style.display = "block";
-} else {
-if(statusMsg) statusMsg.style.display = "none";
-if(fixBtn) fixBtn.style.display = "none";
-}
-const c1 = m.pos [0] || ""; const c2 = m.pos [1] || ""; const c3 = m.pos [2] || "";
-const c4 = m.pos [3] || "";
-const p1 = resolvePlayerName (c1, activePopupMatchId); const p2 =
-resolvePlayerName (c2, activePopupMatchId); const p3 = c3 ? resolvePlayerName
-(c3, activePopupMatchId) : ""; const p4 = c4 ? resolvePlayerName (c4,
-activePopupMatchId) : "";
-const area = document.getElementById("winnerSelectionArea"); area.innerHTML = "";
-let curH = 0, curG = 0;
-for(let i=1; i<= activePopupMatchId; i++) { if(matchResults[i]) { curH +=
-matchResults[i].heim; curG += matchResults[i].gast; } }
-area.innerHTML += ` <div style="text-align:center; font-size:15px; font-weight:bold; color: #ffcc00; margin: 0 0 12px 0; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 3px; ">Spielstand: ${curH}: ${curG}</div>`;
-
-// HIER IST DIE WICHTIGE SPERRE FÜR BEREITS GESPIELTE SPIELE WIEDER AKTIV
-const disabledAttr = isPlayed ? "click-box-disabled" : "";
-
-if (m.type === "E") {
-    const side1 = c1.startsWith("H") ? "H" : "G";
-    const side2 = c2.startsWith("H") ? "H" : "G";
+function openLivePopup(matchId) {
+    activePopupMatchId = Number(matchId);
+    const m = mkkSchedule.find(x => x.id === activePopupMatchId);
+    if(!m) return;
     
-    // Ermittelt die aktuell echten Positionen (Berücksichtigt aktive Wechsel!)
-    const realPos1 = resolvePlayerName(c1, activePopupMatchId, true);
-    const realPos2 = resolvePlayerName(c2, activePopupMatchId, true);
+    let typeLong = m.type;
+    if (m.type === "E") typeLong = "501 M/O Einzel"; 
+    else if (m.type === "D") typeLong = "501 M/O Doppel"; 
+    else if (m.type === "C") typeLong = "Cricket Team";
     
-    let einzelPlayers = [
-        { name: p1, pos: realPos1, side: side1, scoreNum: 1 },
-        { name: p2, pos: realPos2, side: side2, scoreNum: 2 }
-    ];
-    einzelPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
-   
-
-
-
-
+    const titleEl = document.getElementById("popupGameTitle");
+    if (titleEl) titleEl.innerText = `Spiel ${m.id} (${typeLong})`;
+    
+    const prevBtn = document.getElementById("popup_btn_prev");
+    const nextBtn = document.getElementById("popup_btn_next");
+    if (prevBtn) prevBtn.disabled = (m.id === 1);
+    if (nextBtn) nextBtn.disabled = (m.id === 32);
+    
+    const isPlayed = !!matchResults[m.id];
+    const statusMsg = document.getElementById("popup_status_msg");
+    const fixBtn = document.getElementById("popup_fix_btn");
+    if (statusMsg) statusMsg.style.display = isPlayed ? "block" : "none";
+    if (fixBtn) fixBtn.style.display = isPlayed ? "block" : "none";
+    
+    const c1 = m.pos[0] || ""; 
+    const c2 = m.pos[1] || ""; 
+    const c3 = m.pos[2] || ""; 
+    const c4 = m.pos[3] || "";
+    
+    const p1 = resolvePlayerName(c1, activePopupMatchId); 
+    const p2 = resolvePlayerName(c2, activePopupMatchId); 
+    const p3 = c3 ? resolvePlayerName(c3, activePopupMatchId) : ""; 
+    const p4 = c4 ? resolvePlayerName(c4, activePopupMatchId) : "";
+    
+    const area = document.getElementById("winnerSelectionArea"); 
+    if (!area) return;
+    area.innerHTML = "";
+    
+    let curH = 0, curG = 0;
+    for(let i = 1; i < activePopupMatchId; i++) { 
+        if(matchResults[i]) { 
+            curH += matchResults[i].heim; 
+            curG += matchResults[i].gast; 
+        } 
+    }
+    area.innerHTML += `<div style="text-align:center; font-size: 15px; font-weight:bold; color: #ffcc00; margin: 0 0 12px 0; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 3px;">Spielstand vor dem Match: ${curH}: ${curG}</div>`;
+    
+    const disabledAttr = isPlayed ? "click-box-disabled" : "";
+    
+    if (m.type === "E") {
+        const side1 = c1.startsWith("H") ? "H" : "G";
+        const side2 = c2.startsWith("H") ? "H" : "G";
+        const realPos1 = resolvePlayerName(c1, activePopupMatchId, true);
+        const realPos2 = resolvePlayerName(c2, activePopupMatchId, true);
+        
+        let einzelPlayers = [
+            { name: p1, pos: realPos1, side: side1, scoreNum: 1 },
+            { name: p2, pos: realPos2, side: side2, scoreNum: 2 }
+        ];
+        einzelPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
+        
         einzelPlayers.forEach(p => {
             const sideBadge = p.side === 'H' ? 'Heim' : 'Gast';
             const btnStyle = p.side === 'H'
-                ? 'background: #00cc66 !important; color: #000 !important; font-weight:bold; padding: 12px; margin:6px 0; border: none; display:block;'
-                : 'background: #ffcc00 !important; color: #000 !important; font-weight:bold; padding: 12px; margin:6px 0; border: none; display:block;';
+                ? 'background: #00cc66 !important; color: #000 !important; font-weight: bold; padding: 12px; margin:6px 0; border: none; display: block;'
+                : 'background: #ffcc00 !important; color: #000 !important; font-weight: bold; padding: 12px; margin:6px 0; border: none; display:block;';
                 
-            area.innerHTML += `<div class="click-box ${disabledAttr}" style="${btnStyle}" onclick="registerWinner('${p.name}', '${p.pos}', '${p.side}')">
+            area.innerHTML += `<div class="click-box ${disabledAttr} click-box-${p.side.toLowerCase()}" style="${btnStyle}" onclick="if(!${isPlayed}){ registerWinner('${p.name}', '${p.pos}', '${p.side}'); }">
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left;">
                     <div style="display: flex; align-items: center; gap: 10px; min-width: 120px;">
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px; min-width: 35px;">${sideBadge}</span>
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px;">Score ${p.scoreNum}</span>
                     </div>
-                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">
-                        ${p.name}
-                    </span>
-                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">
-                        ${p.pos}
-                    </span>
+                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">${p.name}</span>
+                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">${p.pos}</span>
                 </div>
             </div>`;
         });
-
-} else {
-    const hPlayers = [], gPlayers = [];
-    
-    // Ermittelt die aktuell echten Positionen für Doppel/Cricket (Berücksichtigt aktive Wechsel!)
-    const rp1 = resolvePlayerName(c1, activePopupMatchId, true);
-    const rp2 = resolvePlayerName(c2, activePopupMatchId, true);
-    const rp3 = c3 ? resolvePlayerName(c3, activePopupMatchId, true) : "";
-    const rp4 = c4 ? resolvePlayerName(c4, activePopupMatchId, true) : "";
-
-    if(c1.startsWith("H")) hPlayers.push({name: p1, pos: rp1, scoreNum: 1}); else gPlayers.push({name: p1, pos: rp1, scoreNum: 1});
-    if(c2.startsWith("H")) hPlayers.push({name: p2, pos: rp2, scoreNum: 2}); else gPlayers.push({name: p2, pos: rp2, scoreNum: 2});
-    if(c3) { if(c3.startsWith("H")) hPlayers.push({name: p3, pos: rp3, scoreNum: 3}); else gPlayers.push({name: p3, pos: rp3, scoreNum: 3}); }
-    if(c4) { if(c4.startsWith("H")) hPlayers.push({name: p4, pos: rp4, scoreNum: 4}); else gPlayers.push({name: p4, pos: rp4, scoreNum: 4}); }
-    
-    hPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
-    gPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
-    let allPopupPlayers = [...hPlayers, ...gPlayers];
-    allPopupPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
+    } else {
+        let hPlayers = [], gPlayers = [];
+        const rp1 = resolvePlayerName(c1, activePopupMatchId, true);
+        const rp2 = resolvePlayerName(c2, activePopupMatchId, true);
+        const rp3 = c3 ? resolvePlayerName(c3, activePopupMatchId, true) : "";
+        const rp4 = c4 ? resolvePlayerName(c4, activePopupMatchId, true) : "";
+        
+        if(c1.startsWith("H")) hPlayers.push({name: p1, pos: rp1, scoreNum: 1}); else gPlayers.push({name: p1, pos: rp1, scoreNum: 1});
+        if(c2.startsWith("H")) hPlayers.push({name: p2, pos: rp2, scoreNum: 2}); else gPlayers.push({name: p2, pos: rp2, scoreNum: 2});
+        if(c3) { if(c3.startsWith("H")) hPlayers.push({name: p3, pos: rp3, scoreNum: 3}); else gPlayers.push({name: p3, pos: rp3, scoreNum: 3}); }
+        if(c4) { if(c4.startsWith("H")) hPlayers.push({name: p4, pos: rp4, scoreNum: 4}); else gPlayers.push({name: p4, pos: rp4, scoreNum: 4}); }
+        
+        hPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
+        gPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
+        
+        let allPopupPlayers = [...hPlayers, ...gPlayers];
+        allPopupPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
+        
         allPopupPlayers.forEach(p => {
             const isHome = p.pos.startsWith("H");
             const sideBadge = isHome ? 'Heim' : 'Gast';
             const partnerList = isHome ? hPlayers : gPlayers;
             const partner = partnerList.find(x => x.pos !== p.pos) || {name: null, pos: null};
             const currentSideCode = isHome ? 'H' : 'G';
+            
             const btnStyle = isHome
                 ? 'background: #00cc66 !important; color: #000 !important; font-weight:bold; padding: 12px; margin:5px 0; border: none; display:block;'
                 : 'background: #ffcc00 !important; color: #000 !important; font-weight: bold; padding: 12px; margin:5px 0; border: none; display:block;';
                 
-            area.innerHTML += `<div class="click-box ${disabledAttr}" style="${btnStyle}" onclick="registerWinner('${p.name}', '${p.pos}', '${currentSideCode}', '${partner.name}', '${partner.pos}')">
+            area.innerHTML += `<div class="click-box ${disabledAttr} click-box-${currentSideCode.toLowerCase()}" style="${btnStyle}" onclick="if(!${isPlayed}){ registerWinner('${p.name}', '${p.pos}', '${currentSideCode}', '${partner.name}', '${partner.pos}'); }">
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left;">
                     <div style="display: flex; align-items: center; gap: 10px; min-width: 120px;">
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px; min-width: 35px;">${sideBadge}</span>
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px;">Score ${p.scoreNum}</span>
                     </div>
-                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">
-                        ${p.name}
-                    </span>
-                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">
-                        ${p.pos}
-                    </span>
+                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">${p.name}</span>
+                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">${p.pos}</span>
                 </div>
             </div>`;
         });
-
-}
-
-
-
-
-const activeSubs = substitutions.filter(s => s.matchId <= activePopupMatchId);
-let subsHtml = "";
-if(activeSubs.length > 0) {
-subsHtml = `<div style="margin-top:10px; background:rgba(255,255,255,0.05); padding: 6px; border-radius: 4px; border:1px solid #444; font-size:11px; text-align: left; color: #bbb;"><b style="color:#ffcc00;"> Aktive Wechsel bis Spiel ${activePopupMatchId}:</b><br>`;
-activeSubs.forEach((s, idx) => { subsHtml +=  `<div style="display: flex; justify-content: space-between; align-items: center; margin: 2px 0;"><span> Ab Spiel ${s.matchId}: <b>${s.inPos}</b> für <b>${s.outPos}</b></span><span onclick="removeSubstitution(${s.matchId}, '${s.outPos}')" style="color:#cc3333; cursor:pointer; font-weight: bold; margin-left: auto; padding:0 4px;"> Löschen</span></div>`; });
-subsHtml += '</div>';
-}
-area.innerHTML += subsHtml;
-document.getElementById("popup_sub_toggle_area").style.display = "none";
-document.getElementById("popup_toggle_sub_btn").innerText = "Auswechslungen anzeigen";
-const outH = document.getElementById("pop_sub_out_H"); const inH = document.getElementById("pop_sub_in_H");
-
-
-const outG = document.getElementById("pop_sub_out_G"); const inG =
-document.getElementById("pop_sub_in_G");
-outH.innerHTML = '<option value="">-- wähle Raus --</option>'; inH.innerHTML =
-'<option value="">-- wähle Rein --</option>';
-outG.innerHTML = '<option value="">-- wähle Raus --</option>'; inG.innerHTML =
-'<option value="">-- wähle Rein --</option>';
-
-
-
-  // Dropdowns für Raus-Auswahl befüllen (Spieler, die gerade auf dem Feld stehen)
-  m.pos.forEach(p => { 
-    if(!p) return; 
-    const realPos = p; 
-    const displayName = resolvePlayerName(p, activePopupMatchId); 
-    if (realPos.startsWith("H")) {
-      outH.innerHTML += `<option value="${realPos}">${realPos} (${displayName})</option>`; 
-    } else if (realPos.startsWith("G")) {
-      outG.innerHTML += `<option value="${realPos}">${realPos} (${displayName})</option>`; 
     }
-  });
-
-  // Heim-Ersatzspieler (HE1 - HE4) für die Rein-Auswahl prüfen (Hier wurden die kyrillischen Zeichen korrigiert!)
-  ["HE1", "HE2", "HE3", "HE4"].forEach(p => { 
-    const el = document.getElementById("p_" + p); 
-    if(el && el.value && el.value.trim() !== "") { 
-      const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId >= s.matchId); 
-      if(!alreadyUsed) {
-        inH.innerHTML += `<option value="${p}">${p} (${el.value})</option>`; 
-      }
-    } 
-  });
-
-  // Gast-Ersatzspieler (GE1 - GE4) für die Rein-Auswahl prüfen (Syntax-Fehler behoben!)
-  ["GE1", "GE2", "GE3", "GE4"].forEach(p => { 
-    const el = document.getElementById("p_" + p); 
-    if(el && el.value && el.value.trim() !== "") { 
-      const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId >= s.matchId); 
-      if(!alreadyUsed) {
-        inG.innerHTML += `<option value="${p}">${p} (${el.value})</option>`; 
-      }
-    } 
-  });
-
-  document.getElementById("livePopup").style.display = "block";
+    
+    // BROWSER-SCHUTZ: Befüllt die Dropdowns im neuen, unsichtbaren Wechsel-Popup sicher mit Daten
+    const outH = document.getElementById("pop_sub_out_H"); 
+    const inH = document.getElementById("pop_sub_in_H");
+    const outG = document.getElementById("pop_sub_out_G"); 
+    const inG = document.getElementById("pop_sub_in_G");
+    
+    if (outH && inH && outG && inG) {
+        outH.innerHTML = '<option value="">-- wähle Raus --</option>'; 
+        inH.innerHTML = '<option value="">-- wähle Rein --</option>';
+        outG.innerHTML = '<option value="">-- wähle Raus --</option>'; 
+        inG.innerHTML = '<option value="">-- wähle Rein --</option>';
+        
+        m.pos.forEach(p => {
+            if(!p) return;
+            const displayName = resolvePlayerName(p, activePopupMatchId);
+            if (p.startsWith("H")) {
+                outH.innerHTML += `<option value="${p}">${p} (${displayName})</option>`;
+            } else if (p.startsWith("G")) {
+                outG.innerHTML += `<option value="${p}">${p} (${displayName})</option>`;
+            }
+        });
+        
+        ["HE1", "HE2", "HE3", "HE4"].forEach(p => {
+            const el = document.getElementById("p_" + p);
+            if(el && el.value && el.value.trim() !== "") {
+                const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId > s.matchId);
+                if(!alreadyUsed) inH.innerHTML += `<option value="${p}">${p} (${el.value})</option>`;
+            }
+        });
+        
+        ["GE1", "GE2", "GE3", "GE4"].forEach(p => {
+            const el = document.getElementById("p_" + p);
+            if(el && el.value && el.value.trim() !== "") {
+                const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId > s.matchId);
+                if(!alreadyUsed) inG.innerHTML += `<option value="${p}">${p} (${el.value})</option>`;
+            }
+        });
+    }
+    
+    const livePopup = document.getElementById("livePopup");
+    if (livePopup) livePopup.style.display = "block";
 }
-
 
 function executePopupSubstitution (teamSide) {
   const outPos = document.getElementById("pop_sub_out_" + teamSide).value; 
@@ -2085,12 +2156,12 @@ function executePopupSubstitution (teamSide) {
       g++; 
     }
   });
-  alert("Auswechslung erfolgreich registriert!");
-  renderTable(); 
-  openLivePopup(activePopupMatchId);
-  document.getElementById("popup_sub_toggle_area").style.display = "none";
-  document.getElementById("popup_toggle_sub_btn").innerText = "Auswechslungen anzeigen";
+    alert("Auswechslung erfolgreich registriert!");
+    renderTable();
+    openLivePopup(activePopupMatchId); // Aktualisiert die Namen im Haupt-Popup
+    schliesseWechselPopup();           // Fliegt das Wechsel-Popup elegant wieder nach oben raus
 }
+
 
 function removeSubstitution (matchId, outPos) {
   substitutions = substitutions.filter(s => !(s.matchId === matchId && s.outPos === outPos));
@@ -2157,10 +2228,10 @@ function registerWinner (ignoredName, checkerPos, side, ignoredAssName = null, a
   renderTable();
   saveMatchdayToLocalStorage();
   setTimeout(() => {
-    if(activePopupMatchId < 34) { 
+    if(activePopupMatchId < 32) { 
       openLivePopup(activePopupMatchId + 1); 
     } else { 
-      alert("Alle 34 Spiele erfasst! Der Spielberichtsbogen ist fertig.");
+      alert("Alle 32 Spiele erfasst! Der Spielberichtsbogen ist fertig.");
       closeLivePopup(); 
     }
   }, 300);
@@ -2277,16 +2348,25 @@ function updateStats() {
 }
 
 function syncMetaToLabels() {
-  const groupVal = document.getElementById("meta_group").value;
-  document.getElementById("lbl_group_A").innerText = (groupVal === "Gruppe A") ? "X" : "";
-  document.getElementById("lbl_group_B").innerText = (groupVal === "Gruppe B") ? "X" : "";
-  document.getElementById("lbl_group_C").innerText = (groupVal === "Gruppe C") ? "X" : "";
-  document.getElementById("lbl_day").innerText = document.getElementById("meta_day").value;
-  document.getElementById("lbl_date").innerText = document.getElementById("meta_date").value;
-  document.getElementById("lbl_name_home").innerText = document.getElementById("team_home").value;
-  document.getElementById("lbl_name_guest").innerText = document.getElementById("team_guest").value;
-  document.getElementById("lbl_captain_home").innerText = document.getElementById("captain_home").value;
-  document.getElementById("lbl_captain_guest").innerText = document.getElementById("captain_guest").value;
+    const groupVal = document.getElementById("meta_group").value;
+    
+    // Setzt die Kreuze für A, B, C zurück oder lässt sie bei Freispiel einfach ganz frei
+    document.getElementById("lbl_group_A").innerText = (groupVal === "Gruppe A") ? "X" : "";
+    document.getElementById("lbl_group_B").innerText = (groupVal === "Gruppe B") ? "X" : "";
+    document.getElementById("lbl_group_C").innerText = (groupVal === "Gruppe C") ? "X" : "";
+    
+    // Wenn Freispiel aktiv ist, bleibt der Spieltag im PDF unsichtbar und leer
+    const dayVal = document.getElementById("meta_day").value;
+    document.getElementById("lbl_day").innerText = (groupVal === "Freispiel") ? "" : dayVal;
+    
+    document.getElementById("lbl_date").innerText = document.getElementById("meta_date").value;
+    document.getElementById("lbl_name_home").innerText = document.getElementById("team_home").value;
+    document.getElementById("lbl_name_guest").innerText = document.getElementById("team_guest").value;
+    document.getElementById("lbl_captain_home").innerText = document.getElementById("captain_home").value;
+    document.getElementById("lbl_captain_guest").innerText = document.getElementById("captain_guest").value;
+    
+    // ... restliche IDs-Schleife (H1, H2 etc.) bleibt wie sie ist ...
+
   const ids = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4", "G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
   ids.forEach(id => {
     const el = document.getElementById("p_" + id); 
@@ -2371,9 +2451,7 @@ alert("Alle Spieldaten und Unterschriften wurden erfolgreich zurückgesetzt!");
 switchTab('setup');
 }
 
-
-function switchTab (tabName) {
-    // AUTOMATISCHER SCHLIESS-SCHUTZ: Schließt das Zahnrad-Menü beim Tab-Wechsel
+function switchTab(tabName) {
     const panel = document.getElementById("accordion_panel");
     if (panel) panel.style.display = "none";
     document.body.classList.remove("settings-open");
@@ -2381,12 +2459,10 @@ function switchTab (tabName) {
     document.getElementById("tab_setup").classList.remove("active");
     document.getElementById("tab_game").classList.remove("active");
     document.getElementById("tab_" + tabName).classList.add("active");
-    
     document.getElementById("btn_tab_setup").classList.remove("active");
     document.getElementById("btn_tab_game").classList.remove("active");
     document.getElementById("btn_tab_" + tabName).classList.add("active");
     
-    // Startet die Unterschriftenfelder neu, sobald der Spielplan-Tab geöffnet wird
     if (tabName === "game") {
         setTimeout(() => {
             if (typeof initFixedCanvasesWithoutPopup === "function") {
@@ -2394,14 +2470,9 @@ function switchTab (tabName) {
             }
         }, 100);
         
-        // NEU: Bildschirm automatisch ins Querformat drehen und sperren
-        if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock('landscape')
-                .then(() => console.log("Bildschirm erfolgreich ins Querformat gedreht"))
-                .catch((err) => console.log("Drehung blockiert (erfordert vorherigen Klick/Vollbild):", err));
-        }
+        // KORREKTUR: Den alten blockierenden 'landscape'-Lock komplett entfernt!
+        // Das Display passt sich jetzt einfach nativ der echten Drehung des Kapitaens an.
     } else if (tabName === "setup") {
-        // NEU: Wenn man zurück zur Aufstellung geht, wieder ins normale Hochformat wechseln
         if (screen.orientation && screen.orientation.unlock) {
             screen.orientation.unlock();
         }
@@ -2563,6 +2634,30 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => { popup.style.display = 'block'; }, 3000);
     }
 });
+
+
+
+
+
+function beendeStartbildschirm() {
+    // 3000ms entspricht exakt 3 Sekunden Wartezeit
+    setTimeout(() => {
+        const splash = document.getElementById("app_splash_screen");
+        if (splash) {
+            splash.style.opacity = "0"; // Blendet das Bild weich aus
+            setTimeout(() => {
+                splash.style.display = "none"; // Entfernt es aus dem Klickbereich
+            }, 500); // Wartet das CSS-Ausblenden ab
+        }
+    }, 3000); 
+}
+
+
+
+
+
+
+
 
 function triggerPwaInstallation() {
     const popup = document.getElementById('pwaInstallPopup');
@@ -2837,15 +2932,14 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
 function starteSpezialDruck() {
     // Sicherheitscheck: Prüfen, ob der Button gesperrt ist
     const btn = document.getElementById("btn_print_pdf");
     if (btn && btn.classList.contains("row-disabled")) {
         alert("Hinweis: Der Ausdruck ist erst nach Erfassung aller Spiele möglich!");
-        return; 
+        return;
     }
-
+    
     // 1. Metadaten einsammeln
     const metaGroup = document.getElementById("meta_group")?.value || "";
     const metaDay = document.getElementById("meta_day")?.value || "";
@@ -2854,7 +2948,23 @@ function starteSpezialDruck() {
     const teamG = document.getElementById("team_guest")?.value || "";
     const capH = document.getElementById("captain_home")?.value || "";
     const capG = document.getElementById("captain_guest")?.value || "";
-
+    
+    // BLANKO-PRÜFUNG: Wenn keine Teams gewählt und keine Spiele eingetragen sind, ist es ein Blanko-Druck
+    const spieleVorhanden = typeof matchResults !== "undefined" && Object.keys(matchResults).length > 0;
+    const istBlankoDruck = !teamH && !teamG && !spieleVorhanden;
+    
+    // KORREKTUR: Wenn es ein Blanko-Druck ist, blenden wir die Unterschriften auf dem Papier radikal aus!
+    const imgH = document.getElementById("img_print_sig_H");
+    const imgG = document.getElementById("img_print_sig_G");
+    if (istBlankoDruck) {
+        if (imgH) imgH.style.display = "none";
+        if (imgG) imgG.style.display = "none";
+    } else {
+        // Bei einem echten, beendeten Spiel laden wir sie ganz normal
+        if (imgH && localStorage.getItem("mkk_sig_data_H")) { imgH.style.display = "block"; }
+        if (imgG && localStorage.getItem("mkk_sig_data_G")) { imgG.style.display = "block"; }
+    }
+    
     // 2. Metadaten auf das Druckblatt schreiben
     if(document.getElementById("lbl_group_A"))
         document.getElementById("lbl_group_A").innerText = (metaGroup === "Gruppe A") ? "X" : "";
@@ -2862,34 +2972,14 @@ function starteSpezialDruck() {
         document.getElementById("lbl_group_B").innerText = (metaGroup === "Gruppe B") ? "X" : "";
     if(document.getElementById("lbl_group_C"))
         document.getElementById("lbl_group_C").innerText = (metaGroup === "Gruppe C") ? "X" : "";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
     if(document.getElementById("lbl_day")) document.getElementById("lbl_day").innerText = metaDay;
     if(document.getElementById("lbl_date")) document.getElementById("lbl_date").innerText = metaDate;
     if(document.getElementById("lbl_name_home")) document.getElementById("lbl_name_home").innerText = teamH;
     if(document.getElementById("lbl_name_guest")) document.getElementById("lbl_name_guest").innerText = teamG;
     if(document.getElementById("lbl_captain_home")) document.getElementById("lbl_captain_home").innerText = capH;
     if(document.getElementById("lbl_captain_guest")) document.getElementById("lbl_captain_guest").innerText = capG;
-
+    
     // 3. Aufstellung & Passnummern übertragen
     const ids = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4", "G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
     ids.forEach(id => {
@@ -2900,71 +2990,68 @@ function starteSpezialDruck() {
         const passLbl = document.getElementById("lbl_pass_" + id);
         if(passEl && passLbl) passLbl.innerText = passEl.value || "";
     });
-
+    
     // 4. Alle Matches für das Papier aufbauen
     const printBody = document.getElementById("print_table_all");
     if (printBody && typeof mkkSchedule !== "undefined") {
         printBody.innerHTML = "";
         let runningHome = 0;
         let runningGuest = 0;
-
         mkkSchedule.forEach(m => {
             const res = (typeof matchResults !== "undefined" && matchResults[m.id]) || { heim: 0, gast: 0, checkerPos: "", assistantPos: "" };
             const hasBeenPlayed = (typeof matchResults !== "undefined" && !!matchResults[m.id]);
-            if (hasBeenPlayed) { 
-                runningHome += res.heim; 
-                runningGuest += res.gast; 
+            if (hasBeenPlayed) {
+                runningHome += res.heim;
+                runningGuest += res.gast;
             }
-
-            // Ermittelt die aktuell echten Positionskürzel (Berücksichtigt aktive Wechsel für die Score-Zellen!)
+            
             const c1 = (m.pos && m.pos[0]) ? resolvePlayerName(m.pos[0], m.id, true) : "";
             const c2 = (m.pos && m.pos[1]) ? resolvePlayerName(m.pos[1], m.id, true) : "";
             const c3 = (m.pos && m.pos[2]) ? resolvePlayerName(m.pos[2], m.id, true) : "";
             const c4 = (m.pos && m.pos[3]) ? resolvePlayerName(m.pos[3], m.id, true) : "";
-
-            // Typ-Kürzel in volles Wort übersetzen
+            
             let vollesWortTyp = m.type;
             if (m.type === "E") vollesWortTyp = "Einzel";
             else if (m.type === "D") vollesWortTyp = "Doppel";
             else if (m.type === "C") vollesWortTyp = "Cricket";
-
+            
             const scoreDisplayHome = hasBeenPlayed ? runningHome : "";
             const scoreDisplayGuest = hasBeenPlayed ? runningGuest : "";
-
+            
             const trP = document.createElement("tr");
-            trP.innerHTML = 
-              '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8px; font-weight:bold; text-align:center;">' + m.id + '</td>' +
-              '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8px; text-align:center;">' + vollesWortTyp + '</td>' +
-              '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c1 || "-") + '</td>' +
-              '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c2 || "-") + '</td>' +
-              '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c3 || "-") + '</td>' +
-              '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c4 || "-") + '</td>' +
-              '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8.5px; font-weight:bold; text-align:center; background:#e0e0e0 !important;">' + scoreDisplayHome + '</td>' +
-              '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8.5px; font-weight:bold; text-align:center; background:#e0e0e0 !important;">' + scoreDisplayGuest + '</td>';
-
+            trP.innerHTML =
+                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8px; font-weight:bold; text-align:center;">' + m.id + '</td>' +
+                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8px; text-align:center;">' + vollesWortTyp + '</td>' +
+                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c1 || "-") + '</td>' +
+                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c2 || "-") + '</td>' +
+                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c3 || "-") + '</td>' +
+                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c4 || "-") + '</td>' +
+                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8.5px; font-weight:bold; text-align:center; background: #e0e0e0 !important;">' + scoreDisplayHome + '</td>' +
+                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8.5px; font-weight:bold; text-align:center; background: #e0e0e0 !important;">' + scoreDisplayGuest + '</td>';
             printBody.appendChild(trP);
         });
     }
-
+    
     // 5. Gesamtergebnis eintragen & Titel für PDF-Dateinamen setzen
     const ergebnisText = document.getElementById("lbl_res_total")?.innerText || "0 : 0";
     const sauberesErgebnis = ergebnisText.replace(":", "zu").trim();
     const alterTitel = document.title;
-    document.title = metaDate + " " + teamH + " gegen " + teamG + " " + sauberesErgebnis;
-
+    document.title = metaDate + " " + teamH + " gegen " + teamG + " - " + sauberesErgebnis;
+    
     // 6. Vollbild-Modus sauber beenden (wichtig für iOS)
-    if (document.exitFullscreen) { 
-        document.exitFullscreen().catch(() => {}); 
-    } else if (document.webkitExitFullscreen) { 
-        document.webkitExitFullscreen(); 
-    }
-
+    if (document.exitFullscreen) { document.exitFullscreen().catch(() => {}); }
+    else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
+    
     // 7. NACH DER VERZÖGERUNG: Druckdialog öffnen
     setTimeout(() => {
         window.print();
         setTimeout(() => { document.title = alterTitel; }, 1000);
     }, 350);
 }
+
+
+
+
 
 function closeSetupPopup(side) {
   const spielerIds = side === 'H' 
@@ -3147,38 +3234,65 @@ printBody.appendChild(trP);
 </script>
 
 <style>
-@media print {
-    html, body {
-        height: 100% !important;
-        overflow: hidden !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
 
-    /* AB HIER NEU EINFÜGEN */
-    .print-meta-cell-content {
-        display: flex !important;
-        align-items: center !important;
-        width: 100% !important;
-        height: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    .print-meta-label {
-        text-align: left !important;
-        white-space: nowrap !important;
-        padding-right: 5px !important;
-    }
-    
-    .print-meta-value {
-        flex: 1 !important;
-        text-align: center !important;
-        font-weight: bold !important;
-        padding-right: 45px !important; /* Gleicht das linke Label perfekt aus */
-    }
-    /* ENDE DER NEUEN KLASSEN */
+/* Animation für das einfliegende Wechsel-Popup */
+.sub-fly-content {
+    transform: translate(-50%, -150%) scale(0.5); /* Startet unsichtbar weit oben */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Federt elegant ein */
+}
+
+/* Zustand wenn das Popup aktiv geschaltet ist */
+.popup-overlay.fly-active .sub-fly-content {
+    transform: translate(-50%, -50%) scale(1) !important; /* Fliegt exakt in die Mitte */
+}
+
+
+
+
+@media print {
+html, body {
+height: 100% !important;
+overflow: hidden !important;
+margin: 0 !important;
+padding: 0 !important;
+-webkit-print-color-adjust: exact !important;
+print-color-adjust: exact !important;
+}
+
+/* KORREKTUR: Entfernt das globale Linksbündig für td, damit die obere Tabellenstruktur nicht zerschossen wird */
+
+/* Flex-Container füllt nun die komplette Zelle aus */
+.print-meta-cell-content {
+display: flex !important;
+align-items: center !important;
+justify-content: flex-start !important;
+width: 100% !important;
+height: 100% !important;
+box-sizing: border-box !important;
+text-align: left !important; /* Erzwingt die Linksbündigkeit nur innerhalb der Box */
+}
+
+/* Die feste Beschriftung klebt links am Rand */
+.print-meta-label {
+text-align: left !important;
+white-space: nowrap !important;
+font-weight: bold !important;
+font-size: 10px !important;
+color: #000 !important;
+padding-left: 2px !important;
+}
+
+/* Der dynamische Name nutzt den Restplatz und zentriert sich mathematisch exakt */
+.print-meta-value {
+flex: 1 !important;
+text-align: center !important;
+font-weight: bold !important;
+font-size: 10px !important;
+color: #000 !important;
+margin-right: 55px !important; /* Gleicht die Breite des linken Labels perfekt aus, damit der Name mittig sitzt */
+}
+
+
 
     body > .container, h1, .tab-navigation, #tab_setup, .panel, .status-bar,
 
@@ -3312,17 +3426,25 @@ printBody.appendChild(trP);
     margin-top: 2px !important;
   }
 
-  .print-signature-box {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-end !important;
-    height: 30px !important;
-    border-bottom: 1px solid #000 !important;
-    font-size: 8px !important;
-    width: 45% !important;
-    padding-bottom: 1px !important;
-    position: relative !important;
-  }
+@media print {
+    /* ... deine anderen Styles ... */
+
+    .print-signature-box {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+        height: 30px !important;
+        border-bottom: 1px solid #000 !important;
+        font-size: 8px !important;
+        width: 45% !important;
+        padding-bottom: 1px !important;
+        position: relative !important;
+        
+        /* KORREKTUR: Zentriert den Text der Beschriftung exakt unter der Linie */
+        text-align: center !important; 
+    }
+}
+
 
   .print-sig-img {
     position: absolute !important;
