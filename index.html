@@ -872,8 +872,17 @@ font-style: italic;">Spielberichtsbogen</span>
 
 <!-- Globaler Schließen-Button am Ende des Zahnrad-Menüs -->
 <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #444;">
-<button onclick="toggleAccordion()" style="padding: 12px; background: #cc3333; color: #fff; border: 1px solid #ff5555; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 13px; text-transform: uppercase; box-shadow: 0 2px 6px rgba(0,0,0,0.4); width: 100%;">Fenster schließen X</button>
+<!-- NEU: BLANKO BUTTON FÜR ALLE GERÄTE -->
+<button onclick="druckeBlankoBogen()" style="margin-bottom: 12px; padding: 12px; background: #0076a3; color: #fff; border: 1px solid #0096d2; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 13px; text-transform: uppercase; box-shadow: 0 2px 6px rgba(0,0,0,0.4); width: 100%;">📄 Blanko-Spielbericht erstellen / drucken</button>
+
+<button onclick="toggleAccordion()" style="padding: 12px; background: #cc3333; 
+color: #fff; border: 1px solid #ff5555; font-weight: bold; border-radius: 5px; 
+cursor: pointer; font-size: 13px; text-transform: uppercase; box-shadow: 0 2px 
+6px rgba(0,0,0,0.4); width: 100%;">Fenster schließen X</button>
 </div>
+
+
+
 </div> <!-- Ende des Einstellungs-Panels (accordion_panel) -->
 
 <div id="tab_setup" class="tab-content active">
@@ -1145,13 +1154,22 @@ font-style: italic;">Spielberichtsbogen</span>
 
 <!-- Box Gastteam -->
 <div class="fixed-sig-panel row-disabled" id="panel_sig_fixed_G">
-    <h4>Unterschrift Gastteam (Ganzes weißes Feld nutzbar)</h4>
-    <div class="sig-rotate-wrapper" style="width: 100%; height: 200px; background: #fff; border: 2px solid #ffcc00; border-radius: 6px; overflow: hidden; position: relative;">
-        <canvas id="fixed_canvas_G" style="width: 100%; height: 100%; cursor: crosshair; touch-action: none; display: block;"></canvas>
-    </div>
-    <div style="display: flex; gap: 10px; margin-top: 10px;">
-        <button id="btn_sig_save_G" style="flex: 1; background: #00cc66; color: black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px;" onclick="speichereUnterschriftManuell('G')">Speichern</button>
-        <button id="btn_sig_edit_G" style="flex: 1; background: #ffcc00; color: black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px; display: none;" onclick="bearbeiteUnterschriftManuell('G')">Bearbeiten</button>
+ <h4>Unterschrift Gastteam (Ganzes weißes Feld nutzbar)</h4>
+ <div class="sig-rotate-wrapper" style="width: 100%; height: 200px; 
+background: #fff; border: 2px solid #ffcc00; border-radius: 6px; overflow: 
+hidden; position: relative;">
+ <canvas id="fixed_canvas_G" style="width: 100%; height: 100%; cursor: 
+crosshair; touch-action: none; display: block;"></canvas>
+ </div>
+ <div style="display: flex; gap: 10px; margin-top: 10px;">
+ <button id="btn_sig_save_G" style="flex: 1; background: #00cc66; color: 
+black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; 
+cursor: pointer; text-transform: uppercase; font-size: 13px;" 
+onclick="speichereUnterschriftManuell('G')">Speichern</button>
+ <button id="btn_sig_edit_G" style="flex: 1; background: #ffcc00; color: 
+black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; 
+cursor: pointer; text-transform: uppercase; font-size: 13px; display: none;" 
+onclick="bearbeiteUnterschriftManuell('G')">Bearbeiten</button>
 <!-- --- CODE DAVOR (Zur Orientierung auf Seite 25) --- -->
  <button style="flex: 1; background: #cc3333; color: white; border: none;
 padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; 
@@ -1160,11 +1178,15 @@ onclick="clearFixedSignature('G')">Löschen</button>
  </div>
 </div>
 
-<!-- === DIESEN BUTTON-BLOCK KOMPLETT ERSETZEN === -->
 <button id="btn_print_pdf" class="print-btn row-disabled" style="margin-top: 15px;" onclick="starteSpezialDruck()">
  PDF im Schwarz-Weiß drucken & speichern 🖨
 </button>
-<!-- ============================================= -->
+
+<button id="btn_iphone_image" class="print-btn row-disabled" style="margin-top: 10px; background: #ffcc00; color: #000;" onclick="generiereIphoneBild()">
+ iPhone-Spezial: Spielbericht als Bild erstellen 📱
+</button>
+
+
 
 <!-- --- CODE DAHINTER (Zur Orientierung) --- -->
  </div>
@@ -1578,6 +1600,69 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
+
+async function druckeBlankoBogen() {
+  // Erkennt, ob es ein iPhone im PWA-App-Modus ist
+  const isIphonePWA = window.navigator.standalone === true || (window.matchMedia('(display-mode: standalone)').matches && /iPhone|iPad|iPod/i.test(navigator.userAgent));
+
+  const printRoot = document.getElementById('print-layout-root');
+  if (!printRoot) return alert("Fehler: print-layout-root nicht gefunden!");
+
+  // Zahnrad-Menü kurz einklappen, damit es nicht im Weg ist
+  toggleAccordion();
+
+  if (isIphonePWA) {
+    // FÜR IPHONE: Wir erzeugen ein leeres Blanko-Bild zum Gedrückthalten
+    printRoot.style.display = 'block';
+    printRoot.style.position = 'fixed';
+    printRoot.style.top = '0';
+    printRoot.style.left = '0';
+    printRoot.style.width = '800px';
+    printRoot.style.backgroundColor = '#ffffff';
+    printRoot.style.color = '#000000';
+    printRoot.style.zIndex = '-9999';
+
+    try {
+      const snapshotCanvas = await html2canvas(printRoot, {
+        scale: 2,
+        useCORS: true,
+        logging: false
+      });
+
+      printRoot.style.display = 'none';
+      const bildDataUrl = snapshotCanvas.toDataURL('image/png');
+
+      const vorschauPopup = document.createElement('div');
+      vorschauPopup.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:999999; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;";
+
+      vorschauPopup.innerHTML = `
+        <div style="color:#ffcc00; font-family:sans-serif; font-size:16px; font-weight:bold; margin-bottom:15px; text-align:center; padding:0 10px; line-height:1.4;">
+          📄 Blanko-Bogen für iPhone erstellt! 📄<br>
+          <span style="color:#fff; font-weight:normal; font-size:14px;">Halte den Finger <b>lange auf das Bild gedrückt</b>, um es in deinen Fotos zu sichern oder direkt per WhatsApp zu teilen!</span>
+        </div>
+        <img src="${bildDataUrl}" style="max-width:100%; max-height:70%; border:3px solid #ffcc00; border-radius:4px; object-fit:contain; background:#fff;">
+        <button onclick="this.parentElement.remove()" style="margin-top:20px; background:#cc3333; color:white; border:none; padding:12px; width:100%; max-width:200px; font-weight:bold; border-radius:6px; cursor:pointer; text-transform:uppercase; font-size:14px;">Zurück zum Menü</button>
+      `;
+      document.body.appendChild(vorschauPopup);
+
+    } catch (error) {
+      printRoot.style.display = 'none';
+      console.error("Fehler beim Erstellen des Blanko-Berichts:", error);
+      alert("Fehler: " + error.message);
+    }
+  } else {
+    // FÜR ANDROID & PC: Einfach direkt die normale Druckvorschau starten
+    window.print();
+  }
+}
+
+
+
+
+
+
+
 // ECHTE, EINZIGE FUNKTION FÜR DAS GITHUB-UPDATE (Doppelte gelöscht)
 function fuehreKombiUpdateAus() {
   const kombiBtn = document.getElementById("btn_kombi_import");
@@ -1960,7 +2045,20 @@ if((istFreispiel || (metaG && metaD)) && capH && capG && teamH && teamG && h1 &&
 }
 
     
-    renderTable();
+  } else {
+    isMatchPlayable = false;
+    bar.className = "status-bar status-locked";
+    bar.innerText = "Spiel gesperrt: Bitte Gruppe, Spieltag, Kapitäne wählen und mindestens 4 Hauptspieler (H1-H4 & G1-G4) besetzen!";
+  }
+ 
+  // Schaltet den Android- und den iPhone-Button am Spielende frei
+  const androidBtn = document.getElementById("btn_print_pdf");
+  if (androidBtn) { androidBtn.classList.remove("row-disabled"); }
+
+  const iphoneBtn = document.getElementById("btn_iphone_image");
+  if (iphoneBtn) { iphoneBtn.classList.remove("row-disabled"); }
+ 
+  renderTable();
 }
 
 
