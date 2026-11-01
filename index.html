@@ -51,18 +51,6 @@
  border-top: 1px solid #444;
  background: #2d2d2d;
 }
-
-
-@keyframes pulsieren {
-    0% { transform: scale(0.95); opacity: 0.8; }
-    50% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(0.95); opacity: 0.8; }
-}
-
-
-
-
-
  body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #1a1a1a; 
 color: #fff; margin: 0; padding: 15px; }
  .container { max-width: 1200px; margin: 0 auto; background: #2a2a2a; border: 
@@ -544,42 +532,30 @@ body.settings-open .setup-hide-on-settings {
 
 
 
-/* ISOLIERTE SMARTPHONE-KORREKTUR FÜR METADATEN & POPUPS */
+/* ISOLIERTE SMARTPHONE-KORREKTUR NUR FÜR DEN MITTLEREN METADATEN-BLOCK */
 @media (max-width: 768px) {
-    .tab-navigation { gap: 6px !important; }
-    .tab-navigation .tab-btn { font-size: 12px !important; padding: 10px 4px !important; text-align: center; }
-    .settings-btn, .tab-navigation button[onclick^="resetWholeMatchday"] { width: 38px !important; height: 38px !important; min-width: 38px !important; font-size: 16px !important; }
-    .main-grid { display: flex !important; flex-direction: column !important; gap: 15px !important; }
-    .panel { padding: 12px !important; width: 100% !important; box-sizing: border-box !important; }
-    input, select { font-size: 15px !important; padding: 10px !important; }
+  .tab-navigation { gap: 6px !important; }
+  .tab-navigation .tab-btn { font-size: 12px !important; padding: 10px 4px !important; text-align: center; }
+  .settings-btn, .tab-navigation button[onclick^="resetWholeMatchday"] { width: 38px !important; height: 38px !important; min-width: 38px !important; font-size: 16px !important; }
+  .main-grid { display: flex !important; flex-direction: column !important; gap: 15px !important; }
+  .panel { padding: 12px !important; width: 100% !important; box-sizing: border-box !important; }
+  input, select { font-size: 15px !important; padding: 10px !important; }
 
-    /* Optimierung für das Live-Spiele-Popup auf dem Handy */
-    .popup-content {
-        width: 95% !important;
-        max-width: 100% !important;
-        padding: 12px !important;
-        box-sizing: border-box !important;
-    }
+  /* Optimierung für das Live-Spiele-Popup auf dem Handy */
+  .popup-content {
+    width: 95% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+  }
 
-    /* Groessere Buttons mit viel Luft fuer dicke Finger */
-    .click-box {
-        font-size: 15px !important;
-        padding: 16px 10px !important;
-        margin: 16px 0 !important; /* Verdoppelter Abstand */
-        min-height: 54px !important;
-        box-sizing: border-box !important;
-    }
-
-    /* Fette, schwarze Trennstriche unter den Button-Typen zur klaren Abgrenzung */
-    .click-box-home {
-        border-bottom: 4px solid #000000 !important;
-    }
-    .click-box-guest {
-        border-bottom: 4px solid #000000 !important; /* NEU: Jetzt auch fuer das Gast-Feld */
-    }
-}
-
-
+  .click-box { 
+    font-size: 15px !important; 
+    padding: 16px 10px !important; /* Macht die Buttons höher -> viel leichter zu treffen! */
+    margin: 8px 0 !important;
+    min-height: 54px !important;
+    box-sizing: border-box !important;
+  }
   
   .popup-header {
     font-size: 16px !important;
@@ -732,12 +708,6 @@ label {
 
 </style>
 
-
-
-<script src="https://cloudflare.com"></script>
-
-
-
 <script>
 // Die Funktion wird hier oben sofort beim Laden für den Browser bereitgestellt
 function aktiviereVollbild() {
@@ -747,20 +717,14 @@ function aktiviereVollbild() {
   else if (docEl.mozRequestFullScreen) { docEl.mozRequestFullScreen(); }
 }
 </script>
+
+
+<script src="https://cloudflare.com"></script>
+<script src="https://cloudflare.com"></script>
+
+
+
 </head>
-
-<body onload="beendeStartbildschirm()">
-
-  <!-- NEU: Künstlicher Startbildschirm (Splash Screen) -->
-  <div id="app_splash_screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111111; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease-in-out;">
-    <img src="icon-512.png" alt="App Icon" style="width: 150px; height: 150px; margin-bottom: 40px; animation: pulsieren 5s infinite ease-in-out;">
-    <div style="color: #ffcc00; font-family: sans-serif; font-size: 45px; font-weight: bold; letter-spacing: 1px;">DSH BULLSHOOTER LIGA</div>
-    <div style="color: #888; font-family: sans-serif; font-size: 19px; margin-top: 15px;">Spielbericht wird geladen...</div>
-  </div>
-
-
-
-
 <body onclick="if(window.aktiviereVollbild) aktiviereVollbild();">
 <!-- Einziger, globaler Hauptcontainer für die gesamte Seite -->
 <div class="container">
@@ -785,20 +749,48 @@ font-style: italic;">Spielberichtsbogen</span>
 
 
 
-    this.style.transform='scale(1)';">❌</button>
-</div>
 
-<!-- PERFEKT: HIER STEHT ER JETZT AUSSERHALB DER REITER UND IST BEIM ÖFFNEN SOFORT DA -->
-<button onclick="druckeBlankoBogen()" style="margin-bottom: 15px; padding: 14px; background: #0076a3; color: #fff; border: 2px solid #0096d2; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 14px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.3); width: 100%;">📄 Blanko-Spielbericht erstellen / drucken</button>
+
+
+
+
 
 <!-- Das versteckte Einstellungs-Panel (wird über das Zahnrad geöffnet/geschlossen) -->
 <div id="accordion_panel" style="display: none; margin-bottom: 20px; border: 1px solid #ffcc00; background: #333; padding: 15px; border-radius: 6px; box-sizing: border-box; width: 100%;">
- 
- <!-- Hier hast du den Button jetzt sauber herausgelöscht -->
+    <!-- Unsichtbare Hilfselemente, um JS-Fehler zu vermeiden -->
+    <span id="accordion_title" style="display:none;"></span><span id="accordion_arrow" style="display:none;"></span>
 
- <!-- Unsichtbare Hilfselemente, um JS-Fehler zu vermeiden -->
- <span id="accordion_title" style="display:none;"></span><span id="accordion_arrow" style="display:none;"></span>
- <!-- DIE UNTER-NAVIGATION IN ZAHNRAD-FENSTER -->
+ <!-- DIE UNTER-NAVIGATION IM ZAHNRAD-FENSTER -->
+ <div class="sub-nav-settings" style="display: flex; gap: 8px; margin-bottom: 15px; border-bottom: 2px solid #555; padding-bottom: 8px;">
+ <button id="sub_btn_players" class="sub-tab-btn active" 
+onclick="switchSubSettings('players')"> Spieler & Teams</button> 👥
+ <button id="sub_btn_report" class="sub-tab-btn" 
+onclick="switchSubSettings('report')"> Spielplan</button> 📅
+ 
+ <!-- NEU: Der kleine Foto-Button direkt als dritter Reiter rechts daneben -->
+ <button id="btn_export_jpeg" class="sub-tab-btn" 
+style="background: #00cc66; color: #000; border-color: #fff;" 
+onclick="generiereHaargenauesJPEG()"> JPEG erstellen</button> 📸
+ </div>
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -851,17 +843,8 @@ font-style: italic;">Spielberichtsbogen</span>
 
 <!-- Globaler Schließen-Button am Ende des Zahnrad-Menüs -->
 <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #444;">
-<!-- NEU: BLANKO BUTTON FÜR ALLE GERÄTE -->
-<button onclick="druckeBlankoBogen()" style="margin-bottom: 12px; padding: 12px; background: #0076a3; color: #fff; border: 1px solid #0096d2; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 13px; text-transform: uppercase; box-shadow: 0 2px 6px rgba(0,0,0,0.4); width: 100%;">📄 Blanko-Spielbericht erstellen / drucken</button>
-
-<button onclick="toggleAccordion()" style="padding: 12px; background: #cc3333; 
-color: #fff; border: 1px solid #ff5555; font-weight: bold; border-radius: 5px; 
-cursor: pointer; font-size: 13px; text-transform: uppercase; box-shadow: 0 2px 
-6px rgba(0,0,0,0.4); width: 100%;">Fenster schließen X</button>
+<button onclick="toggleAccordion()" style="padding: 12px; background: #cc3333; color: #fff; border: 1px solid #ff5555; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 13px; text-transform: uppercase; box-shadow: 0 2px 6px rgba(0,0,0,0.4); width: 100%;">Fenster schließen X</button>
 </div>
-
-
-
 </div> <!-- Ende des Einstellungs-Panels (accordion_panel) -->
 
 <div id="tab_setup" class="tab-content active">
@@ -898,15 +881,12 @@ cursor: pointer; font-size: 13px; text-transform: uppercase; box-shadow: 0 2px
             <div style="display: flex; flex-direction: column; gap: 12px;">
                 <div>
                     <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Gruppe:</label>
-<select id="meta_group" onchange="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px;">
-<option value="">-- wählen --</option>
-<option value="Gruppe A">A Liga</option>
-<option value="Gruppe B">B Liga</option>
-<option value="Gruppe C">C Liga</option>
-<!-- NEU: Das Freispiel mit Pokal-Icon -->
-<option value="Freispiel">🏆 Freispiel</option>
-</select>
-
+                    <select id="meta_group" onchange="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px;">
+                        <option value="">-- wählen --</option>
+                        <option value="Gruppe A">A Liga</option>
+                        <option value="Gruppe B">B Liga</option>
+                        <option value="Gruppe C">C Liga</option>
+                    </select>
                 </div>
                 <div>
                     <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Spieltag:</label>
@@ -1133,46 +1113,46 @@ cursor: pointer; font-size: 13px; text-transform: uppercase; box-shadow: 0 2px
 
 <!-- Box Gastteam -->
 <div class="fixed-sig-panel row-disabled" id="panel_sig_fixed_G">
- <h4>Unterschrift Gastteam (Ganzes weißes Feld nutzbar)</h4>
- <div class="sig-rotate-wrapper" style="width: 100%; height: 200px; 
-background: #fff; border: 2px solid #ffcc00; border-radius: 6px; overflow: 
-hidden; position: relative;">
- <canvas id="fixed_canvas_G" style="width: 100%; height: 100%; cursor: 
-crosshair; touch-action: none; display: block;"></canvas>
- </div>
- <div style="display: flex; gap: 10px; margin-top: 10px;">
- <button id="btn_sig_save_G" style="flex: 1; background: #00cc66; color: 
-black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; 
-cursor: pointer; text-transform: uppercase; font-size: 13px;" 
-onclick="speichereUnterschriftManuell('G')">Speichern</button>
- <button id="btn_sig_edit_G" style="flex: 1; background: #ffcc00; color: 
-black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; 
-cursor: pointer; text-transform: uppercase; font-size: 13px; display: none;" 
-onclick="bearbeiteUnterschriftManuell('G')">Bearbeiten</button>
-<!-- --- CODE DAVOR (Zur Orientierung auf Seite 25) --- -->
- <button style="flex: 1; background: #cc3333; color: white; border: none;
-padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; 
-text-transform: uppercase; font-size: 13px;" 
-onclick="clearFixedSignature('G')">Löschen</button>
+    <h4>Unterschrift Gastteam (Ganzes weißes Feld nutzbar)</h4>
+    <div class="sig-rotate-wrapper" style="width: 100%; height: 200px; background: #fff; border: 2px solid #ffcc00; border-radius: 6px; overflow: hidden; position: relative;">
+        <canvas id="fixed_canvas_G" style="width: 100%; height: 100%; cursor: crosshair; touch-action: none; display: block;"></canvas>
+    </div>
+    <div style="display: flex; gap: 10px; margin-top: 10px;">
+        <button id="btn_sig_save_G" style="flex: 1; background: #00cc66; color: black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px;" onclick="speichereUnterschriftManuell('G')">Speichern</button>
+        <button id="btn_sig_edit_G" style="flex: 1; background: #ffcc00; color: black; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px; display: none;" onclick="bearbeiteUnterschriftManuell('G')">Bearbeiten</button>
+        <button style="flex: 1; background: #cc3333; color: white; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px;" onclick="clearFixedSignature('G')">Löschen</button>
+    </div>
+</div>
+
+
+
+
+
+
+  <button id="btn_print_pdf" class="print-btn row-disabled" style="margin-top: 15px;" onclick="starteSpezialDruck()">
+    PDF im 🖨 Schwarz-Weiß drucken & speichern
+  </button>
  </div>
 </div>
 
-<button id="btn_print_pdf" class="print-btn row-disabled" style="margin-top: 15px;" onclick="starteSpezialDruck()">
- PDF im Schwarz-Weiß drucken & speichern 🖨
-</button>
 
-<button id="btn_iphone_image" class="print-btn row-disabled" style="margin-top: 10px; background: #ffcc00; color: #000;" onclick="generiereIphoneBild()">
- iPhone-Spezial: Spielbericht als Bild erstellen 📱
-</button>
-
-
-
-<!-- --- CODE DAHINTER (Zur Orientierung) --- -->
- </div>
-</div>
-<div id="print-layout-root" style="display: none;">
+<div id="print-layout-root" style="display: none;" onclick="this.style.display='none'; document.querySelector('.container').style.display='block';">
 
 <div class="print-page">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- HIER IST DER NEUE CENTRIERTE BLOCK MIT TEXT -->
   <div style="text-align: center; width: 100%; margin-bottom: 10px;">
@@ -1184,46 +1164,25 @@ onclick="clearFixedSignature('G')">Löschen</button>
     </div>
   </div>
 
-<!-- Hier geht deine alte Tabelle für Gruppe, Spieltag, Datum einfach weiter -->
-<table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
-<tr>
-<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Gruppe A:</b> <span id="lbl_group_A"></span></td>
-<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Gruppe B:</b> <span id="lbl_group_B"></span></td>
-<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Gruppe C:</b> <span id="lbl_group_C"></span></td>
-<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Spieltag:</b> <span id="lbl_day"></span></td>
-<td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%; text-align: center;"><b>Datum:</b> <span id="lbl_date"></span></td>
-</tr>
-<tr>
-<td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
-<div class="print-meta-cell-content">
-<span class="print-meta-label">Heimteam:</span>
-<span id="lbl_name_home" class="print-meta-value"></span>
-</div>
-</td>
-<td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
-<div class="print-meta-cell-content">
-<span class="print-meta-label">Gastteam:</span>
-<span id="lbl_name_guest" class="print-meta-value"></span>
-</div>
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
-<div class="print-meta-cell-content">
-<span class="print-meta-label">Heim TC:</span>
-<span id="lbl_captain_home" class="print-meta-value"></span>
-</div>
-</td>
-<td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px; height: 20px; vertical-align: middle;">
-<div class="print-meta-cell-content">
-<span class="print-meta-label">Gast TC:</span>
-<span id="lbl_captain_guest" class="print-meta-value"></span>
-</div>
-</td>
-</tr>
-</table>
-
-
+  <!-- Hier geht deine alte Tabelle für Gruppe, Spieltag, Datum einfach weiter -->
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
+   <tr>
+    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe A:</b> <span id="lbl_group_A"></span></td>
+    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe B:</b> <span id="lbl_group_B"></span></td>
+    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe C:</b> <span id="lbl_group_C"></span></td>
+    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Spieltag:</b> <span id="lbl_day"></span></td>
+    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Datum:</b> <span id="lbl_date"></span></td>
+   </tr>
+   <tr>
+    <td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Heimteam:</b> <span id="lbl_name_home"></span></td>
+    <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Gastteam:</b> <span id="lbl_name_guest"></span></td>
+   </tr>
+   <tr>
+    <td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Heim TC:</b> <span id="lbl_captain_home"></span></td>
+    <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Gast TC:</b> <span id="lbl_captain_guest"></span></td>
+   </tr>
+  </table>
   <div class="print-teams-container" style="margin-top: 5px;">
    <div>
     <table class="print-team-table">
@@ -1322,71 +1281,65 @@ onclick="clearFixedSignature('G')">Löschen</button>
  </div>
 </div>
 <div id="livePopup" class="popup-overlay">
-  <div class="popup-content">
-    <div class="popup-nav-container">
-      <button class="nav-arrow-btn" id="popup_btn_prev" onclick="navigatePopupMatch(-1)">◀</button>
-      <div class="popup-header" id="popupGameTitle" style="margin:0; border:none; padding:0;">Spiel 1 (D)</div>
-      <button class="nav-arrow-btn" id="popup_btn_next" onclick="navigatePopupMatch(1)">▶</button>
-    </div>
-    <div id="popup_status_msg" class="popup-game-status-info" style="display:none;"> Spiel gewertet! Zum Ändern Button 🔒 nutzen:</div>
-    <button id="popup_fix_btn" class="fix-error-btn" style="display:none;" onclick="unlockCurrentMatchForFix()"> ⚠ Fehler beheben / Spiel freischalten</button>
-    
-    <div id="winnerSelectionArea"></div>
-    
-    <!-- NEUER BUTTON: Öffnet das separate Einflieg-Popup -->
-    <button onclick="oeffneWechselPopup()" style="margin-top: 15px; width: 100%; padding: 12px; background: #333; color: #ffcc00; border: 2px solid #ffcc00; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; font-size: 13px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">🔄 Auswechslungen vornehmen</button>
-    
-    <button class="close-btn" onclick="closeLivePopup()" style="margin-top:15px; padding:10px;">Schließen / Abbrechen</button>
+ <div class="popup-content">
+  <div class="popup-nav-container">
+   <button class="nav-arrow-btn" id="popup_btn_prev" onclick="navigatePopupMatch(-1)">◀</button>
+   <div class="popup-header" id="popupGameTitle" style="margin:0; border:none; padding:0;">Spiel 1 (D)</div>
+   <button class="nav-arrow-btn" id="popup_btn_next" onclick="navigatePopupMatch(1)">▶</button>
   </div>
-</div>
-
-<!-- NEUES EIGENSTÄNDIGES WECHSEL-POPUP (Fliegt von oben ein) -->
-<div id="subFlyPopup" class="popup-overlay" style="display: none; background: rgba(0,0,0,0.5); z-index: 10005;">
-  <div class="popup-content sub-fly-content" style="max-width: 480px; width: 92%; border-color: #ffcc00; box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
-    <div class="popup-header" style="margin-bottom: 15px; font-size: 18px;">Spieler einwechseln 🔄</div>
-    
-    <div id="popup_sub_block_H">
-      <div class="sub-popup-title" style="font-size: 14px; font-weight: bold; color: #ffcc00; margin-bottom: 8px;">Wechsel Heimteam: 🏠</div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr 48px; gap: 8px; align-items: end; margin-bottom: 15px;">
-        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Raus:</label><select id="pop_sub_out_H" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
-        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Rein:</label><select id="pop_sub_in_H" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
-        <button onclick="executePopupSubstitution('H')" style="padding: 0; height: 38px; background: #00cc66; color: #000; border: none; font-weight:bold; cursor:pointer; font-size:14px; border-radius:5px; width: 100%;">OK</button>
-      </div>
+  <div id="popup_status_msg" class="popup-game-status-info" style="display:none;"> Spiel gewertet! Zum Ändern Button 🔒 nutzen:</div>
+  <button id="popup_fix_btn" class="fix-error-btn" style="display:none;" onclick="unlockCurrentMatchForFix()"> ⚠ Fehler beheben / Spiel freischalten</button>
+  <div id="winnerSelectionArea"></div>
+  <button id="popup_toggle_sub_btn" onclick="togglePopupSubmissions()" style="margin-top: 15px; width: 100%; padding: 8px; background: #333; color: #ffcc00; border: 1px solid #ffcc00; font-weight: bold; cursor: pointer; border-radius: 4px; text-transform: uppercase; font-size: 11px;"> Auswechslungen anzeigen 🛠</button>
+  <div id="popup_sub_toggle_area" style="display: none; margin-top: 10px; border-top: 1px dashed #555; padding-top: 5px;">
+   <div id="popup_sub_block_H">
+    <div class="sub-popup-title"> Wechsel Heimteam: 🏠</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 40px; gap: 5px; align-items: end;">
+     <div><label style="margin:0; font-size:11px;">Raus:</label><select id="pop_sub_out_H" style="padding:4px; font-size:11px; width:100%;"></select></div>
+     <div><label style="margin:0; font-size:11px;">Rein:</label><select id="pop_sub_in_H" style="padding:4px; font-size:11px; width:100%;"></select></div>
+     <button onclick="executePopupSubstitution('H')" style="padding:4px 0; background:#00cc66; color:#000; border:none; font-weight:bold; cursor:pointer; font-size:11px; border-radius:3px;">OK</button>
     </div>
-    
-    <div id="popup_sub_block_G" style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #555;">
-      <div class="sub-popup-title" style="font-size: 14px; font-weight: bold; color: #ffcc00; margin-bottom: 8px;">Wechsel Gastteam: 🚀</div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr 48px; gap: 8px; align-items: end; margin-bottom: 15px;">
-        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Raus:</label><select id="pop_sub_out_G" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
-        <div><label style="margin:0; font-size:11px; display:block; text-align:left;">Rein:</label><select id="pop_sub_in_G" style="padding: 6px; font-size: 13px; width: 100%; height: 38px;"></select></div>
-        <button onclick="executePopupSubstitution('G')" style="padding: 0; height: 38px; background:#ff3333; color:#fff; border: none; font-weight: bold; cursor:pointer; font-size:14px; border-radius: 5px; width: 100%;">OK</button>
-      </div>
+   </div>
+   <div id="popup_sub_block_G" style="margin-top: 8px;">
+    <div class="sub-popup-title"> Wechsel Gastteam: 🚀</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 40px; gap: 5px; align-items: end;">
+     <div><label style="margin:0; font-size:11px;">Raus:</label><select id="pop_sub_out_G" style="padding:4px; font-size:11px;"></select></div>
+     <div><label style="margin:0; font-size:11px;">Rein:</label><select id="pop_sub_in_G" style="padding:4px; font-size:11px;"></select></div>
+     <button onclick="executePopupSubstitution('G')" style="padding:4px 0; background:#ff3333; color:#fff; border:none; font-weight:bold; cursor:pointer; font-size:11px; border-radius:3px;">OK</button>
     </div>
-    
-    <button class="close-btn" onclick="schliesseWechselPopup()" style="background: #cc3333; color: white; margin-top: 15px; padding: 10px;">Zurück zum Spiel</button>
+   </div>
   </div>
-</div>
+ 
 
-<!-- Das neue Popup für die detaillierte Spieler-Kontrolle -->
-<div id="statsDetailPopup" class="popup-overlay" style="display: none;">
-  <div class="popup-content" style="max-width: 600px; width: 95%;">
+
+
+      <button class="close-btn" onclick="closeLivePopup()" style="margin-top:15px; padding:8px;">Schließen / Abbrechen</button>
+    </div>
+  </div>
+
+  <!-- GENAU HIER: Das neue Popup für die detaillierte Spieler-Kontrolle -->
+  <div id="statsDetailPopup" class="popup-overlay" style="display: none;">
+   <div class="popup-content" style="max-width: 600px; width: 95%;">
     <div class="popup-header" id="statsDetailTitle" style="margin-bottom: 10px;">Spieler-Kontrolle</div>
     <div style="max-height: 350px; overflow-y: auto; margin-bottom: 15px;">
-      <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-        <thead>
-          <tr>
-            <th style="width: 15%;">Spiel</th>
-            <th style="width: 20%;">Typ</th>
-            <th style="width: 30%;">Deine Rolle</th>
-            <th style="width: 35%;">Partner / Gegner</th>
-          </tr>
-        </thead>
-        <tbody id="statsDetailTableBody"></tbody>
-      </table>
+     <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+      <thead>
+       <tr>
+        <th style="width: 15%;">Spiel</th>
+        <th style="width: 20%;">Typ</th>
+        <th style="width: 30%;">Deine Rolle</th>
+        <th style="width: 35%;">Partner / Gegner</th>
+       </tr>
+      </thead>
+      <tbody id="statsDetailTableBody"></tbody>
+     </table>
     </div>
     <button class="close-btn" onclick="closeStatsDetailPopup()" style="background: #ffcc00; color: #000; margin-top: 5px;">Schließen</button>
+   </div>
   </div>
-</div>
+
+
+
 
 <div id="pwaInstallPopup" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #2a2a2a; border: 2px solid #ffcc00; padding: 15px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 99999; width: 90%; max-width: 400px; box-sizing: border-box; font-family: Arial, sans-serif;">
  <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
@@ -1438,222 +1391,50 @@ const mkkSchedule = [
   // 29-32: Doppel
   { id: 29, type: "D", pos: ["H4", "G2", "H1", "G3"] },
   { id: 30, type: "D", pos: ["G3", "H1", "G4", "H2"] },
-  { id: 31, type: "D", pos: ["H3", "G1", "H4", "G2"] },
-  { id: 32, type: "D", pos: ["G4", "H2", "G1", "H3"] }
-];
-let matchResults = {}; let substitutions = []; let playerScores = {}; let activePopupMatchId = null;
-let isMatchPlayable = false; let importedTeams = {};
+ { id: 31, type: "D", pos: ["H3", "G1", "H4", "G2"] },
+ { id: 32, type: "D", pos: ["G4", "H2", "G1", "H3"] }
+]; // <-- Das ist das Ende der Spielplan-Liste auf Seite 32
 
-
-/* --- CODE DAVOR (Zur Orientierung im Script-Bereich) --- */
-let isMatchPlayable = false; let importedTeams = {};
-
-async function starteSpezialDruck() {
-  // 1. Unterschriften-Bilder synchronisieren, damit sie im Drucklayout landen
-  const canvasH = document.getElementById('fixed_canvas_H');
-  const canvasG = document.getElementById('fixed_canvas_G');
-  const imgH = document.getElementById('img_print_sig_H');
-  const imgG = document.getElementById('img_print_sig_G');
-  
-  if(canvasH && imgH) { imgH.src = canvasH.toDataURL('image/png'); imgH.style.display = 'block'; }
-  if(canvasG && imgG) { imgG.src = canvasG.toDataURL('image/png'); imgG.style.display = 'block'; }
-
-  // 2. Das Drucklayout für die Bildgenerierung kurz sichtbar machen
-  const printRoot = document.getElementById('print-layout-root');
-  if (!printRoot) return alert("Fehler: print-layout-root nicht gefunden!");
-  
-  printRoot.style.display = 'block';
-  printRoot.style.position = 'fixed';
-  printRoot.style.top = '0';
-  printRoot.style.left = '0';
-  printRoot.style.width = '800px'; // Feste Breite für ein sauberes, scharfes Bild
-  printRoot.style.backgroundColor = '#ffffff';
-  printRoot.style.color = '#000000';
-  printRoot.style.zIndex = '-9999'; // Unsichtbar im Hintergrund halten
-
-  try {
-    // 3. HTML in Bild (Canvas) umwandeln
-    const snapshotCanvas = await html2canvas(printRoot, {
-      scale: 2, // Doppelte Auflösung für gestochen scharfen Text in WhatsApp
-      useCORS: true,
-      logging: false
-    });
-
-    // Druck-Layout wieder sauber verstecken
-    printRoot.style.display = 'none';
-
-    // 4. Canvas in eine echte Datei (Blob) für iOS/Android umwandeln
-    snapshotCanvas.toBlob(async (blob) => {
-      if (!blob) return alert("Bild-Generierung fehlgeschlagen.");
-      
-      const datei = new File([blob], "DSH_Spielbericht.png", { type: "image/png" });
-
-      // 5. Nativer Teilen-Dialog (iOS & Android Web Share API)
-      if (navigator.canShare && navigator.canShare({ files: [datei] })) {
-        try {
-          await navigator.share({
-            files: [datei],
-            title: 'DSH Bullshooter Spielbericht',
-            text: 'Hier ist unser aktueller Spielberichtsbogen!'
-          });
-        } catch (shareError) {
-          console.log("Teilen abgebrochen oder fehlgeschlagen", shareError);
-        }
-      } else {
-        // FALLBACK: Falls das direkte Teilen blockiert wird
-        const imageWindow = window.open();
-        if(imageWindow) {
-          imageWindow.document.write(`<h3 style="font-family:sans-serif; text-align:center;">Finger lang gedrückt halten zum Kopieren/Teilen!</h3><img src="${snapshotCanvas.toDataURL('image/png')}" style="width:100%;">`);
-        } else {
-          alert("Teilen blockiert. Bitte Popups in den Einstellungen erlauben.");
-        }
-      }
-    }, 'image/png');
-
-  } catch (error) {
-    printRoot.style.display = 'none';
-    console.error("Fehler beim Erstellen des Spielberichts:", error);
-    alert("Fehler beim Erstellen des Bildes: " + error.message);
-  }
-}
-
-// NEU: EXTRA FUNKTION FÜR IPHONE-BENUTZER (MÖGLICHKEIT 1)
-async function generiereIphoneBild() {
-  const canvasH = document.getElementById('fixed_canvas_H');
-  const canvasG = document.getElementById('fixed_canvas_G');
-  const imgH = document.getElementById('img_print_sig_H');
-  const imgG = document.getElementById('img_print_sig_G');
-  
-  if(canvasH && imgH) { imgH.src = canvasH.toDataURL('image/png'); imgH.style.display = 'block'; }
-  if(canvasG && imgG) { imgG.src = canvasG.toDataURL('image/png'); imgG.style.display = 'block'; }
-
-  const printRoot = document.getElementById('print-layout-root');
-  if (!printRoot) return alert("Fehler: print-layout-root nicht gefunden!");
-  
-  printRoot.style.display = 'block';
-  printRoot.style.position = 'fixed';
-  printRoot.style.top = '0';
-  printRoot.style.left = '0';
-  printRoot.style.width = '800px';
-  printRoot.style.backgroundColor = '#ffffff';
-  printRoot.style.color = '#000000';
-  printRoot.style.zIndex = '-9999';
-
-  try {
-    const snapshotCanvas = await html2canvas(printRoot, {
-      scale: 2,
-      useCORS: true,
-      logging: false
-    });
-
-    printRoot.style.display = 'none';
-    const bildDataUrl = snapshotCanvas.toDataURL('image/png');
-
-    const vorschauPopup = document.createElement('div');
-    vorschauPopup.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:999999; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;";
-
-    vorschauPopup.innerHTML = `
-      <div style="color:#ffcc00; font-family:sans-serif; font-size:16px; font-weight:bold; margin-bottom:15px; text-align:center; padding:0 10px; line-height:1.4;">
-        🏆 Spielbericht für iPhone generiert! 🏆<br>
-        <span style="color:#fff; font-weight:normal; font-size:14px;">Halte deinen Finger jetzt <b>lange auf das Bild gedrückt</b>, wähle <b>"In Fotos sichern"</b> oder <b>"Kopieren"</b> und füge es in deine WhatsApp-Gruppe ein.</span>
-      </div>
-      <img src="${bildDataUrl}" style="max-width:100%; max-height:70%; border:3px solid #ffcc00; border-radius:4px; object-fit:contain; background:#fff;">
-      <button onclick="this.parentElement.remove()" style="margin-top:20px; background:#cc3333; color:white; border:none; padding:12px; width:100%; max-width:200px; font-weight:bold; border-radius:6px; cursor:pointer; text-transform:uppercase; font-size:14px;">Fenster Schließen</button>
-    `;
-
-    document.body.appendChild(vorschauPopup);
-
-  } catch (error) {
-    printRoot.style.display = 'none';
-    console.error("Fehler beim Erstellen des Spielberichts:", error);
-    alert("Fehler beim Erstellen des Bildes: " + error.message);
-  }
-}
-
-// BEIBEHALTEN FÜR ANDROID: Der Autostart-Listener aus deinem Originalcode
-window.addEventListener('DOMContentLoaded', () => {
-    if (window.location.search.includes('triggerPrint=true')) {
-        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-        window.history.replaceState({path: cleanUrl}, '', cleanUrl);
-        setTimeout(() => { window.print(); }, 800);
+// GENAU HIER FÜGST DU DIE FUNKTION EIN:
+function starteSpezialDruck() {
+    if (window.navigator.standalone) {
+        alert("iOS blockiert den PDF-Druck aus installierten Apps...");
+        document.querySelector(".container").style.display = "none";
+        const printRoot = document.getElementById("print-layout-root");
+        if (printRoot) { printRoot.style.display = "block"; if (typeof renderTable === "function") { renderTable(); } }
+        return;
     }
-});
-
-
-
-async function druckeBlankoBogen() {
-  // Erkennt, ob es ein iPhone im PWA-App-Modus ist
-  const isIphonePWA = window.navigator.standalone === true || (window.matchMedia('(display-mode: standalone)').matches && /iPhone|iPad|iPod/i.test(navigator.userAgent));
-
-  const printRoot = document.getElementById('print-layout-root');
-  if (!printRoot) return alert("Fehler: print-layout-root nicht gefunden!");
-
-  // Zahnrad-Menü kurz einklappen, damit es nicht im Weg ist
-  toggleAccordion();
-
-  if (isIphonePWA) {
-    // FÜR IPHONE: Wir erzeugen ein leeres Blanko-Bild zum Gedrückthalten
-    printRoot.style.display = 'block';
-    printRoot.style.position = 'fixed';
-    printRoot.style.top = '0';
-    printRoot.style.left = '0';
-    printRoot.style.width = '800px';
-    printRoot.style.backgroundColor = '#ffffff';
-    printRoot.style.color = '#000000';
-    printRoot.style.zIndex = '-9999';
-
-    try {
-      const snapshotCanvas = await html2canvas(printRoot, {
-        scale: 2,
-        useCORS: true,
-        logging: false
-      });
-
-      printRoot.style.display = 'none';
-      const bildDataUrl = snapshotCanvas.toDataURL('image/png');
-
-      const vorschauPopup = document.createElement('div');
-      vorschauPopup.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:999999; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;";
-
-      vorschauPopup.innerHTML = `
-        <div style="color:#ffcc00; font-family:sans-serif; font-size:16px; font-weight:bold; margin-bottom:15px; text-align:center; padding:0 10px; line-height:1.4;">
-          📄 Blanko-Bogen für iPhone erstellt! 📄<br>
-          <span style="color:#fff; font-weight:normal; font-size:14px;">Halte den Finger <b>lange auf das Bild gedrückt</b>, um es in deinen Fotos zu sichern oder direkt per WhatsApp zu teilen!</span>
-        </div>
-        <img src="${bildDataUrl}" style="max-width:100%; max-height:70%; border:3px solid #ffcc00; border-radius:4px; object-fit:contain; background:#fff;">
-        <button onclick="this.parentElement.remove()" style="margin-top:20px; background:#cc3333; color:white; border:none; padding:12px; width:100%; max-width:200px; font-weight:bold; border-radius:6px; cursor:pointer; text-transform:uppercase; font-size:14px;">Zurück zum Menü</button>
-      `;
-      document.body.appendChild(vorschauPopup);
-
-    } catch (error) {
-      printRoot.style.display = 'none';
-      console.error("Fehler beim Erstellen des Blanko-Berichts:", error);
-      alert("Fehler: " + error.message);
-    }
-  } else {
-    // FÜR ANDROID & PC: Einfach direkt die normale Druckvorschau starten
+    if (typeof renderTable === "function") { renderTable(); }
     window.print();
-  }
 }
 
+// Danach geht es im Originalcode so weiter:
+let matchResults = {}; let substitutions = []; let playerScores = {};
+let activePopupMatchId = null;
+let isMatchPlayable = false; let importedTeams = {};
 
 
 
 
 
 
-// ECHTE, EINZIGE FUNKTION FÜR DAS GITHUB-UPDATE (Doppelte gelöscht)
+
+
+
+
+
 function fuehreKombiUpdateAus() {
   const kombiBtn = document.getElementById("btn_kombi_import");
   if(kombiBtn) {
     kombiBtn.innerText = "Daten werden geladen & verarbeitet...";
     kombiBtn.style.opacity = "0.6";
   }
- 
+  
+  // KORREKTUR: Hier ist jetzt dein echter Name und dein Repository eingetragen!
   const url = "spieler.txt?v=" + Date.now();
   const spielerTextarea = document.getElementById("txt_import_area");
   if (!spielerTextarea) return;
- 
+  
   fetch(url, { cache: "no-store" })
   .then(response => {
     if (!response.ok) throw new Error("Datei konnte nicht von GitHub abgerufen werden.");
@@ -1681,6 +1462,8 @@ function fuehreKombiUpdateAus() {
     if (typeof ZustandKombiButtonZuruecksetzen === "function") ZustandKombiButtonZuruecksetzen();
   });
 }
+
+
 
 function importTeamsFromTxt() {
   const text = document.getElementById("txt_import_area").value;
@@ -2005,39 +1788,18 @@ function validateRosterAndSetup() {
         }
     }
 
-// Gesamte Freigabe des Spielberichts (Prüft alle Pflichtfelder)
-const istFreispiel = (metaG === "Freispiel");
-
-// Wenn es ein Freispiel ist, ignorieren wir die Pflicht für Gruppe/Spieltag im Hintergrund
-if((istFreispiel || (metaG && metaD)) && capH && capG && teamH && teamG && h1 && h2 && h3 && h4 && g1 && g2 && g3 && g4) {
-    isMatchPlayable = true;
-    bar.className = "status-bar status-ready";
-    if (istFreispiel) {
-        bar.innerText = "🏆 FREISPIEL AKTIV! Der Spielberichtsbogen ist komplett freigeschaltet. Good Darts!";
-    } else {
+    // Gesamte Freigabe des Spielberichts (Prüft alle Pflichtfelder)
+    if(metaG && metaD && capH && capG && teamH && teamG && h1 && h2 && h3 && h4 && g1 && g2 && g3 && g4) {
+        isMatchPlayable = true;
+        bar.className = "status-bar status-ready";
         bar.innerText = "Bereit! Der Spielberichtsbogen ist freigeschaltet. Wechsel oben in den Live-Spielplan!";
+    } else {
+        isMatchPlayable = false;
+        bar.className = "status-bar status-locked";
+        bar.innerText = "Spiel gesperrt: Bitte Gruppe, Spieltag, Kapitäne wählen und mindestens 4 Hauptspieler (H1-H4 & G1-G4) besetzen!";
     }
-} else {
-    isMatchPlayable = false;
-    bar.className = "status-bar status-locked";
-    bar.innerText = "Spiel gesperrt: Bitte Gruppe, Spieltag, Kapitäne wählen und mindestens 4 Hauptspieler (H1-H4 & G1-G4) besetzen!";
-}
-
     
-  } else {
-    isMatchPlayable = false;
-    bar.className = "status-bar status-locked";
-    bar.innerText = "Spiel gesperrt: Bitte Gruppe, Spieltag, Kapitäne wählen und mindestens 4 Hauptspieler (H1-H4 & G1-G4) besetzen!";
-  }
- 
-  // Schaltet den Android- und den iPhone-Button am Spielende frei
-  const androidBtn = document.getElementById("btn_print_pdf");
-  if (androidBtn) { androidBtn.classList.remove("row-disabled"); }
-
-  const iphoneBtn = document.getElementById("btn_iphone_image");
-  if (iphoneBtn) { iphoneBtn.classList.remove("row-disabled"); }
- 
-  renderTable();
+    renderTable();
 }
 
 
@@ -2050,38 +1812,21 @@ function resolvePlayerName(pos, matchId, returnPositionCode = false) {
  let inputEl = document.getElementById("p_" + activePos); return inputEl ? inputEl.value || activePos : activePos;
 }
 
-// Öffnet das Wechsel-Popup und startet die Einflug-Animation
-function oeffneWechselPopup() {
-    const subPopup = document.getElementById("subFlyPopup");
-    if (!subPopup) return;
-    
-    subPopup.style.display = "block";
-    
-    // Kurze Verzögerung für den Browser, damit die CSS-Animation sauber anläuft
-    setTimeout(() => {
-        subPopup.classList.add("fly-active");
-    }, 10);
-}
-
-// Schließt das Wechsel-Popup mit Rückwärs-Animation
-function schliesseWechselPopup() {
-    const subPopup = document.getElementById("subFlyPopup");
-    if (!subPopup) return;
-    
-    subPopup.classList.remove("fly-active");
-    
-    // Wartet, bis das Popup aus dem Bild geflogen ist, und blendet es dann aus
-    setTimeout(() => {
-        subPopup.style.display = "none";
-    }, 400);
-}
-
-// Bereinigter Schließen-Befehl für das Haupt-Ergebnisfenster
 function closeLivePopup() {
-    document.getElementById("livePopup").style.display = "none";
-    schliesseWechselPopup(); // Sicherheitshalber auch das Wechselfenster mit wegpacken
+ document.getElementById("livePopup").style.display = "none";
+ const subArea = document.getElementById("popup_sub_toggle_area");
+ const toggleBtn = document.getElementById("popup_toggle_sub_btn");
+ if(subArea) subArea.style.display = "none";
+ if(toggleBtn) toggleBtn.innerText = " Auswechslungen 🛠 anzeigen";
 }
 
+function togglePopupSubmissions() {
+ const subArea = document.getElementById("popup_sub_toggle_area");
+ const toggleBtn = document.getElementById("popup_toggle_sub_btn");
+ if(!subArea) return;
+ if(subArea.style.display === "none") { subArea.style.display = "block"; toggleBtn.innerText = " Auswechslungen ausblenden ✖"; }
+ else { subArea.style.display = "none"; toggleBtn.innerText = " Auswechslungen anzeigen 🛠"; }
+}
 function renderTable() {
  const tbody = document.getElementById("matchTableBody"); const printBody = document.getElementById("print_table_all");
  if(!tbody || !printBody) return; tbody.innerHTML = ""; printBody.innerHTML = "";
@@ -2178,168 +1923,189 @@ const scoreDisplayHome = hasBeenPlayed ? runningHome : ""; const scoreDisplayGue
 
 
 
-function openLivePopup(matchId) {
-    activePopupMatchId = Number(matchId);
-    const m = mkkSchedule.find(x => x.id === activePopupMatchId);
-    if(!m) return;
+function openLivePopup (matchId) {
+activePopupMatchId = Number(matchId);
+const m = mkkSchedule.find(x => x.id === activePopupMatchId);
+if(!m) return;
+let typeLong = m.type;
+if (m.type === "E") typeLong = "501 M/O Einzel"; else if (m.type === "D")
+typeLong = "501 M/O Doppel"; else if (m.type === "C") typeLong = "Cricket Team";
+document.getElementById("popupGameTitle").innerText = `Spiel ${m.id} (${typeLong})`;
+document.getElementById("popup_btn_prev").disabled = (m.id === 1);
+document.getElementById("popup_btn_next").disabled = (m.id === 34);
+const isPlayed = !! matchResults[m.id];
+const statusMsg = document.getElementById("popup_status_msg");
+const fixBtn = document.getElementById("popup_fix_btn");
+if (isPlayed) {
+if(statusMsg) statusMsg.style.display = "block";
+if(fixBtn) fixBtn.style.display = "block";
+} else {
+if(statusMsg) statusMsg.style.display = "none";
+if(fixBtn) fixBtn.style.display = "none";
+}
+const c1 = m.pos [0] || ""; const c2 = m.pos [1] || ""; const c3 = m.pos [2] || "";
+const c4 = m.pos [3] || "";
+const p1 = resolvePlayerName (c1, activePopupMatchId); const p2 =
+resolvePlayerName (c2, activePopupMatchId); const p3 = c3 ? resolvePlayerName
+(c3, activePopupMatchId) : ""; const p4 = c4 ? resolvePlayerName (c4,
+activePopupMatchId) : "";
+const area = document.getElementById("winnerSelectionArea"); area.innerHTML = "";
+let curH = 0, curG = 0;
+for(let i=1; i<= activePopupMatchId; i++) { if(matchResults[i]) { curH +=
+matchResults[i].heim; curG += matchResults[i].gast; } }
+area.innerHTML += ` <div style="text-align:center; font-size:15px; font-weight:bold; color: #ffcc00; margin: 0 0 12px 0; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 3px; ">Spielstand: ${curH}: ${curG}</div>`;
+
+// HIER IST DIE WICHTIGE SPERRE FÜR BEREITS GESPIELTE SPIELE WIEDER AKTIV
+const disabledAttr = isPlayed ? "click-box-disabled" : "";
+
+if (m.type === "E") {
+    const side1 = c1.startsWith("H") ? "H" : "G";
+    const side2 = c2.startsWith("H") ? "H" : "G";
     
-    let typeLong = m.type;
-    if (m.type === "E") typeLong = "501 M/O Einzel"; 
-    else if (m.type === "D") typeLong = "501 M/O Doppel"; 
-    else if (m.type === "C") typeLong = "Cricket Team";
+    // Ermittelt die aktuell echten Positionen (Berücksichtigt aktive Wechsel!)
+    const realPos1 = resolvePlayerName(c1, activePopupMatchId, true);
+    const realPos2 = resolvePlayerName(c2, activePopupMatchId, true);
     
-    const titleEl = document.getElementById("popupGameTitle");
-    if (titleEl) titleEl.innerText = `Spiel ${m.id} (${typeLong})`;
-    
-    const prevBtn = document.getElementById("popup_btn_prev");
-    const nextBtn = document.getElementById("popup_btn_next");
-    if (prevBtn) prevBtn.disabled = (m.id === 1);
-    if (nextBtn) nextBtn.disabled = (m.id === 32);
-    
-    const isPlayed = !!matchResults[m.id];
-    const statusMsg = document.getElementById("popup_status_msg");
-    const fixBtn = document.getElementById("popup_fix_btn");
-    if (statusMsg) statusMsg.style.display = isPlayed ? "block" : "none";
-    if (fixBtn) fixBtn.style.display = isPlayed ? "block" : "none";
-    
-    const c1 = m.pos[0] || ""; 
-    const c2 = m.pos[1] || ""; 
-    const c3 = m.pos[2] || ""; 
-    const c4 = m.pos[3] || "";
-    
-    const p1 = resolvePlayerName(c1, activePopupMatchId); 
-    const p2 = resolvePlayerName(c2, activePopupMatchId); 
-    const p3 = c3 ? resolvePlayerName(c3, activePopupMatchId) : ""; 
-    const p4 = c4 ? resolvePlayerName(c4, activePopupMatchId) : "";
-    
-    const area = document.getElementById("winnerSelectionArea"); 
-    if (!area) return;
-    area.innerHTML = "";
-    
-    let curH = 0, curG = 0;
-    for(let i = 1; i < activePopupMatchId; i++) { 
-        if(matchResults[i]) { 
-            curH += matchResults[i].heim; 
-            curG += matchResults[i].gast; 
-        } 
-    }
-    area.innerHTML += `<div style="text-align:center; font-size: 15px; font-weight:bold; color: #ffcc00; margin: 0 0 12px 0; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 3px;">Spielstand vor dem Match: ${curH}: ${curG}</div>`;
-    
-    const disabledAttr = isPlayed ? "click-box-disabled" : "";
-    
-    if (m.type === "E") {
-        const side1 = c1.startsWith("H") ? "H" : "G";
-        const side2 = c2.startsWith("H") ? "H" : "G";
-        const realPos1 = resolvePlayerName(c1, activePopupMatchId, true);
-        const realPos2 = resolvePlayerName(c2, activePopupMatchId, true);
-        
-        let einzelPlayers = [
-            { name: p1, pos: realPos1, side: side1, scoreNum: 1 },
-            { name: p2, pos: realPos2, side: side2, scoreNum: 2 }
-        ];
-        einzelPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
-        
+    let einzelPlayers = [
+        { name: p1, pos: realPos1, side: side1, scoreNum: 1 },
+        { name: p2, pos: realPos2, side: side2, scoreNum: 2 }
+    ];
+    einzelPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
+   
+
+
+
+
         einzelPlayers.forEach(p => {
             const sideBadge = p.side === 'H' ? 'Heim' : 'Gast';
             const btnStyle = p.side === 'H'
-                ? 'background: #00cc66 !important; color: #000 !important; font-weight: bold; padding: 12px; margin:6px 0; border: none; display: block;'
-                : 'background: #ffcc00 !important; color: #000 !important; font-weight: bold; padding: 12px; margin:6px 0; border: none; display:block;';
+                ? 'background: #00cc66 !important; color: #000 !important; font-weight:bold; padding: 12px; margin:6px 0; border: none; display:block;'
+                : 'background: #ffcc00 !important; color: #000 !important; font-weight:bold; padding: 12px; margin:6px 0; border: none; display:block;';
                 
-            area.innerHTML += `<div class="click-box ${disabledAttr} click-box-${p.side.toLowerCase()}" style="${btnStyle}" onclick="if(!${isPlayed}){ registerWinner('${p.name}', '${p.pos}', '${p.side}'); }">
+            area.innerHTML += `<div class="click-box ${disabledAttr}" style="${btnStyle}" onclick="registerWinner('${p.name}', '${p.pos}', '${p.side}')">
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left;">
                     <div style="display: flex; align-items: center; gap: 10px; min-width: 120px;">
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px; min-width: 35px;">${sideBadge}</span>
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px;">Score ${p.scoreNum}</span>
                     </div>
-                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">${p.name}</span>
-                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">${p.pos}</span>
+                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">
+                        ${p.name}
+                    </span>
+                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">
+                        ${p.pos}
+                    </span>
                 </div>
             </div>`;
         });
-    } else {
-        let hPlayers = [], gPlayers = [];
-        const rp1 = resolvePlayerName(c1, activePopupMatchId, true);
-        const rp2 = resolvePlayerName(c2, activePopupMatchId, true);
-        const rp3 = c3 ? resolvePlayerName(c3, activePopupMatchId, true) : "";
-        const rp4 = c4 ? resolvePlayerName(c4, activePopupMatchId, true) : "";
-        
-        if(c1.startsWith("H")) hPlayers.push({name: p1, pos: rp1, scoreNum: 1}); else gPlayers.push({name: p1, pos: rp1, scoreNum: 1});
-        if(c2.startsWith("H")) hPlayers.push({name: p2, pos: rp2, scoreNum: 2}); else gPlayers.push({name: p2, pos: rp2, scoreNum: 2});
-        if(c3) { if(c3.startsWith("H")) hPlayers.push({name: p3, pos: rp3, scoreNum: 3}); else gPlayers.push({name: p3, pos: rp3, scoreNum: 3}); }
-        if(c4) { if(c4.startsWith("H")) hPlayers.push({name: p4, pos: rp4, scoreNum: 4}); else gPlayers.push({name: p4, pos: rp4, scoreNum: 4}); }
-        
-        hPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
-        gPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
-        
-        let allPopupPlayers = [...hPlayers, ...gPlayers];
-        allPopupPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
-        
+
+} else {
+    const hPlayers = [], gPlayers = [];
+    
+    // Ermittelt die aktuell echten Positionen für Doppel/Cricket (Berücksichtigt aktive Wechsel!)
+    const rp1 = resolvePlayerName(c1, activePopupMatchId, true);
+    const rp2 = resolvePlayerName(c2, activePopupMatchId, true);
+    const rp3 = c3 ? resolvePlayerName(c3, activePopupMatchId, true) : "";
+    const rp4 = c4 ? resolvePlayerName(c4, activePopupMatchId, true) : "";
+
+    if(c1.startsWith("H")) hPlayers.push({name: p1, pos: rp1, scoreNum: 1}); else gPlayers.push({name: p1, pos: rp1, scoreNum: 1});
+    if(c2.startsWith("H")) hPlayers.push({name: p2, pos: rp2, scoreNum: 2}); else gPlayers.push({name: p2, pos: rp2, scoreNum: 2});
+    if(c3) { if(c3.startsWith("H")) hPlayers.push({name: p3, pos: rp3, scoreNum: 3}); else gPlayers.push({name: p3, pos: rp3, scoreNum: 3}); }
+    if(c4) { if(c4.startsWith("H")) hPlayers.push({name: p4, pos: rp4, scoreNum: 4}); else gPlayers.push({name: p4, pos: rp4, scoreNum: 4}); }
+    
+    hPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
+    gPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
+    let allPopupPlayers = [...hPlayers, ...gPlayers];
+    allPopupPlayers.sort((a, b) => a.scoreNum - b.scoreNum);
         allPopupPlayers.forEach(p => {
             const isHome = p.pos.startsWith("H");
             const sideBadge = isHome ? 'Heim' : 'Gast';
             const partnerList = isHome ? hPlayers : gPlayers;
             const partner = partnerList.find(x => x.pos !== p.pos) || {name: null, pos: null};
             const currentSideCode = isHome ? 'H' : 'G';
-            
             const btnStyle = isHome
                 ? 'background: #00cc66 !important; color: #000 !important; font-weight:bold; padding: 12px; margin:5px 0; border: none; display:block;'
                 : 'background: #ffcc00 !important; color: #000 !important; font-weight: bold; padding: 12px; margin:5px 0; border: none; display:block;';
                 
-            area.innerHTML += `<div class="click-box ${disabledAttr} click-box-${currentSideCode.toLowerCase()}" style="${btnStyle}" onclick="if(!${isPlayed}){ registerWinner('${p.name}', '${p.pos}', '${currentSideCode}', '${partner.name}', '${partner.pos}'); }">
+            area.innerHTML += `<div class="click-box ${disabledAttr}" style="${btnStyle}" onclick="registerWinner('${p.name}', '${p.pos}', '${currentSideCode}', '${partner.name}', '${partner.pos}')">
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left;">
                     <div style="display: flex; align-items: center; gap: 10px; min-width: 120px;">
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px; min-width: 35px;">${sideBadge}</span>
                         <span style="font-size: 11px; opacity: 0.8; border-right: 1px solid rgba(0,0,0,0.2); padding-right: 8px;">Score ${p.scoreNum}</span>
                     </div>
-                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">${p.name}</span>
-                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">${p.pos}</span>
+                    <span style="font-size: 20px; font-weight: bold; flex: 1; text-align: center; padding: 0 10px;">
+                        ${p.name}
+                    </span>
+                    <span style="font-size: 14px; font-weight: 900; text-transform: uppercase; opacity: 0.9; text-align: right; min-width: 40px; padding-right: 5px;">
+                        ${p.pos}
+                    </span>
                 </div>
             </div>`;
         });
-    }
-    
-    // BROWSER-SCHUTZ: Befüllt die Dropdowns im neuen, unsichtbaren Wechsel-Popup sicher mit Daten
-    const outH = document.getElementById("pop_sub_out_H"); 
-    const inH = document.getElementById("pop_sub_in_H");
-    const outG = document.getElementById("pop_sub_out_G"); 
-    const inG = document.getElementById("pop_sub_in_G");
-    
-    if (outH && inH && outG && inG) {
-        outH.innerHTML = '<option value="">-- wähle Raus --</option>'; 
-        inH.innerHTML = '<option value="">-- wähle Rein --</option>';
-        outG.innerHTML = '<option value="">-- wähle Raus --</option>'; 
-        inG.innerHTML = '<option value="">-- wähle Rein --</option>';
-        
-        m.pos.forEach(p => {
-            if(!p) return;
-            const displayName = resolvePlayerName(p, activePopupMatchId);
-            if (p.startsWith("H")) {
-                outH.innerHTML += `<option value="${p}">${p} (${displayName})</option>`;
-            } else if (p.startsWith("G")) {
-                outG.innerHTML += `<option value="${p}">${p} (${displayName})</option>`;
-            }
-        });
-        
-        ["HE1", "HE2", "HE3", "HE4"].forEach(p => {
-            const el = document.getElementById("p_" + p);
-            if(el && el.value && el.value.trim() !== "") {
-                const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId > s.matchId);
-                if(!alreadyUsed) inH.innerHTML += `<option value="${p}">${p} (${el.value})</option>`;
-            }
-        });
-        
-        ["GE1", "GE2", "GE3", "GE4"].forEach(p => {
-            const el = document.getElementById("p_" + p);
-            if(el && el.value && el.value.trim() !== "") {
-                const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId > s.matchId);
-                if(!alreadyUsed) inG.innerHTML += `<option value="${p}">${p} (${el.value})</option>`;
-            }
-        });
-    }
-    
-    const livePopup = document.getElementById("livePopup");
-    if (livePopup) livePopup.style.display = "block";
+
 }
+
+
+
+
+const activeSubs = substitutions.filter(s => s.matchId <= activePopupMatchId);
+let subsHtml = "";
+if(activeSubs.length > 0) {
+subsHtml = `<div style="margin-top:10px; background:rgba(255,255,255,0.05); padding: 6px; border-radius: 4px; border:1px solid #444; font-size:11px; text-align: left; color: #bbb;"><b style="color:#ffcc00;"> Aktive Wechsel bis Spiel ${activePopupMatchId}:</b><br>`;
+activeSubs.forEach((s, idx) => { subsHtml +=  `<div style="display: flex; justify-content: space-between; align-items: center; margin: 2px 0;"><span> Ab Spiel ${s.matchId}: <b>${s.inPos}</b> für <b>${s.outPos}</b></span><span onclick="removeSubstitution(${s.matchId}, '${s.outPos}')" style="color:#cc3333; cursor:pointer; font-weight: bold; margin-left: auto; padding:0 4px;"> Löschen</span></div>`; });
+subsHtml += '</div>';
+}
+area.innerHTML += subsHtml;
+document.getElementById("popup_sub_toggle_area").style.display = "none";
+document.getElementById("popup_toggle_sub_btn").innerText = "Auswechslungen anzeigen";
+const outH = document.getElementById("pop_sub_out_H"); const inH = document.getElementById("pop_sub_in_H");
+
+
+const outG = document.getElementById("pop_sub_out_G"); const inG =
+document.getElementById("pop_sub_in_G");
+outH.innerHTML = '<option value="">-- wähle Raus --</option>'; inH.innerHTML =
+'<option value="">-- wähle Rein --</option>';
+outG.innerHTML = '<option value="">-- wähle Raus --</option>'; inG.innerHTML =
+'<option value="">-- wähle Rein --</option>';
+
+
+
+  // Dropdowns für Raus-Auswahl befüllen (Spieler, die gerade auf dem Feld stehen)
+  m.pos.forEach(p => { 
+    if(!p) return; 
+    const realPos = p; 
+    const displayName = resolvePlayerName(p, activePopupMatchId); 
+    if (realPos.startsWith("H")) {
+      outH.innerHTML += `<option value="${realPos}">${realPos} (${displayName})</option>`; 
+    } else if (realPos.startsWith("G")) {
+      outG.innerHTML += `<option value="${realPos}">${realPos} (${displayName})</option>`; 
+    }
+  });
+
+  // Heim-Ersatzspieler (HE1 - HE4) für die Rein-Auswahl prüfen (Hier wurden die kyrillischen Zeichen korrigiert!)
+  ["HE1", "HE2", "HE3", "HE4"].forEach(p => { 
+    const el = document.getElementById("p_" + p); 
+    if(el && el.value && el.value.trim() !== "") { 
+      const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId >= s.matchId); 
+      if(!alreadyUsed) {
+        inH.innerHTML += `<option value="${p}">${p} (${el.value})</option>`; 
+      }
+    } 
+  });
+
+  // Gast-Ersatzspieler (GE1 - GE4) für die Rein-Auswahl prüfen (Syntax-Fehler behoben!)
+  ["GE1", "GE2", "GE3", "GE4"].forEach(p => { 
+    const el = document.getElementById("p_" + p); 
+    if(el && el.value && el.value.trim() !== "") { 
+      const alreadyUsed = substitutions.some(s => s.inPos === p && activePopupMatchId >= s.matchId); 
+      if(!alreadyUsed) {
+        inG.innerHTML += `<option value="${p}">${p} (${el.value})</option>`; 
+      }
+    } 
+  });
+
+  document.getElementById("livePopup").style.display = "block";
+}
+
 
 function executePopupSubstitution (teamSide) {
   const outPos = document.getElementById("pop_sub_out_" + teamSide).value; 
@@ -2364,12 +2130,12 @@ function executePopupSubstitution (teamSide) {
       g++; 
     }
   });
-    alert("Auswechslung erfolgreich registriert!");
-    renderTable();
-    openLivePopup(activePopupMatchId); // Aktualisiert die Namen im Haupt-Popup
-    schliesseWechselPopup();           // Fliegt das Wechsel-Popup elegant wieder nach oben raus
+  alert("Auswechslung erfolgreich registriert!");
+  renderTable(); 
+  openLivePopup(activePopupMatchId);
+  document.getElementById("popup_sub_toggle_area").style.display = "none";
+  document.getElementById("popup_toggle_sub_btn").innerText = "Auswechslungen anzeigen";
 }
-
 
 function removeSubstitution (matchId, outPos) {
   substitutions = substitutions.filter(s => !(s.matchId === matchId && s.outPos === outPos));
@@ -2436,145 +2202,120 @@ function registerWinner (ignoredName, checkerPos, side, ignoredAssName = null, a
   renderTable();
   saveMatchdayToLocalStorage();
   setTimeout(() => {
-    if(activePopupMatchId < 32) { 
+    if(activePopupMatchId < 34) { 
       openLivePopup(activePopupMatchId + 1); 
     } else { 
-      alert("Alle 32 Spiele erfasst! Der Spielberichtsbogen ist fertig.");
+      alert("Alle 34 Spiele erfasst! Der Spielberichtsbogen ist fertig.");
       closeLivePopup(); 
     }
   }, 300);
 }
 
 function updateStats() {
-    const hLive = document.getElementById("live_stats_H_body");
-    const gLive = document.getElementById("live_stats_G_body");
-    const hB = document.getElementById("print_stats_H");
-    const gB = document.getElementById("print_stats_G");
-    if(!hLive || !gLive || !hB || !gB) return;
+  const hLive = document.getElementById("live_stats_H_body"); 
+  const gLive = document.getElementById("live_stats_G_body");
+  const hB = document.getElementById("print_stats_H"); 
+  const gB = document.getElementById("print_stats_G");
+  if(!hLive || !gLive || !hB || !gB) return; 
+  hB.innerHTML = ""; gB.innerHTML = ""; hLive.innerHTML = ""; gLive.innerHTML = "";
+  
+  const dynamischeScores = {};
+  Object.keys(matchResults).forEach(id => {
+    const res = matchResults[id];
+    if (!res) return;
+    if (res.checkerPos) {
+      const cName = resolvePlayerName(res.checkerPos, id);
+      if (cName) {
+        if (!dynamischeScores[cName]) dynamischeScores[cName] = { check: 0, assist: 0 };
+        dynamischeScores[cName].check += 1;
+      }
+    }
+    if (res.assistantPos) {
+      const aName = resolvePlayerName(res.assistantPos, id);
+      if (aName) {
+        if (!dynamischeScores[aName]) dynamischeScores[aName] = { check: 0, assist: 0 };
+        dynamischeScores[aName].assist += 1;
+      }
+    }
+  });
+  
+  // Die festen 8 Positionen für beide Teams
+  const posHome = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4"];
+  const posGuest = ["G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
+  
+  // Befüllung Heimteam (Immer 8 Zeilen)
+  posHome.forEach(p => {
+    const el = document.getElementById("p_" + p);
+    let spielerName = el ? el.value.trim() : "";
+    let istErsatz = p.startsWith("HE");
     
-    hB.innerHTML = ""; gB.innerHTML = ""; hLive.innerHTML = ""; gLive.innerHTML = "";
-    const dynamischeScores = {};
+    let anzeigeName = spielerName;
+    let styleZusatz = "";
     
-    Object.keys(matchResults).forEach(id => {
-        const res = matchResults[id];
-        if (!res) return;
-        if (res.checkerPos) {
-            const cName = resolvePlayerName(res.checkerPos, id);
-            if (cName) {
-                if (!dynamischeScores[cName]) dynamischeScores[cName] = { check: 0, assist: 0 };
-                dynamischeScores[cName].check += 1;
-            }
-        }
-        if (res.assistantPos) {
-            const aName = resolvePlayerName(res.assistantPos, id);
-            if (aName) {
-                if (!dynamischeScores[aName]) dynamischeScores[aName] = { check: 0, assist: 0 };
-                dynamischeScores[aName].assist += 1;
-            }
-        }
-    });
-
-    const posHome = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4"];
-    const posGuest = ["G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
+    // Wenn das Feld leer ist oder nur den Standard-Auswahltext enthält
+    if (!spielerName || spielerName.includes("--")) {
+      anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
+      styleZusatz = 'style="color: #888888; font-style: italic;"';
+    }
     
-    // Prüfen, ob überhaupt ein Spiel läuft oder Teams gewählt wurden (für Blanko-Druck)
-    const hatHeimTeam = document.getElementById("team_home")?.value !== "";
-    const hatGastTeam = document.getElementById("team_guest")?.value !== "";
-    const spieleVorhanden = Object.keys(matchResults).length > 0;
-    const istBlanko = !hatHeimTeam && !hatGastTeam && !spieleVorhanden;
-
-    // Befüllung Heimteam (Immer 8 Zeilen)
-    posHome.forEach(p => {
-        const el = document.getElementById("p_" + p);
-        let spielerName = el ? el.value.trim() : "";
-        let istErsatz = p.startsWith("HE");
-        let anzeigeName = spielerName;
-        let styleZusatz = "";
-        
-        if (!spielerName || spielerName.includes("--")) {
-            anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
-            styleZusatz = 'style="color: #888888; font-style: italic;"';
-        }
-        
-        const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
-        const punkteGesamt = (s.check * 2) + (s.assist * 1);
-        
-        let cellLive = (!spielerName || spielerName.includes("--"))
-            ? `<td ${styleZusatz}>${anzeigeName}</td>`
-            : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
-            
-        let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color: #ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
-        
-        // Blanko-Logik für den Ausdruck: Komplett leere Zeilen erzeugen
-        let rowPrint = "";
-        if (istBlanko) {
-            rowPrint = '<tr><td style="height:15px;"></td><td></td><td></td><td></td></tr>';
-        } else {
-            rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
-        }
-        
-        hLive.innerHTML += rowLive;
-        hB.innerHTML += rowPrint;
-    });
-
-    // Befüllung Gastteam (Immer 8 Zeilen)
-    posGuest.forEach(p => {
-        const el = document.getElementById("p_" + p);
-        let spielerName = el ? el.value.trim() : "";
-        let istErsatz = p.startsWith("GE");
-        let anzeigeName = spielerName;
-        let styleZusatz = "";
-        
-        if (!spielerName || spielerName.includes("--")) {
-            anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
-            styleZusatz = 'style="color: #888888; font-style: italic;"';
-        }
-        
-        const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
-        const punkteGesamt = (s.check * 2) + (s.assist * 1);
-        
-        let cellLive = (!spielerName || spielerName.includes("--"))
-            ? `<td ${styleZusatz}>${anzeigeName}</td>`
-            : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
-            
-        let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
-        
-        // Blanko-Logik für den Ausdruck: Komplett leere Zeilen erzeugen
-        let rowPrint = "";
-        if (istBlanko) {
-            rowPrint = '<tr><td style="height:15px;"></td><td></td><td></td><td></td></tr>';
-        } else {
-            rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
-        }
-        
-        gLive.innerHTML += rowLive;
-        gB.innerHTML += rowPrint;
-    });
+    const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
+    const punkteGesamt = (s.check * 2) + (s.assist * 1);
     
-    playerScores = dynamischeScores;
-    localStorage.setItem("mkk_live_player_scores", JSON.stringify(playerScores));
+    // Am Bildschirm bekommt der Name ein Klick-Event, wenn ein echter Spieler da ist
+    let cellLive = (!spielerName || spielerName.includes("--")) 
+      ? `<td ${styleZusatz}>${anzeigeName}</td>`
+      : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
+      
+    let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
+    let rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
+    
+    hLive.innerHTML += rowLive;
+    hB.innerHTML += rowPrint;
+  });
+  
+  // Befüllung Gastteam (Immer 8 Zeilen)
+  posGuest.forEach(p => {
+    const el = document.getElementById("p_" + p);
+    let spielerName = el ? el.value.trim() : "";
+    let istErsatz = p.startsWith("GE");
+    
+    let anzeigeName = spielerName;
+    let styleZusatz = "";
+    
+    if (!spielerName || spielerName.includes("--")) {
+      anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
+      styleZusatz = 'style="color: #888888; font-style: italic;"';
+    }
+    
+    const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
+    const punkteGesamt = (s.check * 2) + (s.assist * 1);
+    
+    let cellLive = (!spielerName || spielerName.includes("--")) 
+      ? `<td ${styleZusatz}>${anzeigeName}</td>`
+      : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
+      
+    let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
+    let rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
+    
+    gLive.innerHTML += rowLive;
+    gB.innerHTML += rowPrint;
+  });
+  
+  playerScores = dynamischeScores;
+  localStorage.setItem("mkk_live_player_scores", JSON.stringify(playerScores));
 }
 
 function syncMetaToLabels() {
-    const groupVal = document.getElementById("meta_group").value;
-    
-    // Setzt die Kreuze für A, B, C zurück oder lässt sie bei Freispiel einfach ganz frei
-    document.getElementById("lbl_group_A").innerText = (groupVal === "Gruppe A") ? "X" : "";
-    document.getElementById("lbl_group_B").innerText = (groupVal === "Gruppe B") ? "X" : "";
-    document.getElementById("lbl_group_C").innerText = (groupVal === "Gruppe C") ? "X" : "";
-    
-    // Wenn Freispiel aktiv ist, bleibt der Spieltag im PDF unsichtbar und leer
-    const dayVal = document.getElementById("meta_day").value;
-    document.getElementById("lbl_day").innerText = (groupVal === "Freispiel") ? "" : dayVal;
-    
-    document.getElementById("lbl_date").innerText = document.getElementById("meta_date").value;
-    document.getElementById("lbl_name_home").innerText = document.getElementById("team_home").value;
-    document.getElementById("lbl_name_guest").innerText = document.getElementById("team_guest").value;
-    document.getElementById("lbl_captain_home").innerText = document.getElementById("captain_home").value;
-    document.getElementById("lbl_captain_guest").innerText = document.getElementById("captain_guest").value;
-    
-    // ... restliche IDs-Schleife (H1, H2 etc.) bleibt wie sie ist ...
-
+  const groupVal = document.getElementById("meta_group").value;
+  document.getElementById("lbl_group_A").innerText = (groupVal === "Gruppe A") ? "X" : "";
+  document.getElementById("lbl_group_B").innerText = (groupVal === "Gruppe B") ? "X" : "";
+  document.getElementById("lbl_group_C").innerText = (groupVal === "Gruppe C") ? "X" : "";
+  document.getElementById("lbl_day").innerText = document.getElementById("meta_day").value;
+  document.getElementById("lbl_date").innerText = document.getElementById("meta_date").value;
+  document.getElementById("lbl_name_home").innerText = document.getElementById("team_home").value;
+  document.getElementById("lbl_name_guest").innerText = document.getElementById("team_guest").value;
+  document.getElementById("lbl_captain_home").innerText = document.getElementById("captain_home").value;
+  document.getElementById("lbl_captain_guest").innerText = document.getElementById("captain_guest").value;
   const ids = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4", "G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
   ids.forEach(id => {
     const el = document.getElementById("p_" + id); 
@@ -2611,55 +2352,26 @@ function updatePrintSubstitutions() {
 
 
 function resetWholeMatchday() {
-if(confirm("Möchtest du wirklich alle eingetragenen Ergebnisse, Auswechslungen und geladenen Teams löschen, um ein neues Spiel zu starten?")) {
-matchResults = {}; substitutions = []; playerScores = {};
-localStorage.removeItem("mkk_live_match_results");
-localStorage.removeItem("mkk_live_substitutions");
-localStorage.removeItem("mkk_live_player_scores");
-localStorage.removeItem("mkk_live_dropdown_state");
-
-// NEU: Unterschriften komplett aus dem Speicher und der Ansicht löschen
-['H', 'G'].forEach(side => {
-localStorage.removeItem("mkk_sig_data_" + side);
-
-// Bilder im Drucklayout verstecken
-const img = document.getElementById("img_print_sig_" + side);
-if (img) { img.style.display = "none"; img.src = ""; }
-
-// Bilder in der Vorschau verstecken (falls vorhanden)
-const previewImg = document.getElementById("sig_preview_img_" + side);
-const previewText = document.getElementById("sig_preview_text_" + side);
-if (previewImg) { previewImg.style.display = "none"; previewImg.src = ""; }
-if (previewText) { previewText.style.display = "block"; }
-
-// Canvas-Zeichenflächen komplett leeren
-const canvas = document.getElementById("fixed_canvas_" + side);
-if (canvas) {
-const ctx = canvas.getContext("2d");
-ctx.clearRect(0, 0, canvas.width, canvas.height);
+ if(confirm("Möchtest du wirklich alle eingetragenen Ergebnisse, Auswechslungen und geladenen Teams löschen, um ein neues Spiel zu starten?")) {
+  matchResults = {}; substitutions = []; playerScores = {};
+  localStorage.removeItem("mkk_live_match_results"); localStorage.removeItem("mkk_live_substitutions"); localStorage.removeItem("mkk_live_player_scores"); localStorage.removeItem("mkk_live_dropdown_state");
+  updatePrintSubstitutions();
+  document.querySelectorAll("select").forEach(s => { s.value = ""; });
+  document.querySelectorAll("input[type='text']").forEach(i => { if(i.id !== "meta_date") { i.value = ""; } });
+  renderTable(); validateRosterAndSetup(); syncMetaToLabels();
+  alert("Alle Spieldaten wurden erfolgreich zurückgesetzt!");
+  switchTab('setup');
+ }
 }
 
-// Visuelle Sperre der Unterschriftenfelder aufheben (wieder weiß und aktiv machen)
-if (typeof setzeSperrZustandVisual === "function") {
-setzeSperrZustandVisual(side, false);
-}
-});
-
-updatePrintSubstitutions();
-document.querySelectorAll("select").forEach(s => { s.value = ""; });
-document.querySelectorAll("input[type='text']").forEach(i => { if(i.id !== "meta_date") { i.value = ""; } });
-renderTable(); validateRosterAndSetup(); syncMetaToLabels();
-
-// Status der Unterschriften-Buttons neu prüfen
-if (typeof checkFixedSignaturesComplete === "function") {
-checkFixedSignaturesComplete();
-}
-}
-alert("Alle Spieldaten und Unterschriften wurden erfolgreich zurückgesetzt!");
-switchTab('setup');
+function saveActiveDropdowns() {
+ const ids = ["team_home", "team_guest", "captain_home", "captain_guest", "meta_group", "meta_day", "meta_date", "p_H1","p_H2","p_H3","p_H4","p_HE1","p_HE2","p_HE3","p_HE4", "p_G1","p_G2","p_G3","p_G4","p_GE1","p_GE2","p_GE3","p_GE4", "pass_H1","pass_H2","pass_H3","pass_H4","pass_HE1","pass_HE2","pass_HE3","pass_HE4", "pass_G1","pass_G2","pass_G3","pass_G4","pass_GE1","pass_GE2","pass_GE3","pass_GE4"];
+ const dropdownState = {}; ids.forEach(id => { const el = document.getElementById(id); if(el) dropdownState[id] = el.value; });
+ localStorage.setItem("mkk_live_dropdown_state", JSON.stringify(dropdownState));
 }
 
-function switchTab(tabName) {
+function switchTab (tabName) {
+    // AUTOMATISCHER SCHLIESS-SCHUTZ: Schließt das Zahnrad-Menü beim Tab-Wechsel
     const panel = document.getElementById("accordion_panel");
     if (panel) panel.style.display = "none";
     document.body.classList.remove("settings-open");
@@ -2667,10 +2379,12 @@ function switchTab(tabName) {
     document.getElementById("tab_setup").classList.remove("active");
     document.getElementById("tab_game").classList.remove("active");
     document.getElementById("tab_" + tabName).classList.add("active");
+    
     document.getElementById("btn_tab_setup").classList.remove("active");
     document.getElementById("btn_tab_game").classList.remove("active");
     document.getElementById("btn_tab_" + tabName).classList.add("active");
     
+    // Startet die Unterschriftenfelder neu, sobald der Spielplan-Tab geöffnet wird
     if (tabName === "game") {
         setTimeout(() => {
             if (typeof initFixedCanvasesWithoutPopup === "function") {
@@ -2678,9 +2392,14 @@ function switchTab(tabName) {
             }
         }, 100);
         
-        // KORREKTUR: Den alten blockierenden 'landscape'-Lock komplett entfernt!
-        // Das Display passt sich jetzt einfach nativ der echten Drehung des Kapitaens an.
+        // NEU: Bildschirm automatisch ins Querformat drehen und sperren
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape')
+                .then(() => console.log("Bildschirm erfolgreich ins Querformat gedreht"))
+                .catch((err) => console.log("Drehung blockiert (erfordert vorherigen Klick/Vollbild):", err));
+        }
     } else if (tabName === "setup") {
+        // NEU: Wenn man zurück zur Aufstellung geht, wieder ins normale Hochformat wechseln
         if (screen.orientation && screen.orientation.unlock) {
             screen.orientation.unlock();
         }
@@ -2842,30 +2561,6 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => { popup.style.display = 'block'; }, 3000);
     }
 });
-
-
-
-
-
-function beendeStartbildschirm() {
-    // 3000ms entspricht exakt 3 Sekunden Wartezeit
-    setTimeout(() => {
-        const splash = document.getElementById("app_splash_screen");
-        if (splash) {
-            splash.style.opacity = "0"; // Blendet das Bild weich aus
-            setTimeout(() => {
-                splash.style.display = "none"; // Entfernt es aus dem Klickbereich
-            }, 500); // Wartet das CSS-Ausblenden ab
-        }
-    }, 3000); 
-}
-
-
-
-
-
-
-
 
 function triggerPwaInstallation() {
     const popup = document.getElementById('pwaInstallPopup');
@@ -3140,14 +2835,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
 function starteSpezialDruck() {
     // Sicherheitscheck: Prüfen, ob der Button gesperrt ist
     const btn = document.getElementById("btn_print_pdf");
     if (btn && btn.classList.contains("row-disabled")) {
         alert("Hinweis: Der Ausdruck ist erst nach Erfassung aller Spiele möglich!");
-        return;
+        return; 
     }
-    
+
     // 1. Metadaten einsammeln
     const metaGroup = document.getElementById("meta_group")?.value || "";
     const metaDay = document.getElementById("meta_day")?.value || "";
@@ -3156,23 +2852,7 @@ function starteSpezialDruck() {
     const teamG = document.getElementById("team_guest")?.value || "";
     const capH = document.getElementById("captain_home")?.value || "";
     const capG = document.getElementById("captain_guest")?.value || "";
-    
-    // BLANKO-PRÜFUNG: Wenn keine Teams gewählt und keine Spiele eingetragen sind, ist es ein Blanko-Druck
-    const spieleVorhanden = typeof matchResults !== "undefined" && Object.keys(matchResults).length > 0;
-    const istBlankoDruck = !teamH && !teamG && !spieleVorhanden;
-    
-    // KORREKTUR: Wenn es ein Blanko-Druck ist, blenden wir die Unterschriften auf dem Papier radikal aus!
-    const imgH = document.getElementById("img_print_sig_H");
-    const imgG = document.getElementById("img_print_sig_G");
-    if (istBlankoDruck) {
-        if (imgH) imgH.style.display = "none";
-        if (imgG) imgG.style.display = "none";
-    } else {
-        // Bei einem echten, beendeten Spiel laden wir sie ganz normal
-        if (imgH && localStorage.getItem("mkk_sig_data_H")) { imgH.style.display = "block"; }
-        if (imgG && localStorage.getItem("mkk_sig_data_G")) { imgG.style.display = "block"; }
-    }
-    
+
     // 2. Metadaten auf das Druckblatt schreiben
     if(document.getElementById("lbl_group_A"))
         document.getElementById("lbl_group_A").innerText = (metaGroup === "Gruppe A") ? "X" : "";
@@ -3180,14 +2860,34 @@ function starteSpezialDruck() {
         document.getElementById("lbl_group_B").innerText = (metaGroup === "Gruppe B") ? "X" : "";
     if(document.getElementById("lbl_group_C"))
         document.getElementById("lbl_group_C").innerText = (metaGroup === "Gruppe C") ? "X" : "";
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if(document.getElementById("lbl_day")) document.getElementById("lbl_day").innerText = metaDay;
     if(document.getElementById("lbl_date")) document.getElementById("lbl_date").innerText = metaDate;
     if(document.getElementById("lbl_name_home")) document.getElementById("lbl_name_home").innerText = teamH;
     if(document.getElementById("lbl_name_guest")) document.getElementById("lbl_name_guest").innerText = teamG;
     if(document.getElementById("lbl_captain_home")) document.getElementById("lbl_captain_home").innerText = capH;
     if(document.getElementById("lbl_captain_guest")) document.getElementById("lbl_captain_guest").innerText = capG;
-    
+
     // 3. Aufstellung & Passnummern übertragen
     const ids = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4", "G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
     ids.forEach(id => {
@@ -3198,68 +2898,71 @@ function starteSpezialDruck() {
         const passLbl = document.getElementById("lbl_pass_" + id);
         if(passEl && passLbl) passLbl.innerText = passEl.value || "";
     });
-    
+
     // 4. Alle Matches für das Papier aufbauen
     const printBody = document.getElementById("print_table_all");
     if (printBody && typeof mkkSchedule !== "undefined") {
         printBody.innerHTML = "";
         let runningHome = 0;
         let runningGuest = 0;
+
         mkkSchedule.forEach(m => {
             const res = (typeof matchResults !== "undefined" && matchResults[m.id]) || { heim: 0, gast: 0, checkerPos: "", assistantPos: "" };
             const hasBeenPlayed = (typeof matchResults !== "undefined" && !!matchResults[m.id]);
-            if (hasBeenPlayed) {
-                runningHome += res.heim;
-                runningGuest += res.gast;
+            if (hasBeenPlayed) { 
+                runningHome += res.heim; 
+                runningGuest += res.gast; 
             }
-            
+
+            // Ermittelt die aktuell echten Positionskürzel (Berücksichtigt aktive Wechsel für die Score-Zellen!)
             const c1 = (m.pos && m.pos[0]) ? resolvePlayerName(m.pos[0], m.id, true) : "";
             const c2 = (m.pos && m.pos[1]) ? resolvePlayerName(m.pos[1], m.id, true) : "";
             const c3 = (m.pos && m.pos[2]) ? resolvePlayerName(m.pos[2], m.id, true) : "";
             const c4 = (m.pos && m.pos[3]) ? resolvePlayerName(m.pos[3], m.id, true) : "";
-            
+
+            // Typ-Kürzel in volles Wort übersetzen
             let vollesWortTyp = m.type;
             if (m.type === "E") vollesWortTyp = "Einzel";
             else if (m.type === "D") vollesWortTyp = "Doppel";
             else if (m.type === "C") vollesWortTyp = "Cricket";
-            
+
             const scoreDisplayHome = hasBeenPlayed ? runningHome : "";
             const scoreDisplayGuest = hasBeenPlayed ? runningGuest : "";
-            
+
             const trP = document.createElement("tr");
-            trP.innerHTML =
-                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8px; font-weight:bold; text-align:center;">' + m.id + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8px; text-align:center;">' + vollesWortTyp + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c1 || "-") + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c2 || "-") + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c3 || "-") + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c4 || "-") + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8.5px; font-weight:bold; text-align:center; background: #e0e0e0 !important;">' + scoreDisplayHome + '</td>' +
-                '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8.5px; font-weight:bold; text-align:center; background: #e0e0e0 !important;">' + scoreDisplayGuest + '</td>';
+            trP.innerHTML = 
+              '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8px; font-weight:bold; text-align:center;">' + m.id + '</td>' +
+              '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8px; text-align:center;">' + vollesWortTyp + '</td>' +
+              '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c1 || "-") + '</td>' +
+              '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c2 || "-") + '</td>' +
+              '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c3 || "-") + '</td>' +
+              '<td style="border:1px solid #000; padding:1.5px 4px; font-size:8px; text-align:center;">' + (c4 || "-") + '</td>' +
+              '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8.5px; font-weight:bold; text-align:center; background:#e0e0e0 !important;">' + scoreDisplayHome + '</td>' +
+              '<td style="border:1px solid #000; padding:1.5px 2px; font-size:8.5px; font-weight:bold; text-align:center; background:#e0e0e0 !important;">' + scoreDisplayGuest + '</td>';
+
             printBody.appendChild(trP);
         });
     }
-    
+
     // 5. Gesamtergebnis eintragen & Titel für PDF-Dateinamen setzen
     const ergebnisText = document.getElementById("lbl_res_total")?.innerText || "0 : 0";
     const sauberesErgebnis = ergebnisText.replace(":", "zu").trim();
     const alterTitel = document.title;
-    document.title = metaDate + " " + teamH + " gegen " + teamG + " - " + sauberesErgebnis;
-    
+    document.title = metaDate + " " + teamH + " gegen " + teamG + " " + sauberesErgebnis;
+
     // 6. Vollbild-Modus sauber beenden (wichtig für iOS)
-    if (document.exitFullscreen) { document.exitFullscreen().catch(() => {}); }
-    else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
-    
+    if (document.exitFullscreen) { 
+        document.exitFullscreen().catch(() => {}); 
+    } else if (document.webkitExitFullscreen) { 
+        document.webkitExitFullscreen(); 
+    }
+
     // 7. NACH DER VERZÖGERUNG: Druckdialog öffnen
     setTimeout(() => {
         window.print();
         setTimeout(() => { document.title = alterTitel; }, 1000);
     }, 350);
 }
-
-
-
-
 
 function closeSetupPopup(side) {
   const spielerIds = side === 'H' 
@@ -3442,97 +3145,17 @@ printBody.appendChild(trP);
 </script>
 
 <style>
-
-/* Animation für das einfliegende Wechsel-Popup */
-.sub-fly-content {
-    transform: translate(-50%, -150%) scale(0.5); /* Startet unsichtbar weit oben */
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Federt elegant ein */
-}
-
-/* Zustand wenn das Popup aktiv geschaltet ist */
-.popup-overlay.fly-active .sub-fly-content {
-    transform: translate(-50%, -50%) scale(1) !important; /* Fliegt exakt in die Mitte */
-}
-
-/* --- CODE DAVOR (Zur Orientierung) --- */
 @media print {
-/* --- DIESEN BLOCK KOMPLETT ERSETZEN --- */
-html, body {
-    height: auto !important;
-    overflow: visible !important;
+  html, body {
+    height: 100% !important;
+    overflow: hidden !important;
     margin: 0 !important;
     padding: 0 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    width: 100% !important;
-    font-size: 10px !important; /* Etwas kleiner, um Höhe einzusparen */
-}
+  }
 
-@page {
-    size: A4 portrait;
-    margin: 4mm !important; /* Extrem schmaler Rand, um maximalen Platz zu gewinnen */
-}
-
-/* Verhindert das Abschneiden und quetscht das Dokument zusammen */
-.container, #print-area, table, body > div {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    margin-bottom: 2px !important;
-    padding-bottom: 0 !important;
-}
-
-/* Macht die Tabellenzellen noch einmal flacher */
-th, td {
-    padding: 1px 3px !important; 
-    line-height: 1.0 !important;
-}
-
-/* Falls Unterschriften-Boxen oder ein Canvas genutzt werden, hier die Höhe beschränken */
-canvas, .signature-pad, .unterschrift-box {
-    height: 40px !important;
-    max-height: 40px !important;
-}
-/* --- CODE DAHINTER (Zur Orientierung) --- */
-
-/* KORREKTUR: Entfernt das globale Linksbündig für td... */
-
-
-
-/* Flex-Container füllt nun die komplette Zelle aus */
-.print-meta-cell-content {
-display: flex !important;
-align-items: center !important;
-justify-content: flex-start !important;
-width: 100% !important;
-height: 100% !important;
-box-sizing: border-box !important;
-text-align: left !important; /* Erzwingt die Linksbündigkeit nur innerhalb der Box */
-}
-
-/* Die feste Beschriftung klebt links am Rand */
-.print-meta-label {
-text-align: left !important;
-white-space: nowrap !important;
-font-weight: bold !important;
-font-size: 10px !important;
-color: #000 !important;
-padding-left: 2px !important;
-}
-
-/* Der dynamische Name nutzt den Restplatz und zentriert sich mathematisch exakt */
-.print-meta-value {
-flex: 1 !important;
-text-align: center !important;
-font-weight: bold !important;
-font-size: 10px !important;
-color: #000 !important;
-margin-right: 55px !important; /* Gleicht die Breite des linken Labels perfekt aus, damit der Name mittig sitzt */
-}
-
-
-
-    body > .container, h1, .tab-navigation, #tab_setup, .panel, .status-bar,
-
+  body > .container, h1, .tab-navigation, #tab_setup, .panel, .status-bar, 
   .flex-buttons, .fixed-sig-panel, .accordion-menu, #tab_game > h3, 
   #tab_game > .main-grid, #tab_game > div, .print-btn, #livePopup, .popup-overlay {
     display: none !important;
@@ -3663,25 +3286,17 @@ margin-right: 55px !important; /* Gleicht die Breite des linken Labels perfekt a
     margin-top: 2px !important;
   }
 
-@media print {
-    /* ... deine anderen Styles ... */
-
-    .print-signature-box {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-end !important;
-        height: 30px !important;
-        border-bottom: 1px solid #000 !important;
-        font-size: 8px !important;
-        width: 45% !important;
-        padding-bottom: 1px !important;
-        position: relative !important;
-        
-        /* KORREKTUR: Zentriert den Text der Beschriftung exakt unter der Linie */
-        text-align: center !important; 
-    }
-}
-
+  .print-signature-box {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    height: 30px !important;
+    border-bottom: 1px solid #000 !important;
+    font-size: 8px !important;
+    width: 45% !important;
+    padding-bottom: 1px !important;
+    position: relative !important;
+  }
 
   .print-sig-img {
     position: absolute !important;
@@ -3701,20 +3316,6 @@ margin-right: 55px !important; /* Gleicht die Breite des linken Labels perfekt a
 .clickable-player-name:hover {
   color: #ffcc00 !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </style>
 <script>
 // ==========================================================================
@@ -3915,6 +3516,14 @@ function autoDetectLeagueAndMatchday() {
     if (typeof saveActiveDropdowns === "function") saveActiveDropdowns();
   }
 }
+
+
+
+
+
+
+
+
 
 
 </script>
