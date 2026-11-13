@@ -720,7 +720,6 @@ function aktiviereVollbild() {
 
 
 <script src="https://cloudflare.com"></script>
-<script src="https://cloudflare.com"></script>
 
 
 
@@ -1129,9 +1128,15 @@ onclick="generiereHaargenauesJPEG()"> JPEG erstellen</button> 📸
 
 
 
-  <button id="btn_print_pdf" class="print-btn row-disabled" style="margin-top: 15px;" onclick="starteSpezialDruck()">
-    PDF im 🖨 Schwarz-Weiß drucken & speichern
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px;">
+  <button id="btn_print_pdf" class="print-btn row-disabled" style="margin-bottom: 0; background: #cc3333;" onclick="starteSpezialDruck()">
+    PDF drucken & speichern 🖨
   </button>
+  <button id="btn_print_jpeg" class="print-btn row-disabled" style="margin-bottom: 0; background: #00cc66; color: #000;" onclick="generiereHaargenauesJPEG()">
+    Als JPEG-Bild speichern 📸
+  </button>
+</div>
+
  </div>
 </div>
 
@@ -1918,13 +1923,21 @@ const scoreDisplayHome = hasBeenPlayed ? runningHome : ""; const scoreDisplayGue
  updateStats();
 }
 
+function triggerePopupAnimation(modus = 'plopp') {
+  const box = document.querySelector("#livePopup .popup-content");
+  if (!box) return;
+  box.classList.remove("anim-plopp", "anim-flip-next", "anim-flip-prev");
+  void box.offsetWidth; // Setzt die Animation für sofortige Wiederholung zurück
+  if (modus === 'next') box.classList.add("anim-flip-next");
+  else if (modus === 'prev') box.classList.add("anim-flip-prev");
+  else box.classList.add("anim-plopp");
+}
 
 
 
 
 
-function openLivePopup (matchId) {
-activePopupMatchId = Number(matchId);
+function openLivePopup(matchId, animModus = 'plopp') {activePopupMatchId = Number(matchId);
 const m = mkkSchedule.find(x => x.id === activePopupMatchId);
 if(!m) return;
 let typeLong = m.type;
@@ -2103,7 +2116,9 @@ outG.innerHTML = '<option value="">-- wähle Raus --</option>'; inG.innerHTML =
     } 
   });
 
+  // Ganz am Ende von openLivePopup ersetzen:
   document.getElementById("livePopup").style.display = "block";
+  triggerePopupAnimation(animModus);
 }
 
 
@@ -2146,10 +2161,14 @@ function removeSubstitution (matchId, outPos) {
   alert("Auswechslung gelöscht!");
 }
 
-function navigatePopupMatch (direction) {
-const targetId = activePopupMatchId + direction;
-if(targetId >=1 && targetId <=32) { openLivePopup (targetId); }
+function navigatePopupMatch(direction) {
+  const targetId = activePopupMatchId + direction;
+  if (targetId >= 1 && targetId <= 32) {
+    const modus = direction > 0 ? 'next' : 'prev';
+    openLivePopup(targetId, modus);
+  }
 }
+
 
 function unlockCurrentMatchForFix() {
   if(matchResults[activePopupMatchId]) {
@@ -2202,13 +2221,14 @@ function registerWinner (ignoredName, checkerPos, side, ignoredAssName = null, a
   renderTable();
   saveMatchdayToLocalStorage();
   setTimeout(() => {
-    if(activePopupMatchId < 34) { 
-      openLivePopup(activePopupMatchId + 1); 
-    } else { 
-      alert("Alle 34 Spiele erfasst! Der Spielberichtsbogen ist fertig.");
-      closeLivePopup(); 
+    if (activePopupMatchId < 32) {
+      openLivePopup(activePopupMatchId + 1, 'next');
+    } else {
+      alert("Alle 32 Spiele erfasst! Der Spielberichtsbogen ist fertig.");
+      closeLivePopup();
     }
   }, 300);
+
 }
 
 function updateStats() {
@@ -2370,41 +2390,30 @@ function saveActiveDropdowns() {
  localStorage.setItem("mkk_live_dropdown_state", JSON.stringify(dropdownState));
 }
 
-function switchTab (tabName) {
-    // AUTOMATISCHER SCHLIESS-SCHUTZ: Schließt das Zahnrad-Menü beim Tab-Wechsel
-    const panel = document.getElementById("accordion_panel");
-    if (panel) panel.style.display = "none";
-    document.body.classList.remove("settings-open");
-    
-    document.getElementById("tab_setup").classList.remove("active");
-    document.getElementById("tab_game").classList.remove("active");
-    document.getElementById("tab_" + tabName).classList.add("active");
-    
-    document.getElementById("btn_tab_setup").classList.remove("active");
-    document.getElementById("btn_tab_game").classList.remove("active");
-    document.getElementById("btn_tab_" + tabName).classList.add("active");
-    
-    // Startet die Unterschriftenfelder neu, sobald der Spielplan-Tab geöffnet wird
-    if (tabName === "game") {
-        setTimeout(() => {
-            if (typeof initFixedCanvasesWithoutPopup === "function") {
-                initFixedCanvasesWithoutPopup();
-            }
-        }, 100);
-        
-        // NEU: Bildschirm automatisch ins Querformat drehen und sperren
-        if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock('landscape')
-                .then(() => console.log("Bildschirm erfolgreich ins Querformat gedreht"))
-                .catch((err) => console.log("Drehung blockiert (erfordert vorherigen Klick/Vollbild):", err));
-        }
-    } else if (tabName === "setup") {
-        // NEU: Wenn man zurück zur Aufstellung geht, wieder ins normale Hochformat wechseln
-        if (screen.orientation && screen.orientation.unlock) {
-            screen.orientation.unlock();
-        }
-    }
+function switchTab(tabName) {
+  // AUTOMATISCHER SCHLIESS-SCHUTZ: Schließt das Zahnrad-Menü beim Tab-Wechsel
+  const panel = document.getElementById("accordion_panel");
+  if (panel) panel.style.display = "none";
+  document.body.classList.remove("settings-open");
+
+  document.getElementById("tab_setup").classList.remove("active");
+  document.getElementById("tab_game").classList.remove("active");
+  document.getElementById("tab_" + tabName).classList.add("active");
+
+  document.getElementById("btn_tab_setup").classList.remove("active");
+  document.getElementById("btn_tab_game").classList.remove("active");
+  document.getElementById("btn_tab_" + tabName).classList.add("active");
+
+  // Startet die Unterschriftenfelder neu, sobald der Spielplan-Tab geöffnet wird
+  if (tabName === "game") {
+    setTimeout(() => {
+      if (typeof initFixedCanvasesWithoutPopup === "function") {
+        initFixedCanvasesWithoutPopup();
+      }
+    }, 100);
+  }
 }
+
 
 
 
@@ -2794,34 +2803,37 @@ function clearFixedSignature(side) {
 
 
 function checkFixedSignaturesComplete() {
-    const hatH = localStorage.getItem("mkk_sig_data_H") !== null;
-    const hatG = localStorage.getItem("mkk_sig_data_G") !== null;
-    const btnPrint = document.getElementById("btn_print_pdf");
-    const infoText = document.getElementById("sig_info_text");
-    const gesamtSpieleAnzahl = 32; 
-    
-    let gespielteSpieleAnzahl = 0;
-    
-    mkkSchedule.forEach(m => {
-        if (typeof matchResults !== "undefined" && matchResults[m.id]) {
-            gespielteSpieleAnzahl++;
-        }
-    });
-
-    if (gespielteSpieleAnzahl >= gesamtSpieleAnzahl && hatH && hatG) {
-        if(btnPrint) btnPrint.classList.remove("row-disabled");
-        if(infoText) {
-            infoText.style.color = "#00cc66";
-            infoText.innerText = "Spielbericht vollständig und unterschrieben! Der PDF-Druck ist jetzt freigegeben.";
-        }
-    } else {
-        if(btnPrint) btnPrint.classList.add("row-disabled");
-        if(infoText && gespielteSpieleAnzahl >= gesamtSpieleAnzahl) {
-            infoText.style.color = "#ffcc00";
-            infoText.innerText = "Alle 32 Spiele erfasst! Bitte speichere nun die Unterschriften von Heim und Gast ab.";
-        }
+  const hatH = localStorage.getItem("mkk_sig_data_H") !== null;
+  const hatG = localStorage.getItem("mkk_sig_data_G") !== null;
+  const btnPrint = document.getElementById("btn_print_pdf");
+  const btnJpeg = document.getElementById("btn_print_jpeg");
+  const infoText = document.getElementById("sig_info_text");
+  const gesamtSpieleAnzahl = 32; 
+  
+  let gespielteSpieleAnzahl = 0;
+  mkkSchedule.forEach(m => {
+    if (typeof matchResults !== "undefined" && matchResults[m.id]) {
+      gespielteSpieleAnzahl++;
     }
+  });
+
+  if (gespielteSpieleAnzahl >= gesamtSpieleAnzahl && hatH && hatG) {
+    if (btnPrint) btnPrint.classList.remove("row-disabled");
+    if (btnJpeg) btnJpeg.classList.remove("row-disabled");
+    if (infoText) {
+      infoText.style.color = "#00cc66";
+      infoText.innerText = "Spielbericht vollständig und unterschrieben! PDF-Druck und JPEG-Export sind freigegeben.";
+    }
+  } else {
+    if (btnPrint) btnPrint.classList.add("row-disabled");
+    if (btnJpeg) btnJpeg.classList.add("row-disabled");
+    if (infoText && gespielteSpieleAnzahl >= gesamtSpieleAnzahl) {
+      infoText.style.color = "#ffcc00";
+      infoText.innerText = "Alle 32 Spiele erfasst! Bitte speichere nun die Unterschriften von Heim und Gast ab.";
+    }
+  }
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     // Initialisiert die festen Zeichenfelder direkt auf der Seite
@@ -3316,6 +3328,85 @@ printBody.appendChild(trP);
 .clickable-player-name:hover {
   color: #ffcc00 !important;
 }
+
+
+
+/* Moderne Feder-Animation beim Öffnen des Popups */
+@keyframes popupPloppIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.78);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* 3D-Drehung beim Umschalten zum nächsten/vorherigen Spiel */
+@keyframes cardFlipNext {
+  0% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) perspective(900px) rotateY(-18deg) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) perspective(900px) rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes cardFlipPrev {
+  0% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) perspective(900px) rotateY(18deg) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) perspective(900px) rotateY(0deg) scale(1);
+  }
+}
+
+/* Weicher Hintergrund-Blur für das Overlay */
+#livePopup {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: opacity 0.25s ease;
+}
+
+/* Animations-Klassen für die Popup-Box */
+.anim-plopp {
+  animation: popupPloppIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-flip-next {
+  animation: cardFlipNext 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-flip-prev {
+  animation: cardFlipPrev 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Spürbares Klick-Feedback beim Antippen eines Gewinners */
+#winnerSelectionArea .click-box:active {
+  transform: scale(0.96) !important;
+  transition: transform 0.08s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
 <script>
 // ==========================================================================
@@ -3519,6 +3610,71 @@ function autoDetectLeagueAndMatchday() {
 
 
 
+async function generiereHaargenauesJPEG() {
+  const btn = document.getElementById("btn_export_jpeg");
+  const alterText = btn ? btn.innerText : "JPEG erstellen";
+  if (btn) btn.innerText = "Wird erstellt...";
+
+  try {
+    // 1. Alle Daten, Spielstände und Unterschriften frisch ins Druckblatt schreiben
+    if (typeof syncMetaToLabels === "function") syncMetaToLabels();
+    if (typeof renderTable === "function") renderTable();
+    if (typeof updatePrintSubstitutions === "function") updatePrintSubstitutions();
+
+    ['H', 'G'].forEach(side => {
+      const savedSig = localStorage.getItem("mkk_sig_data_" + side);
+      const img = document.getElementById("img_print_sig_" + side);
+      if (savedSig && img) {
+        img.src = savedSig;
+        img.style.display = "block";
+      }
+    });
+
+    // 2. Drucklayout für das Foto kurz im Hintergrund sichtbar machen
+    const printRoot = document.getElementById("print-layout-root");
+    printRoot.style.display = "block";
+    printRoot.style.background = "#ffffff";
+    printRoot.style.color = "#000000";
+    printRoot.style.width = "1000px";
+    printRoot.style.padding = "20px";
+
+    // Kurz warten, bis Unterschriftenbilder gerendert sind
+    await new Promise(resolve => setTimeout(resolve, 250));
+
+    // 3. Hochauflösendes Foto vom Spielberichtsbogen aufnehmen
+    const canvas = await html2canvas(printRoot, {
+      scale: 2,
+      backgroundColor: "#ffffff",
+      useCORS: true
+    });
+
+    // Drucklayout wieder verstecken
+    printRoot.style.display = "none";
+
+    // 4. Dateinamen aus Datum, Teams und Ergebnis bauen
+    const metaDate = document.getElementById("meta_date")?.value || "Spielbericht";
+    const teamH = document.getElementById("team_home")?.value || "Heim";
+    const teamG = document.getElementById("team_guest")?.value || "Gast";
+    const ergebnis = (document.getElementById("lbl_res_total")?.innerText || "0_0").replace(":", "zu").trim();
+    const dateiName = `${metaDate}_${teamH}_gegen_${teamG}_${ergebnis}.jpg`.replace(/\s+/g, "_");
+
+    // 5. Bild herunterladen (funktioniert auf iPhone, Android und PC)
+    const link = document.createElement("a");
+    link.download = dateiName;
+    link.href = canvas.toDataURL("image/jpeg", 0.95);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+  } catch (err) {
+    console.error("JPEG-Fehler:", err);
+    alert("Fehler beim Erstellen des Bildes. Bitte prüfe deine Internetverbindung.");
+    const printRoot = document.getElementById("print-layout-root");
+    if (printRoot) printRoot.style.display = "none";
+  } finally {
+    if (btn) btn.innerText = alterText;
+  }
+}
 
 
 
