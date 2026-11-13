@@ -2227,7 +2227,7 @@ function registerWinner (ignoredName, checkerPos, side, ignoredAssName = null, a
       alert("Alle 32 Spiele erfasst! Der Spielberichtsbogen ist fertig.");
       closeLivePopup();
     }
-  }, 300);
+  }, 500);
 
 }
 
@@ -3331,15 +3331,18 @@ printBody.appendChild(trP);
 
 
 
-/* Moderne Feder-Animation beim Öffnen des Popups */
+
+
+
+/* Deutliches, modernes Aufploppen beim ersten Öffnen */
 @keyframes popupPloppIn {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.78);
+    transform: translate(-50%, -50%) scale(0.5);
   }
-  70% {
+  65% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.03);
+    transform: translate(-50%, -50%) scale(1.06);
   }
   100% {
     opacity: 1;
@@ -3347,48 +3350,49 @@ printBody.appendChild(trP);
   }
 }
 
-/* 3D-Drehung beim Umschalten zum nächsten/vorherigen Spiel */
+/* Kräftige 3D-Karten-Drehung beim Weiterblättern */
 @keyframes cardFlipNext {
   0% {
-    opacity: 0.3;
-    transform: translate(-50%, -50%) perspective(900px) rotateY(-18deg) scale(0.95);
+    opacity: 0;
+    transform: translate(-50%, -50%) perspective(800px) rotateY(-90deg) scale(0.85);
+  }
+  50% {
+    opacity: 1;
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, -50%) perspective(900px) rotateY(0deg) scale(1);
+    transform: translate(-50%, -50%) perspective(800px) rotateY(0deg) scale(1);
   }
 }
 
 @keyframes cardFlipPrev {
   0% {
-    opacity: 0.3;
-    transform: translate(-50%, -50%) perspective(900px) rotateY(18deg) scale(0.95);
+    opacity: 0;
+    transform: translate(-50%, -50%) perspective(800px) rotateY(90deg) scale(0.85);
+  }
+  50% {
+    opacity: 1;
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, -50%) perspective(900px) rotateY(0deg) scale(1);
+    transform: translate(-50%, -50%) perspective(800px) rotateY(0deg) scale(1);
   }
 }
 
-/* Weicher Hintergrund-Blur für das Overlay */
-#livePopup {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  transition: opacity 0.25s ease;
-}
-
-/* Animations-Klassen für die Popup-Box */
 .anim-plopp {
-  animation: popupPloppIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: popupPloppIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .anim-flip-next {
-  animation: cardFlipNext 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: cardFlipNext 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform-style: preserve-3d;
 }
 
 .anim-flip-prev {
-  animation: cardFlipPrev 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: cardFlipPrev 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform-style: preserve-3d;
 }
+
 
 /* Spürbares Klick-Feedback beim Antippen eines Gewinners */
 #winnerSelectionArea .click-box:active {
@@ -3397,6 +3401,86 @@ printBody.appendChild(trP);
 }
 
 
+/* 1. EXTRA GROSSE GEWINNER-BUTTONS MIT EXAKT ZENTRIERTER SCHRIFT */
+#winnerSelectionArea .click-box {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 78px !important;
+  padding: 16px 14px !important;
+  margin: 16px 0 !important;
+  border-radius: 12px !important;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.5), 0 10px 20px rgba(0, 0, 0, 0.45) !important;
+  transition: transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.12s ease !important;
+}
+
+
+/* Glanz-Streifen oben auf dem Button für modernen Look */
+#winnerSelectionArea .click-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+/* Spielernamen noch größer und klarer lesbar */
+#winnerSelectionArea .click-box span[style*="font-size: 20px"] {
+  font-size: 23px !important;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Spürbares Eindrücken beim Antippen mit dem Finger */
+#winnerSelectionArea .click-box:active {
+  transform: translateY(5px) scale(0.97) !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5), 0 3px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 2. GROSSE PFEIL-BUTTONS OBEN LINKS & RECHTS */
+#livePopup .nav-arrow-btn {
+  min-width: 64px !important;
+  height: 52px !important;
+  font-size: 22px !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 0 #997a00 !important;
+  transition: transform 0.1s ease, box-shadow 0.1s ease !important;
+}
+
+#livePopup .nav-arrow-btn:active:not(:disabled) {
+  transform: translateY(3px) !important;
+  box-shadow: 0 1px 0 #997a00 !important;
+}
+
+/* 3. AUSWECHSLUNGEN- & SCHLIESSEN-BUTTON VERGRÖSSERN + ABSTAND */
+#popup_toggle_sub_btn {
+  min-height: 52px !important;
+  padding: 14px !important;
+  font-size: 14px !important;
+  margin-top: 22px !important; /* Extra Abstand zum grünen Button darüber */
+  border-radius: 10px !important;
+  border-width: 2px !important;
+}
+
+#livePopup .close-btn {
+  min-height: 56px !important;
+  padding: 15px !important;
+  font-size: 16px !important;
+  margin-top: 14px !important;
+  border-radius: 10px !important;
+  box-shadow: 0 5px 0 #801b1b !important;
+  transition: transform 0.1s ease, box-shadow 0.1s ease !important;
+}
+
+#livePopup .close-btn:active {
+  transform: translateY(4px) !important;
+  box-shadow: 0 1px 0 #801b1b !important;
+}
 
 
 
@@ -3611,12 +3695,23 @@ function autoDetectLeagueAndMatchday() {
 
 
 async function generiereHaargenauesJPEG() {
-  const btn = document.getElementById("btn_export_jpeg");
+  const btn = document.getElementById("btn_export_jpeg") || document.getElementById("btn_print_jpeg");
   const alterText = btn ? btn.innerText : "JPEG erstellen";
   if (btn) btn.innerText = "Wird erstellt...";
 
   try {
-    // 1. Alle Daten, Spielstände und Unterschriften frisch ins Druckblatt schreiben
+    // 1. Prüfen ob html2canvas geladen ist – falls nicht, jetzt live nachladen!
+    if (typeof html2canvas === "undefined") {
+      await new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = "https://cloudflare.com";
+        script.onload = resolve;
+        script.onerror = () => reject(new Error("html2canvas konnte nicht geladen werden (Offline oder blockiert)."));
+        document.head.appendChild(script);
+      });
+    }
+
+    // 2. Alle Daten, Spielstände und Unterschriften frisch ins Druckblatt schreiben
     if (typeof syncMetaToLabels === "function") syncMetaToLabels();
     if (typeof renderTable === "function") renderTable();
     if (typeof updatePrintSubstitutions === "function") updatePrintSubstitutions();
@@ -3630,35 +3725,33 @@ async function generiereHaargenauesJPEG() {
       }
     });
 
-    // 2. Drucklayout für das Foto kurz im Hintergrund sichtbar machen
+    // 3. Drucklayout für das Foto kurz sichtbar machen
     const printRoot = document.getElementById("print-layout-root");
+    if (!printRoot) throw new Error("Druckbereich (#print-layout-root) fehlt im HTML.");
+    
     printRoot.style.display = "block";
     printRoot.style.background = "#ffffff";
     printRoot.style.color = "#000000";
     printRoot.style.width = "1000px";
     printRoot.style.padding = "20px";
 
-    // Kurz warten, bis Unterschriftenbilder gerendert sind
-    await new Promise(resolve => setTimeout(resolve, 250));
+    await new Promise(resolve => setTimeout(resolve, 300));
 
-    // 3. Hochauflösendes Foto vom Spielberichtsbogen aufnehmen
+    // 4. Foto aufnehmen (ohne useCORS, da sonst lokale Bilder auf iOS blockieren können!)
     const canvas = await html2canvas(printRoot, {
       scale: 2,
-      backgroundColor: "#ffffff",
-      useCORS: true
+      backgroundColor: "#ffffff"
     });
 
-    // Drucklayout wieder verstecken
     printRoot.style.display = "none";
 
-    // 4. Dateinamen aus Datum, Teams und Ergebnis bauen
+    // 5. Dateinamen bauen & herunterladen
     const metaDate = document.getElementById("meta_date")?.value || "Spielbericht";
     const teamH = document.getElementById("team_home")?.value || "Heim";
     const teamG = document.getElementById("team_guest")?.value || "Gast";
     const ergebnis = (document.getElementById("lbl_res_total")?.innerText || "0_0").replace(":", "zu").trim();
     const dateiName = `${metaDate}_${teamH}_gegen_${teamG}_${ergebnis}.jpg`.replace(/\s+/g, "_");
 
-    // 5. Bild herunterladen (funktioniert auf iPhone, Android und PC)
     const link = document.createElement("a");
     link.download = dateiName;
     link.href = canvas.toDataURL("image/jpeg", 0.95);
@@ -3668,13 +3761,15 @@ async function generiereHaargenauesJPEG() {
 
   } catch (err) {
     console.error("JPEG-Fehler:", err);
-    alert("Fehler beim Erstellen des Bildes. Bitte prüfe deine Internetverbindung.");
+    // Zeigt jetzt den ECHTEN Grund an!
+    alert("Technischer Fehler beim JPEG:\n" + (err.message || err));
     const printRoot = document.getElementById("print-layout-root");
     if (printRoot) printRoot.style.display = "none";
   } finally {
     if (btn) btn.innerText = alterText;
   }
 }
+
 
 
 
