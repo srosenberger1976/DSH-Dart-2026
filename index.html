@@ -3484,7 +3484,7 @@ printBody.appendChild(trP);
 
 
 
-/* Erzwingt das exakte DIN-A4-Schwarz-Weiß-Drucklayout für den JPEG-Export */
+/* 1:1 DIN-A4-SCHWARZ-WEISS-LAYOUT FÜR DEN JPEG-EXPORT */
 body.force-jpeg-print {
   background: #ffffff !important;
   color: #000000 !important;
@@ -3501,19 +3501,54 @@ body.force-jpeg-print #pointsControlPopup {
 
 body.force-jpeg-print #print-layout-root {
   display: block !important;
-  width: 1120px !important; /* Exakte DIN-A4-Breite für scharfe Tabellen */
+  width: 1120px !important;
   background: #ffffff !important;
   color: #000000 !important;
-  padding: 25px !important;
+  padding: 18px 24px !important;
   box-sizing: border-box !important;
   font-family: Arial, Helvetica, sans-serif !important;
 }
 
+/* Titel & Untertitel zentriert oben */
+body.force-jpeg-print #print-layout-root h1,
+body.force-jpeg-print #print-layout-root h2 {
+  text-align: center !important;
+  color: #000000 !important;
+  margin: 0 0 4px 0 !important;
+}
+
+/* Zweispaltige Blöcke nebeneinander erzwingen (Heim/Gast & Spiele/Punkte) */
+body.force-jpeg-print #print-layout-root > div {
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  width: 100% !important;
+  margin-bottom: 10px !important;
+}
+
+/* Erste Box (Kopftabelle Gruppe/Datum/Teams) über volle Breite */
+body.force-jpeg-print #print-layout-root > div:first-of-type {
+  display: block !important;
+}
+
+/* Linke Spalte (32 Spiele: ca. 58% Breite) & Rechte Spalte (Punkte/Unterschrift: ca. 40% Breite) */
+body.force-jpeg-print #print-layout-root > div:last-of-type > div:first-child {
+  width: 58% !important;
+}
+body.force-jpeg-print #print-layout-root > div:last-of-type > div:last-child {
+  width: 40% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+/* Saubere Schwarz-Weiß-Tabellen wie im Original-PDF */
 body.force-jpeg-print #print-layout-root table {
   width: 100% !important;
   border-collapse: collapse !important;
   background: #ffffff !important;
   color: #000000 !important;
+  margin-bottom: 8px !important;
 }
 
 body.force-jpeg-print #print-layout-root th,
@@ -3521,13 +3556,25 @@ body.force-jpeg-print #print-layout-root td {
   border: 1px solid #000000 !important;
   color: #000000 !important;
   background: #ffffff !important;
-  padding: 4px 6px !important;
+  padding: 3px 5px !important;
   font-size: 11px !important;
+  text-align: center !important;
 }
 
 body.force-jpeg-print #print-layout-root th {
-  background: #eaeaea !important;
+  background: #e6e6e6 !important;
   font-weight: bold !important;
+}
+
+/* Unterschriften kompakt nebeneinander statt riesig untereinander */
+body.force-jpeg-print #img_print_sig_H,
+body.force-jpeg-print #img_print_sig_G {
+  max-width: 180px !important;
+  max-height: 55px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  border-bottom: 1px solid #000000 !important;
 }
 
 
