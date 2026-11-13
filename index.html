@@ -3484,6 +3484,51 @@ printBody.appendChild(trP);
 
 
 
+/* Erzwingt das exakte DIN-A4-Schwarz-Weiß-Drucklayout für den JPEG-Export */
+body.force-jpeg-print {
+  background: #ffffff !important;
+  color: #000000 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.force-jpeg-print .container,
+body.force-jpeg-print #livePopup,
+body.force-jpeg-print #setupPopup,
+body.force-jpeg-print #pointsControlPopup {
+  display: none !important;
+}
+
+body.force-jpeg-print #print-layout-root {
+  display: block !important;
+  width: 1120px !important; /* Exakte DIN-A4-Breite für scharfe Tabellen */
+  background: #ffffff !important;
+  color: #000000 !important;
+  padding: 25px !important;
+  box-sizing: border-box !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+body.force-jpeg-print #print-layout-root table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+body.force-jpeg-print #print-layout-root th,
+body.force-jpeg-print #print-layout-root td {
+  border: 1px solid #000000 !important;
+  color: #000000 !important;
+  background: #ffffff !important;
+  padding: 4px 6px !important;
+  font-size: 11px !important;
+}
+
+body.force-jpeg-print #print-layout-root th {
+  background: #eaeaea !important;
+  font-weight: bold !important;
+}
 
 
 
@@ -3695,23 +3740,22 @@ function autoDetectLeagueAndMatchday() {
 
 
 async function generiereHaargenauesJPEG() {
+  const jpegBtnCheck = document.getElementById("btn_print_jpeg");
+  if (jpegBtnCheck && jpegBtnCheck.classList.contains("row-disabled") && event?.currentTarget?.id === "btn_print_jpeg") {
+    alert("Hinweis: Der JPEG-Export ist erst nach Erfassung aller 32 Spiele und beider Unterschriften möglich!");
+    return;
+  }
+
   const btn = document.getElementById("btn_export_jpeg") || document.getElementById("btn_print_jpeg");
   const alterText = btn ? btn.innerText : "JPEG erstellen";
-  if (btn) btn.innerText = "Wird erstellt...";
+  if (btn) btn.innerText = "Erstelle 1:1 Bogen...";
 
   try {
-    // 1. Prüfen ob html2canvas geladen ist – falls nicht, jetzt live nachladen!
-    if (typeof html2canvas === "undefined") {
-      await new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-        script.src = "https://cloudflare.com";
-        script.onload = resolve;
-        script.onerror = () => reject(new Error("html2canvas konnte nicht geladen werden (Offline oder blockiert)."));
-        document.head.appendChild(script);
-      });
+    if (typeof html2canvas !== "function") {
+      throw new Error("html2canvas.min.js wurde nicht geladen. Bitte Seite mit Internet neu laden.");
     }
 
-    // 2. Alle Daten, Spielstände und Unterschriften frisch ins Druckblatt schreiben
+    // 1. Exakt dieselben Daten-Updates ausführen wie beim PDF-Druck!
     if (typeof syncMetaToLabels === "function") syncMetaToLabels();
     if (typeof renderTable === "function") renderTable();
     if (typeof updatePrintSubstitutions === "function") updatePrintSubstitutions();
@@ -3725,27 +3769,26 @@ async function generiereHaargenauesJPEG() {
       }
     });
 
-    // 3. Drucklayout für das Foto kurz sichtbar machen
+    // 2. Seite kurz in den exakt identischen DIN-A4-Druckmodus schalten
+    window.scrollTo(0, 0);
+    document.body.classList.add("force-jpeg-print");
+
+    // Kurz warten, bis Browser das weiße DIN-A4-Layout & Unterschriften gerendert hat
+    await new Promise(resolve => setTimeout(resolve, 350));
+
     const printRoot = document.getElementById("print-layout-root");
-    if (!printRoot) throw new Error("Druckbereich (#print-layout-root) fehlt im HTML.");
-    
-    printRoot.style.display = "block";
-    printRoot.style.background = "#ffffff";
-    printRoot.style.color = "#000000";
-    printRoot.style.width = "1000px";
-    printRoot.style.padding = "20px";
 
-    await new Promise(resolve => setTimeout(resolve, 300));
-
-    // 4. Foto aufnehmen (ohne useCORS, da sonst lokale Bilder auf iOS blockieren können!)
+    // 3. Hochauflösendes Foto mit fester DIN-A4-Breite (windowWidth: 1150) aufnehmen
     const canvas = await html2canvas(printRoot, {
       scale: 2,
+      windowWidth: 1150,
       backgroundColor: "#ffffff"
     });
 
-    printRoot.style.display = "none";
+    // 4. Sofort wieder zurück in die normale Handy-Ansicht schalten
+    document.body.classList.remove("force-jpeg-print");
 
-    // 5. Dateinamen bauen & herunterladen
+    // 5. Dateinamen bauen & als JPEG herunterladen
     const metaDate = document.getElementById("meta_date")?.value || "Spielbericht";
     const teamH = document.getElementById("team_home")?.value || "Heim";
     const teamG = document.getElementById("team_guest")?.value || "Gast";
@@ -3760,11 +3803,9 @@ async function generiereHaargenauesJPEG() {
     document.body.removeChild(link);
 
   } catch (err) {
+    document.body.classList.remove("force-jpeg-print");
     console.error("JPEG-Fehler:", err);
-    // Zeigt jetzt den ECHTEN Grund an!
     alert("Technischer Fehler beim JPEG:\n" + (err.message || err));
-    const printRoot = document.getElementById("print-layout-root");
-    if (printRoot) printRoot.style.display = "none";
   } finally {
     if (btn) btn.innerText = alterText;
   }
