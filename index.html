@@ -3719,7 +3719,66 @@ body.force-jpeg-print .print-sig-img {
 
 
 
+/* ==========================================================================
+   AUTOMATISCHE HÖHENANPASSUNG & SCROLLBARKEIT FÜR DAS LIVE-POPUP
+   ========================================================================== */
 
+#livePopup.popup-overlay {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  padding: 12px 0 !important;
+  box-sizing: border-box !important;
+}
+
+#livePopup .popup-content {
+  max-height: 92vh !important;
+  max-height: 92dvh !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  box-sizing: border-box !important;
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  #livePopup .popup-content {
+    width: 92% !important;
+    max-width: 720px !important;
+    padding: 10px 14px !important;
+    max-height: 94dvh !important;
+  }
+
+  #livePopup .popup-nav-container {
+    margin-bottom: 8px !important;
+    padding: 4px 8px !important;
+  }
+
+  #livePopup .nav-arrow-btn {
+    height: 40px !important;
+    min-width: 52px !important;
+    font-size: 18px !important;
+  }
+
+  #winnerSelectionArea .click-box {
+    min-height: 52px !important;
+    padding: 10px 12px !important;
+    margin: 8px 0 !important;
+  }
+
+  #winnerSelectionArea .click-box span[style*="font-size: 20px"] {
+    font-size: 19px !important;
+  }
+
+  #popup_toggle_sub_btn {
+    min-height: 42px !important;
+    padding: 10px !important;
+    margin-top: 10px !important;
+  }
+
+  #livePopup .close-btn {
+    min-height: 44px !important;
+    padding: 10px !important;
+    margin-top: 10px !important;
+  }
+}
 </style>
 <script>
 // ==========================================================================
