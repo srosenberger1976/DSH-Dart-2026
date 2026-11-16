@@ -3484,101 +3484,225 @@ printBody.appendChild(trP);
 
 
 
-/* 1:1 DIN-A4-SCHWARZ-WEISS-LAYOUT FÜR DEN JPEG-EXPORT */
+/* 1:1 DIN-A4-SCHWARZ-WEISS-LAYOUT FÜR DEN JPEG-EXPORT (IDENTISCH ZU @MEDIA PRINT) */
 body.force-jpeg-print {
   background: #ffffff !important;
   color: #000000 !important;
   margin: 0 !important;
   padding: 0 !important;
+  width: 794px !important; /* Exakte DIN-A4 Breite */
+  min-width: 794px !important;
+  overflow: visible !important;
+  font-family: Arial, sans-serif !important;
 }
 
-body.force-jpeg-print .container,
+body.force-jpeg-print > .container,
+body.force-jpeg-print h1,
+body.force-jpeg-print .tab-navigation,
+body.force-jpeg-print #tab_setup,
+body.force-jpeg-print .panel,
+body.force-jpeg-print .status-bar,
+body.force-jpeg-print .flex-buttons,
+body.force-jpeg-print .fixed-sig-panel,
+body.force-jpeg-print .accordion-menu,
+body.force-jpeg-print #tab_game > h3,
+body.force-jpeg-print #tab_game > .main-grid,
+body.force-jpeg-print #tab_game > div,
+body.force-jpeg-print .print-btn,
 body.force-jpeg-print #livePopup,
-body.force-jpeg-print #setupPopup,
-body.force-jpeg-print #pointsControlPopup {
+body.force-jpeg-print .popup-overlay {
   display: none !important;
 }
 
 body.force-jpeg-print #print-layout-root {
   display: block !important;
-  width: 1120px !important;
-  background: #ffffff !important;
-  color: #000000 !important;
-  padding: 18px 24px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 794px !important;
+  max-width: 794px !important;
   box-sizing: border-box !important;
-  font-family: Arial, Helvetica, sans-serif !important;
-}
-
-/* Titel & Untertitel zentriert oben */
-body.force-jpeg-print #print-layout-root h1,
-body.force-jpeg-print #print-layout-root h2 {
-  text-align: center !important;
-  color: #000000 !important;
-  margin: 0 0 4px 0 !important;
-}
-
-/* Zweispaltige Blöcke nebeneinander erzwingen (Heim/Gast & Spiele/Punkte) */
-body.force-jpeg-print #print-layout-root > div {
-  display: flex !important;
-  justify-content: space-between !important;
-  gap: 16px !important;
-  width: 100% !important;
-  margin-bottom: 10px !important;
-}
-
-/* Erste Box (Kopftabelle Gruppe/Datum/Teams) über volle Breite */
-body.force-jpeg-print #print-layout-root > div:first-of-type {
-  display: block !important;
-}
-
-/* Linke Spalte (32 Spiele: ca. 58% Breite) & Rechte Spalte (Punkte/Unterschrift: ca. 40% Breite) */
-body.force-jpeg-print #print-layout-root > div:last-of-type > div:first-child {
-  width: 58% !important;
-}
-body.force-jpeg-print #print-layout-root > div:last-of-type > div:last-child {
-  width: 40% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-}
-
-/* Saubere Schwarz-Weiß-Tabellen wie im Original-PDF */
-body.force-jpeg-print #print-layout-root table {
-  width: 100% !important;
-  border-collapse: collapse !important;
+  padding: 15px 18px !important;
   background: #ffffff !important;
   color: #000000 !important;
+}
+
+/* Exakt gleiche Spalten-Aufteilung wie beim PDF-Druck */
+body.force-jpeg-print .print-teams-container {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 15px !important;
   margin-bottom: 8px !important;
 }
 
-body.force-jpeg-print #print-layout-root th,
-body.force-jpeg-print #print-layout-root td {
-  border: 1px solid #000000 !important;
-  color: #000000 !important;
-  background: #ffffff !important;
-  padding: 3px 5px !important;
-  font-size: 11px !important;
+body.force-jpeg-print .print-team-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+}
+
+body.force-jpeg-print .print-team-table th,
+body.force-jpeg-print .print-team-table td {
+  border: 1px solid #000 !important;
+  padding: 3px !important;
+  font-size: 10px !important;
+  color: #000 !important;
   text-align: center !important;
 }
 
-body.force-jpeg-print #print-layout-root th {
-  background: #e6e6e6 !important;
+body.force-jpeg-print .print-team-table th {
+  background: #e0e0e0 !important;
   font-weight: bold !important;
 }
 
-/* Unterschriften kompakt nebeneinander statt riesig untereinander */
-body.force-jpeg-print #img_print_sig_H,
-body.force-jpeg-print #img_print_sig_G {
-  max-width: 180px !important;
-  max-height: 55px !important;
-  width: auto !important;
-  height: auto !important;
-  object-fit: contain !important;
-  border-bottom: 1px solid #000000 !important;
+body.force-jpeg-print .print-main-content-layout {
+  display: grid !important;
+  grid-template-columns: 56% 42% !important;
+  gap: 2% !important;
+  align-items: start !important;
 }
 
+body.force-jpeg-print .print-match-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin-top: 0px !important;
+}
 
+body.force-jpeg-print .print-match-table th {
+  border: 1px solid #000 !important;
+  padding: 3px 2px !important;
+  font-size: 8px !important;
+  line-height: 1.0 !important;
+  background: #e0e0e0 !important;
+  color: #000 !important;
+}
 
+body.force-jpeg-print .print-match-table td {
+  border: 1px solid #000 !important;
+  padding: 0px 2px !important;
+  font-size: 8px !important;
+  height: 16.5px !important;
+  line-height: 16px !important;
+  color: #000 !important;
+  text-align: center !important;
+}
+
+body.force-jpeg-print .gray-indicator-cell {
+  background: #e8e8e8 !important;
+  font-weight: bold !important;
+  width: 12px !important;
+}
+
+body.force-jpeg-print .pos-cell {
+  text-align: center !important;
+  font-weight: bold !important;
+}
+
+body.force-jpeg-print .print-right-panel {
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  gap: 0px !important;
+}
+
+body.force-jpeg-print .print-box-title {
+  font-size: 8px !important;
+  background: #e0e0e0 !important;
+  border: 1px solid #000 !important;
+  border-bottom: none !important;
+  padding: 2px !important;
+  margin: 0px !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  color: #000 !important;
+}
+
+body.force-jpeg-print .print-sub-table,
+body.force-jpeg-print .print-stats-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin-top: 0px !important;
+  margin-bottom: 5px !important;
+}
+
+body.force-jpeg-print .print-sub-table td {
+  border: 1px solid #000 !important;
+  padding: 2px 4px !important;
+  font-size: 7.5px !important;
+  height: 13.5px !important;
+  color: #000 !important;
+  text-align: center !important;
+}
+
+body.force-jpeg-print .print-stats-table th,
+body.force-jpeg-print .print-stats-table td {
+  border: 1px solid #000 !important;
+  padding: 2.2px 4px !important;
+  font-size: 7.5px !important;
+  color: #000 !important;
+}
+
+body.force-jpeg-print .print-stats-table th {
+  background: #e0e0e0 !important;
+  font-weight: bold !important;
+  text-align: center !important;
+}
+
+body.force-jpeg-print .print-stats-table td:first-child {
+  text-align: left !important;
+  padding-left: 5px !important;
+}
+
+body.force-jpeg-print .print-footer-summary {
+  margin-top: 5px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 4px !important;
+  width: 100% !important;
+}
+
+body.force-jpeg-print .print-result-box {
+  border: 1px solid #000 !important;
+  padding: 3px 15px !important;
+  font-size: 11px !important;
+  font-weight: bold !important;
+  background: #e0e0e0 !important;
+  text-align: center !important;
+  width: 50% !important;
+  color: #000 !important;
+}
+
+body.force-jpeg-print .print-signature-wrapper {
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  gap: 20px !important;
+  margin-top: 2px !important;
+}
+
+body.force-jpeg-print .print-signature-box {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  height: 30px !important;
+  border-bottom: 1px solid #000 !important;
+  font-size: 8px !important;
+  width: 45% !important;
+  padding-bottom: 1px !important;
+  position: relative !important;
+  color: #000 !important;
+}
+
+body.force-jpeg-print .print-sig-img {
+  position: absolute !important;
+  max-height: 28px !important;
+  max-width: 95% !important;
+  bottom: 1px !important;
+  left: 10% !important;
+  object-fit: contain !important;
+  mix-blend-mode: multiply !important;
+}
 
 
 
@@ -3786,9 +3910,9 @@ function autoDetectLeagueAndMatchday() {
 
 
 
-async function generiereHaargenauesJPEG() {
+async function generiereHaargenauesJPEG(e) {
   const jpegBtnCheck = document.getElementById("btn_print_jpeg");
-  if (jpegBtnCheck && jpegBtnCheck.classList.contains("row-disabled") && event?.currentTarget?.id === "btn_print_jpeg") {
+  if (jpegBtnCheck && jpegBtnCheck.classList.contains("row-disabled") && e?.currentTarget?.id === "btn_print_jpeg") {
     alert("Hinweis: Der JPEG-Export ist erst nach Erfassung aller 32 Spiele und beider Unterschriften möglich!");
     return;
   }
@@ -3802,7 +3926,7 @@ async function generiereHaargenauesJPEG() {
       throw new Error("html2canvas.min.js wurde nicht geladen. Bitte Seite mit Internet neu laden.");
     }
 
-    // 1. Exakt dieselben Daten-Updates ausführen wie beim PDF-Druck!
+    // 1. Exakt dieselben Daten-Updates ausführen wie beim PDF-Druck
     if (typeof syncMetaToLabels === "function") syncMetaToLabels();
     if (typeof renderTable === "function") renderTable();
     if (typeof updatePrintSubstitutions === "function") updatePrintSubstitutions();
@@ -3820,16 +3944,22 @@ async function generiereHaargenauesJPEG() {
     window.scrollTo(0, 0);
     document.body.classList.add("force-jpeg-print");
 
-    // Kurz warten, bis Browser das weiße DIN-A4-Layout & Unterschriften gerendert hat
-    await new Promise(resolve => setTimeout(resolve, 350));
+    // Etwas länger warten, damit iOS Safari das 794px DIN-A4-Grid sauber neu berechnet
+    await new Promise(resolve => setTimeout(resolve, 450));
 
     const printRoot = document.getElementById("print-layout-root");
 
-    // 3. Hochauflösendes Foto mit fester DIN-A4-Breite (windowWidth: 1150) aufnehmen
+    // 3. Hochauflösendes Foto mit fester DIN-A4-Breite (794px) aufnehmen
     const canvas = await html2canvas(printRoot, {
-      scale: 2,
-      windowWidth: 1150,
-      backgroundColor: "#ffffff"
+      scale: 2.5,
+      width: 794,
+      windowWidth: 1024, // Verhindert auf iOS das Auslösen von Handy-Breakpoints
+      x: 0,
+      y: 0,
+      scrollX: 0,
+      scrollY: 0,
+      backgroundColor: "#ffffff",
+      useCORS: true
     });
 
     // 4. Sofort wieder zurück in die normale Handy-Ansicht schalten
@@ -3842,9 +3972,10 @@ async function generiereHaargenauesJPEG() {
     const ergebnis = (document.getElementById("lbl_res_total")?.innerText || "0_0").replace(":", "zu").trim();
     const dateiName = `${metaDate}_${teamH}_gegen_${teamG}_${ergebnis}.jpg`.replace(/\s+/g, "_");
 
+    const dataUrl = canvas.toDataURL("image/jpeg", 0.95);
     const link = document.createElement("a");
     link.download = dateiName;
-    link.href = canvas.toDataURL("image/jpeg", 0.95);
+    link.href = dataUrl;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -3857,9 +3988,6 @@ async function generiereHaargenauesJPEG() {
     if (btn) btn.innerText = alterText;
   }
 }
-
-
-
 
 
 
