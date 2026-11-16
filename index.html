@@ -882,9 +882,10 @@ onclick="generiereHaargenauesJPEG()"> JPEG erstellen</button> 📸
                     <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Gruppe:</label>
                     <select id="meta_group" onchange="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px;">
                         <option value="">-- wählen --</option>
-                        <option value="Gruppe A">A Liga</option>
-                        <option value="Gruppe B">B Liga</option>
-                        <option value="Gruppe C">C Liga</option>
+                <script>
+                    for(let i=1; i<=100; i++) { document.write('<option value="'+i+'">Spiel '+i+'</option>'); }
+                </script>
+
                     </select>
                 </div>
                 <div>
@@ -896,6 +897,22 @@ onclick="generiereHaargenauesJPEG()"> JPEG erstellen</button> 📸
                         </script>
                     </select>
                 </div>
+
+        <div>
+            <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Spielnummer:</label>
+            <select id="meta_match_number" onchange="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px;">
+                <option value="">-- wählen --</option>
+
+
+
+                <script>
+                    for(let i=1; i<=200; i++) { document.write('<option value="'+i+'">Spiel '+i+'</option>'); }
+                </script>
+
+            </select>
+        </div>
+
+
                 <div>
                     <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Datum:</label>
                     <input type="text" id="meta_date" value="" oninput="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px; box-sizing: border-box;">
@@ -1170,24 +1187,23 @@ onclick="generiereHaargenauesJPEG()"> JPEG erstellen</button> 📸
   </div>
 
   <!-- Hier geht deine alte Tabelle für Gruppe, Spieltag, Datum einfach weiter -->
-  <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
-  <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
-   <tr>
-    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe A:</b> <span id="lbl_group_A"></span></td>
-    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe B:</b> <span id="lbl_group_B"></span></td>
-    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Gruppe C:</b> <span id="lbl_group_C"></span></td>
-    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Spieltag:</b> <span id="lbl_day"></span></td>
-    <td style="border: 1px solid #000; padding: 2px; font-size: 9px; width: 20%;"><b>Datum:</b> <span id="lbl_date"></span></td>
-   </tr>
-   <tr>
-    <td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Heimteam:</b> <span id="lbl_name_home"></span></td>
-    <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Gastteam:</b> <span id="lbl_name_guest"></span></td>
-   </tr>
-   <tr>
-    <td colspan="3" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Heim TC:</b> <span id="lbl_captain_home"></span></td>
-    <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Gast TC:</b> <span id="lbl_captain_guest"></span></td>
-   </tr>
-  </table>
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
+        <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 9.5px; width: 25%;"><b>Gruppe:</b> <span id="lbl_group"></span></td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 9.5px; width: 25%;"><b>Spieltag:</b> <span id="lbl_day"></span></td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 9.5px; width: 25%;"><b>Spielnummer:</b> <span id="lbl_match_number"></span></td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 9.5px; width: 25%;"><b>Datum:</b> <span id="lbl_date"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Heimteam:</b> <span id="lbl_name_home"></span></td>
+            <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Gastteam:</b> <span id="lbl_name_guest"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Heim TC:</b> <span id="lbl_captain_home"></span></td>
+            <td colspan="2" style="border: 1px solid #000; padding: 3px; font-size: 10px;"><b>Gast TC:</b> <span id="lbl_captain_guest"></span></td>
+        </tr>
+    </table>
+
   <div class="print-teams-container" style="margin-top: 5px;">
    <div>
     <table class="print-team-table">
@@ -2339,11 +2355,13 @@ function updateStats() {
 }
 
 function syncMetaToLabels() {
-  const groupVal = document.getElementById("meta_group").value;
-  document.getElementById("lbl_group_A").innerText = (groupVal === "Gruppe A") ? "X" : "";
-  document.getElementById("lbl_group_B").innerText = (groupVal === "Gruppe B") ? "X" : "";
-  document.getElementById("lbl_group_C").innerText = (groupVal === "Gruppe C") ? "X" : "";
-  document.getElementById("lbl_day").innerText = document.getElementById("meta_day").value;
+    const groupSelect = document.getElementById("meta_group");
+    const groupText = groupSelect && groupSelect.selectedIndex > 0 ? groupSelect.options[groupSelect.selectedIndex].text : "";
+    if(document.getElementById("lbl_group")) document.getElementById("lbl_group").innerText = groupText;
+    if(document.getElementById("lbl_match_number")) document.getElementById("lbl_match_number").innerText = document.getElementById("meta_match_number")?.value || "";
+
+
+document.getElementById("lbl_day").innerText = document.getElementById("meta_day").value;
   document.getElementById("lbl_date").innerText = document.getElementById("meta_date").value;
   document.getElementById("lbl_name_home").innerText = document.getElementById("team_home").value;
   document.getElementById("lbl_name_guest").innerText = document.getElementById("team_guest").value;
@@ -2398,7 +2416,7 @@ function resetWholeMatchday() {
 }
 
 function saveActiveDropdowns() {
- const ids = ["team_home", "team_guest", "captain_home", "captain_guest", "meta_group", "meta_day", "meta_date", "p_H1","p_H2","p_H3","p_H4","p_HE1","p_HE2","p_HE3","p_HE4", "p_G1","p_G2","p_G3","p_G4","p_GE1","p_GE2","p_GE3","p_GE4", "pass_H1","pass_H2","pass_H3","pass_H4","pass_HE1","pass_HE2","pass_HE3","pass_HE4", "pass_G1","pass_G2","pass_G3","pass_G4","pass_GE1","pass_GE2","pass_GE3","pass_GE4"];
+ const ids = ["team_home", "team_guest", "captain_home", "captain_guest", "meta_group", "meta_day", "meta_match_number", "meta_date", "p_H1","p_H2","p_H3","p_H4","p_HE1","p_HE2","p_HE3","p_HE4", "p_G1","p_G2","p_G3","p_G4","p_GE1","p_GE2","p_GE3","p_GE4", "pass_H1","pass_H2","pass_H3","pass_H4","pass_HE1","pass_HE2","pass_HE3","pass_HE4", "pass_G1","pass_G2","pass_G3","pass_G4","pass_GE1","pass_GE2","pass_GE3","pass_GE4"];
  const dropdownState = {}; ids.forEach(id => { const el = document.getElementById(id); if(el) dropdownState[id] = el.value; });
  localStorage.setItem("mkk_live_dropdown_state", JSON.stringify(dropdownState));
 }
@@ -2879,13 +2897,10 @@ function starteSpezialDruck() {
     const capG = document.getElementById("captain_guest")?.value || "";
 
     // 2. Metadaten auf das Druckblatt schreiben
-    if(document.getElementById("lbl_group_A"))
-        document.getElementById("lbl_group_A").innerText = (metaGroup === "Gruppe A") ? "X" : "";
-    if(document.getElementById("lbl_group_B"))
-        document.getElementById("lbl_group_B").innerText = (metaGroup === "Gruppe B") ? "X" : "";
-    if(document.getElementById("lbl_group_C"))
-        document.getElementById("lbl_group_C").innerText = (metaGroup === "Gruppe C") ? "X" : "";
-
+    const groupSelect = document.getElementById("meta_group");
+    const groupText = groupSelect && groupSelect.selectedIndex > 0 ? groupSelect.options[groupSelect.selectedIndex].text : "";
+    if(document.getElementById("lbl_group")) document.getElementById("lbl_group").innerText = groupText;
+    if(document.getElementById("lbl_match_number")) document.getElementById("lbl_match_number").innerText = document.getElementById("meta_match_number")?.value || "";
 
 
 
@@ -3087,9 +3102,11 @@ window.starteSpezialDruck = function() {
     const capG = document.getElementById("captain_guest")?.value || "";
 
     // 2. Metadaten auf das Druckblatt schreiben
-    if(document.getElementById("lbl_group_A")) document.getElementById("lbl_group_A").innerText = (metaGroup === "Gruppe A") ? "X" : "";
-    if(document.getElementById("lbl_group_B")) document.getElementById("lbl_group_B").innerText = (metaGroup === "Gruppe B") ? "X" : "";
-    if(document.getElementById("lbl_group_C")) document.getElementById("lbl_group_C").innerText = (metaGroup === "Gruppe C") ? "X" : "";
+    const groupSelect = document.getElementById("meta_group");
+    const groupText = groupSelect && groupSelect.selectedIndex > 0 ? groupSelect.options[groupSelect.selectedIndex].text : "";
+    if(document.getElementById("lbl_group")) document.getElementById("lbl_group").innerText = groupText;
+    if(document.getElementById("lbl_match_number")) document.getElementById("lbl_match_number").innerText = document.getElementById("meta_match_number")?.value || "";
+
     if(document.getElementById("lbl_day")) document.getElementById("lbl_day").innerText = metaDay;
     if(document.getElementById("lbl_date")) document.getElementById("lbl_date").innerText = metaDate;
     if(document.getElementById("lbl_name_home")) document.getElementById("lbl_name_home").innerText = teamH;
@@ -3870,69 +3887,66 @@ function ladeSpielplanVonGitHub() {
   });
 }
 
-function verarbeiteSpielplanText(text) {
-  const previewBox = document.getElementById("txt_spielplan_preview");
-  if (previewBox) { previewBox.value = text.trim(); }
-  mkkLoadedSchedules = {};
-  const lines = text.split("\n");
-  let aktuelleGruppe = "";
-  
-  lines.forEach(line => {
-    const trimmed = line.trim();
-    if (!trimmed) return;
+    const previewBox = document.getElementById("txt_spielplan_preview");
+    if (previewBox) { previewBox.value = text.trim(); }
+    mkkLoadedSchedules = {};
+    const lines = text.split("\n");
+    let aktuelleGruppe = "";
+    let aktuellerSpieltag = "";
     
-    // Liga/Gruppe erkennen
-    if (trimmed.toLowerCase().includes("spielplan:")) {
-      if (trimmed.toUpperCase().includes("A-LIGA") || trimmed.toUpperCase().includes("A LIGA")) {
-        aktuelleGruppe = "Gruppe A";
-      } else if (trimmed.toUpperCase().includes("B-LIGA") || trimmed.toUpperCase().includes("B LIGA")) {
-        aktuelleGruppe = "Gruppe B";
-      } else if (trimmed.toUpperCase().includes("C-LIGA") || trimmed.toUpperCase().includes("C LIGA")) {
-        aktuelleGruppe = "Gruppe C";
-      }
-      if (aktuelleGruppe && !mkkLoadedSchedules[aktuelleGruppe]) {
-        mkkLoadedSchedules[aktuelleGruppe] = [];
-      }
-      return;
-    }
-    
-    if (trimmed.toUpperCase() === "HINRUNDE" || trimmed.toUpperCase() === "RÜCKRUNDE") {
-      return;
-    }
-    
-    // Spielpaarung auslesen (z. B. "Spiel 1: DC LaPaloma vs. DC Fraggles")
-    if (aktuelleGruppe && trimmed.toLowerCase().startsWith("spiel") && trimmed.includes("vs.")) {
-      try {
-        const doppelpunktIndex = trimmed.indexOf(":");
-        if (doppelpunktIndex === -1) return;
+    lines.forEach(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return;
         
-        // Holt die reine Zahl heraus und entfernt alle Leerzeichen rigoros
-        const spielNummer = trimmed.substring(5, doppelpunktIndex).replace(/\D/g, "").trim();
-        if (!spielNummer) return;
-        
-        const spieltagDropdownWert = spielNummer + ". Spieltag";
-        
-        // Paarung aufteilen
-        const paarungText = trimmed.substring(doppelpunktIndex + 1).trim();
-        const teams = paarungText.split("vs.");
-        const heimTeam = teams[0] ? teams[0].trim() : "";
-        const gastTeam = teams[1] ? teams[1].trim() : "";
-        
-        if (heimTeam && gastTeam) {
-          mkkLoadedSchedules[aktuelleGruppe].push({
-            day: spieltagDropdownWert,
-            home: heimTeam,
-            guest: gastTeam
-          });
+        // 1. Liga/Gruppe erkennen
+        if (trimmed.toLowerCase().includes("spielplan:")) {
+            if (trimmed.toUpperCase().includes("A-LIGA") || trimmed.toUpperCase().includes("A LIGA")) {
+                aktuelleGruppe = "Gruppe A";
+            } else if (trimmed.toUpperCase().includes("B-LIGA") || trimmed.toUpperCase().includes("B LIGA")) {
+                aktuelleGruppe = "Gruppe B";
+            } else if (trimmed.toUpperCase().includes("C-LIGA") || trimmed.toUpperCase().includes("C LIGA")) {
+                aktuelleGruppe = "Gruppe C";
+            }
+            if (aktuelleGruppe && !mkkLoadedSchedules[aktuelleGruppe]) {
+                mkkLoadedSchedules[aktuelleGruppe] = [];
+            }
+            aktuellerSpieltag = "";
+            return;
         }
-      } catch (e) {
-        console.log("Zeile übersprungen (Format passt nicht):", trimmed, e);
-      }
-    }
-  });
-  
-  localStorage.setItem("mkk_dart_loaded_schedules", JSON.stringify(mkkLoadedSchedules));
-  localStorage.setItem("mkk_dart_spielplan_raw", text);
+        
+        // Kopfzeile aus Excel oder Hinrunde/Rückrunde überspringen
+        if (trimmed.toLowerCase().startsWith("spieltag") || trimmed.toUpperCase() === "HINRUNDE" || trimmed.toUpperCase() === "RÜCKRUNDE") {
+            return;
+        }
+        
+        // 2. Excel-Zeile mit Tabulator-Spalten auslesen: [Spieltag, Spielnummer, Wer, Wen]
+        if (aktuelleGruppe && line.includes("\t")) {
+            const cols = line.split("\t").map(c => c.trim());
+            
+            // Wenn in Spalte 1 ein Spieltag steht (verbundene Zelle in Excel), merken wir ihn uns
+            const spalteSpieltag = cols[0] ? cols[0].replace(/\D/g, "") : "";
+            if (spalteSpieltag) {
+                aktuellerSpieltag = spalteSpieltag + ". Spieltag";
+            }
+            
+            const spielNummer = cols[1] ? cols[1].replace(/\D/g, "") : "";
+            const heimTeam = cols[2] || "";
+            const gastTeam = cols[3] || "";
+            
+            // Nur speichern, wenn beide Teams vorhanden sind (spielfreie Zeilen werden ignoriert)
+            if (aktuellerSpieltag && spielNummer && heimTeam && gastTeam) {
+                mkkLoadedSchedules[aktuelleGruppe].push({
+                    day: aktuellerSpieltag,
+                    matchNumber: spielNummer,
+                    home: heimTeam,
+                    guest: gastTeam
+                });
+            }
+        }
+    });
+    
+    localStorage.setItem("mkk_dart_loaded_schedules", JSON.stringify(mkkLoadedSchedules));
+    localStorage.setItem("mkk_dart_spielplan_raw", text);
 }
 
 function autoDetectLeagueAndMatchday() {
@@ -3968,6 +3982,13 @@ function autoDetectLeagueAndMatchday() {
         daySelect.value = found.day;
       }
       
+            const matchNumSelect = document.getElementById("meta_match_number");
+            if (matchNumSelect && found.matchNumber) {
+                matchNumSelect.value = found.matchNumber;
+            }
+
+
+
       matchFound = true;
       break;
     }
