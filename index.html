@@ -1872,20 +1872,33 @@ function renderTable() {
  
  tr.innerHTML = `<td><b>${m.id}</b></td><td><b>${m.type}</b></td><td ${style1}>${p1?p1:"-"}</td><td ${style2}>${p2?p2:"-"}</td><td ${style3}>${p3?p3:"-"}</td><td ${style4}>${p4?p4:"-"}</td><td style="color:#00cc66; font-weight:bold; font-size:16px;">${liveDisplayHome}</td><td style="color:#ff3333; font-weight:bold; font-size:16px;">${liveDisplayGuest}</td>`;
  tbody.appendChild(tr);
- const isHomeWinner = (hasBeenPlayed && res.heim === 1); const isGuestWinner = (hasBeenPlayed && res.gast === 1);
- const f1 = (c1.startsWith("H") && isHomeWinner) || (c1.startsWith("G") && isGuestWinner) ? "font-weight:900; font-size:10px;" : "";
- const f2 = (c2.startsWith("H") && isHomeWinner) || (c2.startsWith("G") && isGuestWinner) ? "font-weight:900; font-size:10px;" : "";
- const f3 = c3 && ((c3.startsWith("H") && isHomeWinner) || (c3.startsWith("G") && isGuestWinner)) ? "font-weight:900; font-size:10px;" : "";
- const f4 = c4 && ((c4.startsWith("H") && isHomeWinner) || (c4.startsWith("G") && isGuestWinner)) ? "font-weight:900; font-size:10px;" : "";
- const mark1 = res.checkerPos === c1 ? "X" : (res.assistantPos === c1 ? "/" : ""); const mark2 = res.checkerPos === c2 ? "X" : (res.assistantPos === c2 ? "/" : "");
- const mark3 = c3 ? (res.checkerPos === c3 ? "X" : (res.assistantPos === c3 ? "/" : "")) : ""; const mark4 = c4 ? (res.checkerPos === c4 ? "X" : (res.assistantPos === c4 ? "/" : "")) : "";
- 
+    // Ermittelt die aktuell echten Positionskürzel (inkl. aktiver Auswechslungen)
+    const pCode1 = c1 ? resolvePlayerName(c1, m.id, true) : "";
+    const pCode2 = c2 ? resolvePlayerName(c2, m.id, true) : "";
+    const pCode3 = c3 ? resolvePlayerName(c3, m.id, true) : "";
+    const pCode4 = c4 ? resolvePlayerName(c4, m.id, true) : "";
 
+    // Typ-Kürzel in volles Wort übersetzen (Doppel, Einzel, Cricket)
+    let vollesWortTyp = m.type;
+    if (m.type === "E") vollesWortTyp = "Einzel";
+    else if (m.type === "D") vollesWortTyp = "Doppel";
+    else if (m.type === "C") vollesWortTyp = "Cricket";
 
-const scoreDisplayHome = hasBeenPlayed ? runningHome : ""; const scoreDisplayGuest = hasBeenPlayed ? runningGuest : "";
- const trP = document.createElement("tr");
- trP.innerHTML = `<td><b>${m.id}</b></td><td>${m.type}</td><td class="pos-cell" style="${f1}">${c1}</td><td class="gray-indicator-cell">${mark1}</td><td class="pos-cell" style="${f2}">${c2}</td><td class="gray-indicator-cell">${mark2}</td><td class="pos-cell" style="${f3}">${c3||""}</td><td class="gray-indicator-cell">${mark3}</td><td class="pos-cell" style="${f4}">${c4||""}</td><td class="gray-indicator-cell">${mark4}</td><td><b>${scoreDisplayHome}</b></td><td><b>${scoreDisplayGuest}</b></td>`;
- printBody.appendChild(trP);
+    const scoreDisplayHome = hasBeenPlayed ? runningHome : "";
+    const scoreDisplayGuest = hasBeenPlayed ? runningGuest : "";
+
+    const trP = document.createElement("tr");
+    trP.innerHTML = 
+      `<td><b>${m.id}</b></td>` +
+      `<td>${vollesWortTyp}</td>` +
+      `<td class="pos-cell">${pCode1 || "-"}</td>` +
+      `<td class="pos-cell">${pCode2 || "-"}</td>` +
+      `<td class="pos-cell">${pCode3 || "-"}</td>` +
+      `<td class="pos-cell">${pCode4 || "-"}</td>` +
+      `<td style="background:#e0e0e0 !important;"><b>${scoreDisplayHome}</b></td>` +
+      `<td style="background:#e0e0e0 !important;"><b>${scoreDisplayGuest}</b></td>`;
+    printBody.appendChild(trP);
+
  });
   document.getElementById("lbl_res_total").innerText = `${runningHome} : ${runningGuest}`; 
  
@@ -3944,16 +3957,16 @@ async function generiereHaargenauesJPEG(e) {
     window.scrollTo(0, 0);
     document.body.classList.add("force-jpeg-print");
 
-    // Etwas länger warten, damit iOS Safari das 794px DIN-A4-Grid sauber neu berechnet
+    // Etwas warten, damit Safari/Chrome das 794px DIN-A4-Layout sauber berechnet
     await new Promise(resolve => setTimeout(resolve, 450));
 
     const printRoot = document.getElementById("print-layout-root");
 
-    // 3. Hochauflösendes Foto mit fester DIN-A4-Breite (794px) aufnehmen
+    // 3. Hochauflösendes Foto mit erzwungener Desktop-Breite aufnehmen
     const canvas = await html2canvas(printRoot, {
       scale: 2.5,
       width: 794,
-      windowWidth: 1024, // Verhindert auf iOS das Auslösen von Handy-Breakpoints
+      windowWidth: 1200,
       x: 0,
       y: 0,
       scrollX: 0,
@@ -3961,6 +3974,7 @@ async function generiereHaargenauesJPEG(e) {
       backgroundColor: "#ffffff",
       useCORS: true
     });
+
 
     // 4. Sofort wieder zurück in die normale Handy-Ansicht schalten
     document.body.classList.remove("force-jpeg-print");
