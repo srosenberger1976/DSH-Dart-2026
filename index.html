@@ -882,10 +882,9 @@ onclick="generiereHaargenauesJPEG()"> JPEG erstellen</button> 📸
                     <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Gruppe:</label>
 <select id="meta_group" onchange="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px;">
   <option value="">-- wählen --</option>
-  <script>
-    for(let i=1; i<=100; i++) { document.write('<option value="'+i+'">Gruppe '+i+'</option>'); }
-  </script>
+  <option value="Gemischt">Gemischt</option>
 </select>
+
 
                 </div>
                 <div>
@@ -3891,56 +3890,41 @@ function verarbeiteSpielplanText(text) {
 
   mkkLoadedSchedules = {};
   const lines = text.split("\n");
-  let aktuelleGruppe = "1"; // Standardwert, falls keine Gruppen-Überschrift in der TXT steht
-  let aktuellerSpieltag = "";
+  let aktuelleGruppe = "Gemischt";
 
   lines.forEach(line => {
     const trimmed = line.trim();
     if (!trimmed) return;
 
-    // 1. Gruppen-Nummer aus Überschrift erkennen (z.B. "Spielplan: Gruppe 3" -> "3")
-    if (trimmed.toLowerCase().includes("spielplan:") || trimmed.toLowerCase().startsWith("gruppe")) {
-      const gruppenZahl = trimmed.replace(/\D/g, "");
-      if (gruppenZahl) {
-        aktuelleGruppe = gruppenZahl;
-      }
+    // 1. Gruppe aus "Gruppe: Gemischt" auslesen
+    if (trimmed.toLowerCase().startsWith("gruppe:")) {
+      aktuelleGruppe = trimmed.split(":")[1].trim();
       if (!mkkLoadedSchedules[aktuelleGruppe]) {
         mkkLoadedSchedules[aktuelleGruppe] = [];
       }
-      aktuellerSpieltag = "";
+      // Falls die Gruppe noch nicht im Dropdown steht, automatisch hinzufügen
+      const groupSelect = document.getElementById("meta_group");
+      if (groupSelect && !Array.from(groupSelect.options).some(opt => opt.value === aktuelleGruppe)) {
+        const opt = document.createElement("option");
+        opt.value = aktuelleGruppe;
+        opt.text = aktuelleGruppe;
+        groupSelect.add(opt);
+      }
       return;
     }
 
-    // Kopfzeile aus Excel oder Hinrunde/Rückrunde überspringen
-    if (trimmed.toLowerCase().startsWith("spieltag") || trimmed.toUpperCase() === "HINRUNDE" || trimmed.toUpperCase() === "RÜCKRUNDE") {
-      return;
-    }
-
-    // 2. Excel-Zeile mit Tabulator-Spalten auslesen: [Spieltag, Spielnummer, Wer, Wen]
-    if (line.includes("\t")) {
+    // 2. Zeile zerlegen: "Spieltag 1 | Spiel 2: DC Highflyer vs. DC Highflyer 2"
+    const match = trimmed.match(/^Spieltag\s+(\d+)\s*\|\s*Spiel\s+(\d+):\s*(.+?)\s+vs\.\s+(.+)$/i);
+    if (match) {
       if (!mkkLoadedSchedules[aktuelleGruppe]) {
         mkkLoadedSchedules[aktuelleGruppe] = [];
       }
-
-      const cols = line.split("\t").map(c => c.trim());
-
-      const spalteSpieltag = cols[0] ? cols[0].replace(/\D/g, "") : "";
-      if (spalteSpieltag) {
-        aktuellerSpieltag = spalteSpieltag + ". Spieltag";
-      }
-
-      const spielNummer = cols[1] ? cols[1].replace(/\D/g, "") : "";
-      const heimTeam = cols[2] || "";
-      const gastTeam = cols[3] || "";
-
-      if (aktuellerSpieltag && spielNummer && heimTeam && gastTeam) {
-        mkkLoadedSchedules[aktuelleGruppe].push({
-          day: aktuellerSpieltag,
-          matchNumber: spielNummer,
-          home: heimTeam,
-          guest: gastTeam
-        });
-      }
+      mkkLoadedSchedules[aktuelleGruppe].push({
+        day: match[1] + ". Spieltag",
+        matchNumber: match[2],
+        home: match[3].trim(),
+        guest: match[4].trim()
+      });
     }
   });
 
@@ -3959,19 +3943,36 @@ function autoDetectLeagueAndMatchday() {
 
   let matchFound = false;
 
-  for (const groupNum in mkkLoadedSchedules) {
-    const matches = mkkLoadedSchedules[groupNum];
+  for (const groupName in mkkLoadedSchedules) {
+    const matches = mkkLoadedSchedules[groupName];
 
-    const found = matches.find(m => {
-      const mHomeLower = m.home.toLowerCase().trim();
-      const mGuestLower = m.guest.toLowerCase().trim();
-      return (mHomeLower.includes(homeLower) || homeLower.includes(mHomeLower)) &&
-             (mGuestLower.includes(guestLower) || guestLower.includes(mGuestLower));
-    });
+    // Exakter Vergleich zuerst (damit "DC HIGHFLYER" nicht fälschlich "DC HIGHFLYER 2" trifft)
+    let found = matches.find(m =>
+      m.home.toLowerCase().trim() === homeLower &&
+      m.guest.toLowerCase().trim() === guestLower
+    );
+
+    // Fallback: Teilstring-Vergleich
+    if (!found) {
+      found = matches.find(m => {
+        const mHome = m.home.toLowerCase().trim();
+        const mGuest = m.guest.toLowerCase().trim();
+        return (mHome.includes(homeLower) || homeLower.includes(mHome)) &&
+               (mGuest.includes(guestLower) || guestLower.includes(mGuest));
+      });
+    }
 
     if (found) {
       const groupSelect = document.getElementById("meta_group");
-      if (groupSelect) groupSelect.value = groupNum;
+      if (groupSelect) {
+        if (!Array.from(groupSelect.options).some(opt => opt.value === groupName)) {
+          const opt = document.createElement("option");
+          opt.value = groupName;
+          opt.text = groupName;
+          groupSelect.add(opt);
+        }
+        groupSelect.value = groupName;
+      }
 
       const daySelect = document.getElementById("meta_day");
       if (daySelect) daySelect.value = found.day;
