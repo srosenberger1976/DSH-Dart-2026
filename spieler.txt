@@ -1,17 +1,17 @@
-Aktualisiert am 22.10.2026 - Update 4
+Aktualisiert am 17.11.2026 - Update 1
 
-Blue Bay,Appeldorn, Felix,1
-Blue Bay,Kempel, Leon,2
-Blue Bay,Kempf, Leon,3
-Blue Bay,Kempf, Pascal,4
-Blue Bay,Gärtner, Michael,5
-Blue Bay,Laßmann, Robin,6
-Blue Bay,Krieger, Albert,7
-Blue Bay,Gernhöfer, Andreas,8
-Blue Bay,Laßmann, Mona,9
-Blue Bay,Appeldorn, Sven,10
-Blue Bay,Schneider, Niklas Matthias,11
-Blue Bay,Müller, Joshua,12
+Die Zielwasser Zauberer,Christ, Anja,1
+Die Zielwasser Zauberer,Tatei, Adam,2
+Die Zielwasser Zauberer,Urschek, Angela,3
+Die Zielwasser Zauberer,Meister, Anna,4
+Die Zielwasser Zauberer,Jung, Celina,5
+Die Zielwasser Zauberer,Thölken, Chantal,6
+Die Zielwasser Zauberer,Hollweg, Isabell,7
+Die Zielwasser Zauberer,Raguel, Markus,8
+Die Zielwasser Zauberer,Meister, Oliver,9
+Die Zielwasser Zauberer,Levien, Thomas,10
+Die Zielwasser Zauberer,Doreen, Winker,11
+,,12
 ,,13
 ,,14
 ,,15
@@ -20,64 +20,62 @@ Blue Bay,Müller, Joshua,12
 ,,18
 ,,19
 ,,20
-,,
-DC Fraggles,Brach, Marcel,21
-DC Fraggles,Anlitz, Oliver,22
-DC Fraggles,Lampmann, Luca,23
-DC Fraggles,Seipel, Sebastian,24
-DC Fraggles,Kerner, Adrian,25
-DC Fraggles,Tariq, Ahmed,26
-DC Fraggles,Kraft, Carsten,27
-DC Fraggles,Brach, Jasmin,28
-DC Fraggles,Nüchter, Lucas,29
-DC Fraggles,Nswoah, Manuel,30
-DC Fraggles,Swoboda, Marcel,31
-DC Fraggles,Fechter, Markus,32
-DC Fraggles,Stachniuk, Oliver,33
-DC Fraggles,Hesse, Rolf,34
-DC Fraggles,Kadric, Sejfudin,35
-DC Fraggles,Avdiu, Xhevdet,36
-DC Fraggles,Lampmann, Noah,37
-DC Fraggles,Seipel, Steffen,38
+,
+DC OneShot,Cila, Bianca Marie,21
+DC OneShot,Khawam, Ahmad,22
+DC OneShot,Faton, Berati,23
+DC OneShot,Widemann, Eduard,24
+DC OneShot,Popp, Erika,25
+DC OneShot,Koch, Kristof,26
+DC OneShot,Dumitrascu, Michele,27
+DC OneShot,Heiliger, Niklas,28
+DC OneShot,Widemann, Robert,29
+DC OneShot,Grimm, Steven,30
+DC OneShot,Polzer, Thomas,31
+,,32
+,,33
+,,34
+,,35
+,,36
+,,37
+,,38
 ,,39
 ,,40
-,,
-,,
-DC High Flyer,Gaul, Jannik,41
-DC High Flyer,Paul, Cedric,42
-DC High Flyer,Paul, Thorsten,43
-DC High Flyer,Rosenberger, David,44
-DC High Flyer,Rosenberger, Stefan,45
-DC High Flyer,Lursch, Frank,46
-DC High Flyer,Bloß, Robin,47
-DC High Flyer,Hönig, Joachim,48
-DC High Flyer,Schüssler, Frank,49
-DC High Flyer,Röder, Andreas,50
-DC High Flyer,Tamas, Christian,51
-DC High Flyer,Rüffer, Dustin,52
-DC High Flyer,Prang, Bernhard,53
-DC High Flyer,Naumann, Stefan,54
-DC High Flyer,Raab, Jens,55
-DC High Flyer,Pfahls, Noah,56
+,
+DC Highflyer,Gaul, Jannik,41
+DC Highflyer,Paul, Cedric,42
+DC Highflyer,Rosenberger, David,43
+DC Highflyer,Hönig, Joachim,44
+DC Highflyer,Pfahls, Noah,45
+DC Highflyer,Bloß, Robin,46
+DC Highflyer,Paul, Thorsten,47
+,,48
+,,49
+,,50
+,,51
+,,52
+,,53
+,,54
+,,55
+,,56
 ,,57
 ,,58
 ,,59
 ,,60
-,,
-,,
-DC LaPaloma,Hegenbart, Svantje,61
-DC LaPaloma,Wendt, Anna,62
-DC LaPaloma,Pfeifer, Anne,63
-DC LaPaloma,Dillmann, Jörg,64
-DC LaPaloma,See, Günther,65
-DC LaPaloma,Goldbach, Anna,66
-DC LaPaloma,Richter, Jessika,67
-DC LaPaloma,Bathon, Joachim,68
-DC LaPaloma,Goldbach, Daniel,69
-DC LaPaloma,Dickel, Marc-Hendrik,70
-DC LaPaloma,Reichert, Mario,71
-DC LaPaloma,Goldbach, Jay,72
-DC LaPaloma,See, Daniela,73
+,
+DC Highflyer 2,Rosenberger, Stefan,61
+DC Highflyer 2,Röder, Andreas,62
+DC Highflyer 2,Prang, Bernhard,63
+DC Highflyer 2,Tamas, Christian,64
+DC Highflyer 2,Rüffer, Dustin,65
+DC Highflyer 2,Schüssler, Frank,66
+DC Highflyer 2,Raab, Jens,67
+DC Highflyer 2,Naumann, Stefan,68
+,,69
+,,70
+,,71
+,,72
+,,73
 ,,74
 ,,75
 ,,76
@@ -85,17 +83,16 @@ DC LaPaloma,See, Daniela,73
 ,,78
 ,,79
 ,,80
-,,
-,,
-DC Oneshot,Cila, Bianca-Marie,81
-DC Oneshot,Heiliger, Niklas,82
-DC Oneshot,Widemann, Eduard,83
-DC Oneshot,Widemann, Robert,84
-DC Oneshot,Polzer, Thomas,85
-DC Oneshot,Grimm, Steven,86
-DC Oneshot,Khawam, Ahmad,87
-DC Oneshot,Popp, Erika,88
-DC Oneshot,Koch, Kristof,89
+,
+DC Spaßvögel,Bielen, Ilham,81
+DC Spaßvögel,Axt, Kai Uwe,82
+DC Spaßvögel,Köhler, Mareike,83
+DC Spaßvögel,Köhler, Markus,84
+DC Spaßvögel,Ünlü, Mete,85
+DC Spaßvögel,Fehl, Nadine,86
+DC Spaßvögel,Waldmann, Patrick,87
+DC Spaßvögel,Lelito, Reiner,88
+DC Spaßvögel,Lelito, Sabrina,89
 ,,90
 ,,91
 ,,92
@@ -107,69 +104,87 @@ DC Oneshot,Koch, Kristof,89
 ,,98
 ,,99
 ,,100
-,,
-,,
-Eskalation 1,Kaiser, Karl-Heinz,101
-Eskalation 1,Jochner, Josef,102
-Eskalation 1,Kaiser, Susanne,103
-Eskalation 1,Kaiser, Melissa,104
-Eskalation 1,Raguet, Markus,105
-Eskalation 1,Schmidt-Prasch, Jennifer,106
-Eskalation 1,Schmidt, Patrick,107
-Eskalation 1,Syllwasschy, Sonja,108
-Eskalation 1,Syllwasschy, Tim,109
-Eskalation 1,Winkler, Viktoria,110
-Eskalation 1,Hartung, Rebekka,111
-Eskalation 1,Kling, Daniela,112
-Eskalation 1,Müller, Tabea,113
-Eskalation 1,Winkler, Doreen,114
-Eskalation 1,Dietrich, Patric,115
+,
+DC LaPaloma,Hegenbart, Svantje,101
+DC LaPaloma,Goldbach, Anna,102
+DC LaPaloma,Wendt, Anna,103
+DC LaPaloma,Pfeifer, Anne,104
+DC LaPaloma,Goldbach, Daniel,105
+DC LaPaloma,See, Daniela,106
+DC LaPaloma,See, Günther,107
+DC LaPaloma,Goldbach, Jan,108
+DC LaPaloma,Barthon, Joachim,109
+DC LaPaloma,Dillmann, Jörg,110
+DC LaPaloma,Dickel, Marc Hendrik,111
+DC LaPaloma,Reichert, Matio,112
+,,113
+,,114
+,,115
 ,,116
 ,,117
 ,,118
 ,,119
 ,,120
-,,
-,,
-Eskalation 2,Christ, Anja,121
-Eskalation 2,Meister, Anna,122
-Eskalation 2,Hollweg, Isabell,123
-Eskalation 2,Thölken, Chantal,124
-Eskalation 2,Jung, Celina,125
-Eskalation 2,Tatai, Adam,126
-Eskalation 2,Bartel, Nils,127
-Eskalation 2,Urschek, Angela,128
-Eskalation 2,Walz, Helmut,129
-Eskalation 2,Christ, Marcel,130
-Eskalation 2,Hebel, Ben,131
-Eskalation 2,Dumitrascu, Adriana,132
-Eskalation 2,Levien, Adrian,133
-,,134
-,,135
-,,136
-,,137
-,,138
+,
+DC Fraggles,Brach, Marcel,121
+DC Fraggles,Kraft, Carsten,122
+DC Fraggles,Brach, Jasmin,123
+DC Fraggles,Nüchter, Lucas,124
+DC Fraggles,Nsowah, Manuel,125
+DC Fraggles,Swoboda, Marcel,126
+DC Fraggles,Fechter, Markus,127
+DC Fraggles,Gärtner, Michael,128
+DC Fraggles,Spindler, Michael,129
+DC Fraggles,Schneider, Niklas Matthias,130
+DC Fraggles,Stachniuk, Oliver,131
+DC Fraggles,Kempf, Pascal,132
+DC Fraggles,Hesse, Rolf,133
+DC Fraggles,Hesse, Sarah,134
+DC Fraggles,Kadric, Sejfudin,135
+DC Fraggles,Seipel, Steffen,136
+DC Fraggles,Ahmed, Tariq,137
+DC Fraggles,Avdiu, Xhevdet,138
 ,,139
 ,,140
-,,
-,,
-Spassvogel,Lauenburger, Patrick,141
-Spassvogel,Meier, Julia,142
-Spassvogel,Adrian, Sabrina,143
-Spassvogel,Schmarr, Alexander,144
-Spassvogel,Bilen, Ilhami,145
-Spassvogel,Axt, Kai-Uwe,146
-Spassvogel,Köhler, Markus,147
-Spassvogel,Köhler, Mareike,148
-Spassvogel,Waldmann, Patrick,149
-Spassvogel,Fehl, Andy,150
-Spassvogel,Obenhin, Jan,151
-Spassvogel,Schum, Steffen,152
-Spassvogel,Lelito, Reiner,153
-Spassvogel,Lelito, Sabrina,154
-Spassvogel,Ünlü, Mete,155
-Spassvogel,Fehl, Nadine,156
+,
+Bullshit Bingo,Seyler, Florian,141
+Bullshit Bingo,Görl, Dieter,142
+Bullshit Bingo,Heß, Gernot,143
+Bullshit Bingo,Obenhin, Jan,144
+Bullshit Bingo,Meier, Julia,145
+Bullshit Bingo,Schum, Lisa,146
+Bullshit Bingo,Schum, Maria,147
+Bullshit Bingo,Merker, Markus,148
+Bullshit Bingo,Rosemann, Markus,149
+Bullshit Bingo,Resch, Michael,150
+Bullshit Bingo,Wiedemann, Nadine,151
+Bullshit Bingo,Seyler, Sonja,152
+Bullshit Bingo,Schum, Steffen,153
+,,154
+,,155
+,,156
 ,,157
 ,,158
 ,,159
 ,,160
+,
+Schlüchterner Löwen,Ihlow, Sven,161
+Schlüchterner Löwen,Fischer, Alex,162
+Schlüchterner Löwen,Baier, Andreas,163
+Schlüchterner Löwen,Krist, Benjamin,164
+Schlüchterner Löwen,Gellesun, Bob,165
+Schlüchterner Löwen,Freundlieb, Christian,166
+Schlüchterner Löwen,Hoyer, Jasmin,167
+Schlüchterner Löwen,Kirsch, Kevin,168
+Schlüchterner Löwen,Kempel, Leon,169
+Schlüchterner Löwen,Spahn, Markus,170
+Schlüchterner Löwen,Baier, Max,171
+Schlüchterner Löwen,Goldhan, Mike,172
+Schlüchterner Löwen,Eckert, Nico,173
+Schlüchterner Löwen,Hofmann, Philipp,174
+Schlüchterner Löwen,Gold, Robert,175
+Schlüchterner Löwen,Laßmann, Robin,176
+Schlüchterner Löwen,Jung, Sascha,177
+,,178
+,,179
+,,180
