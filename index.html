@@ -880,13 +880,13 @@ onclick="generiereHaargenauesJPEG()"> JPEG erstellen</button> 📸
             <div style="display: flex; flex-direction: column; gap: 12px;">
                 <div>
                     <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Gruppe:</label>
-                    <select id="meta_group" onchange="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px;">
-                        <option value="">-- wählen --</option>
-                <script>
-                    for(let i=1; i<=100; i++) { document.write('<option value="'+i+'">Spiel '+i+'</option>'); }
-                </script>
+<select id="meta_group" onchange="syncMetaToLabels()" style="width: 100%; padding: 10px; background: #222; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 15px; height: 42px;">
+  <option value="">-- wählen --</option>
+  <script>
+    for(let i=1; i<=100; i++) { document.write('<option value="'+i+'">Gruppe '+i+'</option>'); }
+  </script>
+</select>
 
-                    </select>
                 </div>
                 <div>
                     <label style="font-weight: bold; color: #aaa; display: block; margin-bottom: 5px;">Spieltag:</label>
@@ -3856,151 +3856,140 @@ function closeStatsDetailPopup() {
 let mkkLoadedSchedules = {};
 
 function ladeSpielplanVonGitHub() {
-  // KORREKTUR: Hier ist jetzt dein echter Name und dein Repository eingetragen!
- const url = "spielplan.txt?v=" + Date.now();
+  const url = "spielplan.txt?v=" + Date.now();
   const kombiBtn = document.getElementById("btn_plan_import");
-  if(kombiBtn) {
+  if (kombiBtn) {
     kombiBtn.innerText = "Spielplan wird geladen...";
     kombiBtn.style.opacity = "0.6";
   }
-  
+
   fetch(url, { cache: "no-store" })
-  .then(response => {
-    if (!response.ok) throw new Error("Spielplan-Datei konnte nicht geladen werden.");
-    return response.text();
-  })
-  .then(text => {
-    verarbeiteSpielplanText(text);
-    console.log("MKK-Spielplan erfolgreich geladen und structured!");
-    autoDetectLeagueAndMatchday();
-    alert("Spielplan erfolgreich von GitHub abgerufen!");
-  })
-  .catch(error => {
-    console.error("Fehler beim Abrufen des Spielplans:", error);
-    alert("Fehler beim Laden! Bitte überprüfe, ob spielplan.txt auf GitHub existiert.");
-  })
-  .finally(() => {
-    if (kombiBtn) {
-      kombiBtn.innerText = "Spielplan frisch von GitHub abrufen";
-      kombiBtn.style.opacity = "1";
-    }
-  });
+    .then(response => {
+      if (!response.ok) throw new Error("Spielplan-Datei konnte nicht geladen werden.");
+      return response.text();
+    })
+    .then(text => {
+      verarbeiteSpielplanText(text);
+      autoDetectLeagueAndMatchday();
+      alert("Spielplan erfolgreich von GitHub abgerufen!");
+    })
+    .catch(error => {
+      console.error("Fehler beim Abrufen des Spielplans:", error);
+      alert("Fehler beim Laden! Bitte überprüfe, ob spielplan.txt auf GitHub existiert.");
+    })
+    .finally(() => {
+      if (kombiBtn) {
+        kombiBtn.innerText = "Spielplan frisch von GitHub abrufen 🔄";
+        kombiBtn.style.opacity = "1";
+      }
+    });
 }
 
-    const previewBox = document.getElementById("txt_spielplan_preview");
-    if (previewBox) { previewBox.value = text.trim(); }
-    mkkLoadedSchedules = {};
-    const lines = text.split("\n");
-    let aktuelleGruppe = "";
-    let aktuellerSpieltag = "";
-    
-    lines.forEach(line => {
-        const trimmed = line.trim();
-        if (!trimmed) return;
-        
-        // 1. Liga/Gruppe erkennen
-        if (trimmed.toLowerCase().includes("spielplan:")) {
-            if (trimmed.toUpperCase().includes("A-LIGA") || trimmed.toUpperCase().includes("A LIGA")) {
-                aktuelleGruppe = "Gruppe A";
-            } else if (trimmed.toUpperCase().includes("B-LIGA") || trimmed.toUpperCase().includes("B LIGA")) {
-                aktuelleGruppe = "Gruppe B";
-            } else if (trimmed.toUpperCase().includes("C-LIGA") || trimmed.toUpperCase().includes("C LIGA")) {
-                aktuelleGruppe = "Gruppe C";
-            }
-            if (aktuelleGruppe && !mkkLoadedSchedules[aktuelleGruppe]) {
-                mkkLoadedSchedules[aktuelleGruppe] = [];
-            }
-            aktuellerSpieltag = "";
-            return;
-        }
-        
-        // Kopfzeile aus Excel oder Hinrunde/Rückrunde überspringen
-        if (trimmed.toLowerCase().startsWith("spieltag") || trimmed.toUpperCase() === "HINRUNDE" || trimmed.toUpperCase() === "RÜCKRUNDE") {
-            return;
-        }
-        
-        // 2. Excel-Zeile mit Tabulator-Spalten auslesen: [Spieltag, Spielnummer, Wer, Wen]
-        if (aktuelleGruppe && line.includes("\t")) {
-            const cols = line.split("\t").map(c => c.trim());
-            
-            // Wenn in Spalte 1 ein Spieltag steht (verbundene Zelle in Excel), merken wir ihn uns
-            const spalteSpieltag = cols[0] ? cols[0].replace(/\D/g, "") : "";
-            if (spalteSpieltag) {
-                aktuellerSpieltag = spalteSpieltag + ". Spieltag";
-            }
-            
-            const spielNummer = cols[1] ? cols[1].replace(/\D/g, "") : "";
-            const heimTeam = cols[2] || "";
-            const gastTeam = cols[3] || "";
-            
-            // Nur speichern, wenn beide Teams vorhanden sind (spielfreie Zeilen werden ignoriert)
-            if (aktuellerSpieltag && spielNummer && heimTeam && gastTeam) {
-                mkkLoadedSchedules[aktuelleGruppe].push({
-                    day: aktuellerSpieltag,
-                    matchNumber: spielNummer,
-                    home: heimTeam,
-                    guest: gastTeam
-                });
-            }
-        }
-    });
-    
-    localStorage.setItem("mkk_dart_loaded_schedules", JSON.stringify(mkkLoadedSchedules));
-    localStorage.setItem("mkk_dart_spielplan_raw", text);
+function verarbeiteSpielplanText(text) {
+  const previewBox = document.getElementById("txt_spielplan_preview");
+  if (previewBox) { previewBox.value = text.trim(); }
+
+  mkkLoadedSchedules = {};
+  const lines = text.split("\n");
+  let aktuelleGruppe = "1"; // Standardwert, falls keine Gruppen-Überschrift in der TXT steht
+  let aktuellerSpieltag = "";
+
+  lines.forEach(line => {
+    const trimmed = line.trim();
+    if (!trimmed) return;
+
+    // 1. Gruppen-Nummer aus Überschrift erkennen (z.B. "Spielplan: Gruppe 3" -> "3")
+    if (trimmed.toLowerCase().includes("spielplan:") || trimmed.toLowerCase().startsWith("gruppe")) {
+      const gruppenZahl = trimmed.replace(/\D/g, "");
+      if (gruppenZahl) {
+        aktuelleGruppe = gruppenZahl;
+      }
+      if (!mkkLoadedSchedules[aktuelleGruppe]) {
+        mkkLoadedSchedules[aktuelleGruppe] = [];
+      }
+      aktuellerSpieltag = "";
+      return;
+    }
+
+    // Kopfzeile aus Excel oder Hinrunde/Rückrunde überspringen
+    if (trimmed.toLowerCase().startsWith("spieltag") || trimmed.toUpperCase() === "HINRUNDE" || trimmed.toUpperCase() === "RÜCKRUNDE") {
+      return;
+    }
+
+    // 2. Excel-Zeile mit Tabulator-Spalten auslesen: [Spieltag, Spielnummer, Wer, Wen]
+    if (line.includes("\t")) {
+      if (!mkkLoadedSchedules[aktuelleGruppe]) {
+        mkkLoadedSchedules[aktuelleGruppe] = [];
+      }
+
+      const cols = line.split("\t").map(c => c.trim());
+
+      const spalteSpieltag = cols[0] ? cols[0].replace(/\D/g, "") : "";
+      if (spalteSpieltag) {
+        aktuellerSpieltag = spalteSpieltag + ". Spieltag";
+      }
+
+      const spielNummer = cols[1] ? cols[1].replace(/\D/g, "") : "";
+      const heimTeam = cols[2] || "";
+      const gastTeam = cols[3] || "";
+
+      if (aktuellerSpieltag && spielNummer && heimTeam && gastTeam) {
+        mkkLoadedSchedules[aktuelleGruppe].push({
+          day: aktuellerSpieltag,
+          matchNumber: spielNummer,
+          home: heimTeam,
+          guest: gastTeam
+        });
+      }
+    }
+  });
+
+  localStorage.setItem("mkk_dart_loaded_schedules", JSON.stringify(mkkLoadedSchedules));
+  localStorage.setItem("mkk_dart_spielplan_raw", text);
 }
 
 function autoDetectLeagueAndMatchday() {
   const homeTeam = document.getElementById("team_home")?.value;
   const guestTeam = document.getElementById("team_guest")?.value;
-  
+
   if (!homeTeam || !guestTeam) return;
-  
+
   const homeLower = homeTeam.toLowerCase().trim();
   const guestLower = guestTeam.toLowerCase().trim();
-  
+
   let matchFound = false;
-  
-  for (const groupName in mkkLoadedSchedules) {
-    const matches = mkkLoadedSchedules[groupName];
-    
-    // Sucht extrem flexibel nach den Teamnamen
+
+  for (const groupNum in mkkLoadedSchedules) {
+    const matches = mkkLoadedSchedules[groupNum];
+
     const found = matches.find(m => {
       const mHomeLower = m.home.toLowerCase().trim();
       const mGuestLower = m.guest.toLowerCase().trim();
-      
-      return (mHomeLower.includes(homeLower) || homeLower.includes(mHomeLower)) && 
+      return (mHomeLower.includes(homeLower) || homeLower.includes(mHomeLower)) &&
              (mGuestLower.includes(guestLower) || guestLower.includes(mGuestLower));
     });
-    
+
     if (found) {
       const groupSelect = document.getElementById("meta_group");
-      if (groupSelect) groupSelect.value = groupName; 
-      
+      if (groupSelect) groupSelect.value = groupNum;
+
       const daySelect = document.getElementById("meta_day");
-      if (daySelect) {
-        // Setzt den Spieltag exakt auf den generierten Wert (z.B. "1. Spieltag")
-        daySelect.value = found.day;
-      }
-      
-            const matchNumSelect = document.getElementById("meta_match_number");
-            if (matchNumSelect && found.matchNumber) {
-                matchNumSelect.value = found.matchNumber;
-            }
+      if (daySelect) daySelect.value = found.day;
 
-
+      const matchNumSelect = document.getElementById("meta_match_number");
+      if (matchNumSelect && found.matchNumber) matchNumSelect.value = found.matchNumber;
 
       matchFound = true;
       break;
     }
   }
-  
+
   if (matchFound) {
     if (typeof syncMetaToLabels === "function") syncMetaToLabels();
     if (typeof validateRosterAndSetup === "function") validateRosterAndSetup();
     if (typeof saveActiveDropdowns === "function") saveActiveDropdowns();
   }
 }
-
 
 
 async function generiereHaargenauesJPEG(e) {
