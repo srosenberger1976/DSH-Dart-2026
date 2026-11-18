@@ -1102,13 +1102,29 @@ onclick="generiereHaargenauesJPEG()"> JPEG erstellen</button> 📸
    </table>
   </div>
   
-<h3 style="margin-top: 25px; color: #ffcc00; border-bottom: 2px solid #ffcc00; padding-bottom: 5px;">Live-Punktekonto</h3>
+<h3 style="margin-top: 25px; color: #ffcc00; border-bottom: 2px solid #ffcc00; 
+padding-bottom: 5px;">Live-Punktekonto</h3>
 <div class="main-grid">
-    <div class="panel"><h4>Punkte Heimteam</h4><table><thead><tr><th>Spieler</th><th>Check</th><th>Assist</th><th>Gesamt</th></tr></thead><tbody id="live_stats_H_body"></tbody></table></div>
-    <div class="panel"><h4>Punkte Gastteam</h4><table><thead><tr><th>Spieler</th><th>Check</th><th>Assist</th><th>Gesamt</th></tr></thead><tbody id="live_stats_G_body"></tbody></table></div>
+ <div class="panel">
+  <h4>Punkte Heimteam</h4>
+  <table>
+   <thead><tr><th>Spieler</th><th>Spiele</th><th>Siege</th><th>Punkte</th></tr></thead>
+   <tbody id="live_stats_H_body"></tbody>
+  </table>
+ </div>
+ <div class="panel">
+  <h4>Punkte Gastteam</h4>
+  <table>
+   <thead><tr><th>Spieler</th><th>Spiele</th><th>Siege</th><th>Punkte</th></tr></thead>
+   <tbody id="live_stats_G_body"></tbody>
+  </table>
+ </div>
 </div>
-
-<h3 style="margin-top: 25px; color: #ffcc00; border-bottom: 2px solid #ffcc00; padding-bottom: 5px;">Match-Abschluss & Unterschriften</h3>
+<div style="font-size: 12px; color: #ffcc00; margin-top: 8px; text-align: center; font-style: italic;">
+ Die Punkte stammen aus freigegebenen Einzelspielen. Doppel zählen nicht für die Einzelwertung.
+</div>
+<h3 style="margin-top: 25px; color: #ffcc00; border-bottom: 2px solid #ffcc00; 
+padding-bottom: 5px;">Match-Abschluss & Unterschriften</h3>
 <div id="sig_info_text" style="color: #ff3333; font-weight: bold; text-align: center; margin-bottom: 15px; font-size: 14px;">
     Unterschriften erst nach dem letzten Live-Spiel freigeschaltet!
 </div>
@@ -1275,11 +1291,21 @@ onclick="generiereHaargenauesJPEG()"> JPEG erstellen</button> 📸
      <tr><td>ab Sp.</td><td id="sub_print_G_3" style="height:12px"></td></tr>
      <tr><td>ab Sp.</td><td id="sub_print_G_4" style="height:12px"></td></tr>
     </table>
-    <div class="print-box-title">Punktevergabe Heimteam</div>
-    <table class="print-stats-table"><thead><tr><th>Spieler Name</th><th style="width:14%">Check</th><th style="width:14%">Assist</th><th style="width:16%">Ges.</th></tr></thead><tbody id="print_stats_H"></tbody></table>
-    <div class="print-box-title">Punktevergabe Gastteam</div>
-    <table class="print-stats-table"><thead><tr><th>Spieler Name</th><th style="width:14%">Check</th><th style="width:14%">Assist</th><th style="width:16%">Ges.</th></tr></thead><tbody id="print_stats_G"></tbody></table>
-    <div class="print-footer-summary">
+ <div class="print-box-title">Punktevergabe Heimteam</div>
+ <table class="print-stats-table">
+  <thead><tr><th>Spieler Name</th><th style="width:14%">Spiele</th><th style="width:14%">Siege</th><th style="width:16%">Punkte</th></tr></thead>
+  <tbody id="print_stats_H"></tbody>
+ </table>
+ <div class="print-box-title">Punktevergabe Gastteam</div>
+ <table class="print-stats-table">
+  <thead><tr><th>Spieler Name</th><th style="width:14%">Spiele</th><th style="width:14%">Siege</th><th style="width:16%">Punkte</th></tr></thead>
+  <tbody id="print_stats_G"></tbody>
+ </table>
+ <div style="font-size: 7px; color: #000; margin-bottom: 4px; font-style: italic; text-align: center;">
+  Die Punkte stammen aus freigegebenen Einzelspielen. Doppel zählen nicht für die Einzelwertung.
+ </div>
+ <div class="print-footer-summary">
+
      <div class="print-result-box">Gesamt: &nbsp;<span id="lbl_res_total">0 : 0</span></div>
   <div class="print-signature-wrapper">
     <div class="print-signature-box" id="print_sig_container_H">
@@ -2260,97 +2286,72 @@ function registerWinner (ignoredName, checkerPos, side, ignoredAssName = null, a
 }
 
 function updateStats() {
-  const hLive = document.getElementById("live_stats_H_body"); 
-  const gLive = document.getElementById("live_stats_G_body");
-  const hB = document.getElementById("print_stats_H"); 
-  const gB = document.getElementById("print_stats_G");
-  if(!hLive || !gLive || !hB || !gB) return; 
-  hB.innerHTML = ""; gB.innerHTML = ""; hLive.innerHTML = ""; gLive.innerHTML = "";
-  
-  const dynamischeScores = {};
-  Object.keys(matchResults).forEach(id => {
-    const res = matchResults[id];
-    if (!res) return;
-    if (res.checkerPos) {
-      const cName = resolvePlayerName(res.checkerPos, id);
-      if (cName) {
-        if (!dynamischeScores[cName]) dynamischeScores[cName] = { check: 0, assist: 0 };
-        dynamischeScores[cName].check += 1;
-      }
-    }
-    if (res.assistantPos) {
-      const aName = resolvePlayerName(res.assistantPos, id);
-      if (aName) {
-        if (!dynamischeScores[aName]) dynamischeScores[aName] = { check: 0, assist: 0 };
-        dynamischeScores[aName].assist += 1;
-      }
-    }
+ const hLive = document.getElementById("live_stats_H_body"); 
+ const gLive = document.getElementById("live_stats_G_body");
+ const hB = document.getElementById("print_stats_H"); 
+ const gB = document.getElementById("print_stats_G");
+ if(!hLive || !gLive || !hB || !gB) return; 
+ hB.innerHTML = ""; gB.innerHTML = ""; hLive.innerHTML = ""; gLive.innerHTML = "";
+ 
+ const einzelStats = {};
+
+ mkkSchedule.forEach(m => {
+  if (m.type !== "E") return;
+  const res = matchResults[m.id];
+  if (!res) return;
+
+  [m.pos[0], m.pos[1]].forEach(pos => {
+   if (!pos) return;
+   const pName = resolvePlayerName(pos, m.id);
+   if (pName) {
+    if (!einzelStats[pName]) einzelStats[pName] = { spiele: 0, siege: 0 };
+    einzelStats[pName].spiele += 1;
+   }
   });
-  
-  // Die festen 8 Positionen für beide Teams
-  const posHome = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4"];
-  const posGuest = ["G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
-  
-  // Befüllung Heimteam (Immer 8 Zeilen)
-  posHome.forEach(p => {
-    const el = document.getElementById("p_" + p);
-    let spielerName = el ? el.value.trim() : "";
-    let istErsatz = p.startsWith("HE");
-    
-    let anzeigeName = spielerName;
-    let styleZusatz = "";
-    
-    // Wenn das Feld leer ist oder nur den Standard-Auswahltext enthält
-    if (!spielerName || spielerName.includes("--")) {
-      anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
-      styleZusatz = 'style="color: #888888; font-style: italic;"';
-    }
-    
-    const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
-    const punkteGesamt = (s.check * 2) + (s.assist * 1);
-    
-    // Am Bildschirm bekommt der Name ein Klick-Event, wenn ein echter Spieler da ist
-    let cellLive = (!spielerName || spielerName.includes("--")) 
-      ? `<td ${styleZusatz}>${anzeigeName}</td>`
-      : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
-      
-    let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
-    let rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
-    
-    hLive.innerHTML += rowLive;
-    hB.innerHTML += rowPrint;
+
+  if (res.checkerPos) {
+   const winnerName = resolvePlayerName(res.checkerPos, m.id);
+   if (winnerName) {
+    if (!einzelStats[winnerName]) einzelStats[winnerName] = { spiele: 0, siege: 0 };
+    einzelStats[winnerName].siege += 1;
+   }
+  }
+ });
+ 
+ const posHome = ["H1", "H2", "H3", "H4", "HE1", "HE2", "HE3", "HE4"];
+ const posGuest = ["G1", "G2", "G3", "G4", "GE1", "GE2", "GE3", "GE4"];
+ 
+ const renderTeamRows = (positions, isHomeTeam, liveTarget, printTarget) => {
+  positions.forEach(p => {
+   const el = document.getElementById("p_" + p);
+   let spielerName = el ? el.value.trim() : "";
+   let istErsatz = p.startsWith(isHomeTeam ? "HE" : "GE");
+   
+   let anzeigeName = spielerName;
+   let styleZusatz = "";
+   
+   if (!spielerName || spielerName.includes("--")) {
+    anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
+    styleZusatz = 'style="color: #888888; font-style: italic;"';
+   }
+   
+   const s = einzelStats[spielerName] || { spiele: 0, siege: 0 };
+   const punkteGesamt = s.siege;
+   
+   let cellLive = (!spielerName || spielerName.includes("--")) 
+    ? `<td ${styleZusatz}>${anzeigeName}</td>`
+    : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
+   
+   liveTarget.innerHTML += `<tr>${cellLive}<td>${s.spiele}</td><td>${s.siege}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
+   printTarget.innerHTML += `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.spiele}</td><td>${s.siege}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
   });
-  
-  // Befüllung Gastteam (Immer 8 Zeilen)
-  posGuest.forEach(p => {
-    const el = document.getElementById("p_" + p);
-    let spielerName = el ? el.value.trim() : "";
-    let istErsatz = p.startsWith("GE");
-    
-    let anzeigeName = spielerName;
-    let styleZusatz = "";
-    
-    if (!spielerName || spielerName.includes("--")) {
-      anzeigeName = istErsatz ? "-kein Ersatz-" : "-nicht besetzt-";
-      styleZusatz = 'style="color: #888888; font-style: italic;"';
-    }
-    
-    const s = dynamischeScores[spielerName] || { check: 0, assist: 0 };
-    const punkteGesamt = (s.check * 2) + (s.assist * 1);
-    
-    let cellLive = (!spielerName || spielerName.includes("--")) 
-      ? `<td ${styleZusatz}>${anzeigeName}</td>`
-      : `<td class="clickable-player-name" onclick="zeigeSpielerDetails('${spielerName}')"><b>${anzeigeName}</b></td>`;
-      
-    let rowLive = `<tr>${cellLive}<td>${s.check}</td><td>${s.assist}</td><td style="color:#ffcc00; font-weight:bold;">${punkteGesamt}</td></tr>`;
-    let rowPrint = `<tr><td ${styleZusatz}>${anzeigeName}</td><td>${s.check}</td><td>${s.assist}</td><td style="font-weight:bold;">${punkteGesamt}</td></tr>`;
-    
-    gLive.innerHTML += rowLive;
-    gB.innerHTML += rowPrint;
-  });
-  
-  playerScores = dynamischeScores;
-  localStorage.setItem("mkk_live_player_scores", JSON.stringify(playerScores));
+ };
+
+ renderTeamRows(posHome, true, hLive, hB);
+ renderTeamRows(posGuest, false, gLive, gB);
+ 
+ playerScores = einzelStats;
+ localStorage.setItem("mkk_live_player_scores", JSON.stringify(playerScores));
 }
 
 function syncMetaToLabels() {
@@ -3803,43 +3804,39 @@ body.force-jpeg-print .print-sig-img {
 // ==========================================================================
 
 function zeigeSpielerDetails(playerName) {
-  const titleEl = document.getElementById("statsDetailTitle");
-  const bodyEl = document.getElementById("statsDetailTableBody");
-  if (!titleEl || !bodyEl) return;
+ const titleEl = document.getElementById("statsDetailTitle");
+ const bodyEl = document.getElementById("statsDetailTableBody");
+ if (!titleEl || !bodyEl) return;
+ titleEl.innerText = `Einzel-Kontrolle: ${playerName}`;
+ bodyEl.innerHTML = "";
+ let trefferGefunden = false;
 
-  titleEl.innerText = `🎯 Punkte-Kontrolle: ${playerName}`;
-  bodyEl.innerHTML = "";
-  let trefferGefunden = false;
+ mkkSchedule.forEach(m => {
+  if (m.type !== "E") return;
+  const res = matchResults[m.id];
+  if (!res) return;
 
-  mkkSchedule.forEach(m => {
-    const res = matchResults[m.id];
-    if (!res) return;
+  const p1Name = resolvePlayerName(m.pos[0], m.id);
+  const p2Name = resolvePlayerName(m.pos[1], m.id);
 
-    const istChecker = (resolvePlayerName(res.checkerPos, m.id) === playerName);
-    const istAssistant = (res.assistantPos && resolvePlayerName(res.assistantPos, m.id) === playerName);
+  if (p1Name === playerName || p2Name === playerName) {
+   trefferGefunden = true;
+   const hatGewonnen = (resolvePlayerName(res.checkerPos, m.id) === playerName);
+   const ergebnisBadge = hatGewonnen 
+    ? `<span style="color: #00cc66; font-weight: bold;">Sieg (1 Pkt.)</span>` 
+    : `<span style="color: #ff5555; font-weight: bold;">Niederlage (0 Pkt.)</span>`;
+   const gegnerName = (p1Name === playerName) ? p2Name : p1Name;
 
-    if (istChecker || istAssistant) {
-      trefferGefunden = true;
-      let typText = m.type === "E" ? "Einzel" : (m.type === "D" ? "Doppel" : "Cricket");
-      let rolle = istChecker ? `<span style="color: #00cc66; font-weight: bold;">✓ Check (2 Pkt.)</span>` : `<span style="color: #ffcc00; font-weight: bold;">🤝 Assist (1 Pkt.)</span>`;
-      let zusatzInfo = "-";
-      if (m.type !== "E") {
-        let partnerPos = istChecker ? res.assistantPos : res.checkerPos;
-        if (partnerPos) zusatzInfo = `Mit: ${resolvePlayerName(partnerPos, m.id)}`;
-      } else {
-        let gegnerPos = m.pos.find(p => p && p !== (istChecker ? res.checkerPos : ""));
-        if (gegnerPos) zusatzInfo = `Gegen: ${resolvePlayerName(gegnerPos, m.id)}`;
-      }
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td><b>${m.id}</b></td><td>${typText}</td><td>${rolle}</td><td style="text-align: left; padding-left: 10px;">${zusatzInfo}</td>`;
-      bodyEl.appendChild(tr);
-    }
-  });
-
-  if (!trefferGefunden) {
-    bodyEl.innerHTML = `<tr><td colspan="4" style="padding: 20px; color: #aaa;">Dieser Spieler hat in diesem Match noch keine Punkte erzielt.</td></tr>`;
+   const tr = document.createElement("tr");
+   tr.innerHTML = `<td><b>${m.id}</b></td><td>Einzel</td><td>${ergebnisBadge}</td><td style="text-align: left; padding-left: 10px;">Gegen: ${gegnerName}</td>`;
+   bodyEl.appendChild(tr);
   }
-  document.getElementById("statsDetailPopup").style.display = "block";
+ });
+
+ if (!trefferGefunden) {
+  bodyEl.innerHTML = `<tr><td colspan="4" style="padding: 20px; color: #aaa;">Dieser Spieler hat noch kein gewertetes Einzel gespielt.</td></tr>`;
+ }
+ document.getElementById("statsDetailPopup").style.display = "block";
 }
 
 function closeStatsDetailPopup() {
@@ -3993,89 +3990,9 @@ function autoDetectLeagueAndMatchday() {
 }
 
 
-async function generiereHaargenauesJPEG(e) {
-  const jpegBtnCheck = document.getElementById("btn_print_jpeg");
-  if (jpegBtnCheck && jpegBtnCheck.classList.contains("row-disabled") && e?.currentTarget?.id === "btn_print_jpeg") {
-    alert("Hinweis: Der JPEG-Export ist erst nach Erfassung aller 32 Spiele und beider Unterschriften möglich!");
-    return;
-  }
-
-  const btn = document.getElementById("btn_export_jpeg") || document.getElementById("btn_print_jpeg");
-  const alterText = btn ? btn.innerText : "JPEG erstellen";
-  if (btn) btn.innerText = "Erstelle 1:1 Bogen...";
-
-  try {
-    if (typeof html2canvas !== "function") {
-      throw new Error("html2canvas.min.js wurde nicht geladen. Bitte Seite mit Internet neu laden.");
-    }
-
-    // 1. Exakt dieselben Daten-Updates ausführen wie beim PDF-Druck
-    if (typeof syncMetaToLabels === "function") syncMetaToLabels();
-    if (typeof renderTable === "function") renderTable();
-    if (typeof updatePrintSubstitutions === "function") updatePrintSubstitutions();
-
-    ['H', 'G'].forEach(side => {
-      const savedSig = localStorage.getItem("mkk_sig_data_" + side);
-      const img = document.getElementById("img_print_sig_" + side);
-      if (savedSig && img) {
-        img.src = savedSig;
-        img.style.display = "block";
-      }
-    });
-
-    // 2. Seite kurz in den exakt identischen DIN-A4-Druckmodus schalten
-    window.scrollTo(0, 0);
-    document.body.classList.add("force-jpeg-print");
-
-    // Etwas warten, damit Safari/Chrome das 794px DIN-A4-Layout sauber berechnet
-    await new Promise(resolve => setTimeout(resolve, 450));
-
-    const printRoot = document.getElementById("print-layout-root");
-
-    // 3. Hochauflösendes Foto mit erzwungener Desktop-Breite aufnehmen
-    const canvas = await html2canvas(printRoot, {
-      scale: 2.5,
-      width: 794,
-      windowWidth: 1200,
-      x: 0,
-      y: 0,
-      scrollX: 0,
-      scrollY: 0,
-      backgroundColor: "#ffffff",
-      useCORS: true
-    });
-
-
-    // 4. Sofort wieder zurück in die normale Handy-Ansicht schalten
-    document.body.classList.remove("force-jpeg-print");
-
-    // 5. Dateinamen bauen & als JPEG herunterladen
-    const metaDate = document.getElementById("meta_date")?.value || "Spielbericht";
-    const teamH = document.getElementById("team_home")?.value || "Heim";
-    const teamG = document.getElementById("team_guest")?.value || "Gast";
-    const ergebnis = (document.getElementById("lbl_res_total")?.innerText || "0_0").replace(":", "zu").trim();
-    const dateiName = `${metaDate}_${teamH}_gegen_${teamG}_${ergebnis}.jpg`.replace(/\s+/g, "_");
-
-    const dataUrl = canvas.toDataURL("image/jpeg", 0.95);
-    const link = document.createElement("a");
-    link.download = dateiName;
-    link.href = dataUrl;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-  } catch (err) {
-    document.body.classList.remove("force-jpeg-print");
-    console.error("JPEG-Fehler:", err);
-    alert("Technischer Fehler beim JPEG:\n" + (err.message || err));
-  } finally {
-    if (btn) btn.innerText = alterText;
-  }
-}
-
-
-
-
+</script>
+</body>
+</html>
 
 </script>
 
